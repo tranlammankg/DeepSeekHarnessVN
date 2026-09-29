@@ -81,7 +81,11 @@ Environment=COREPACK_HOME=$HOME_DIR/.local/share/corepack
 WorkingDirectory=$SRC_DIR/upstream
 StandardOutput=append:$HOME_DIR/harnessvn-web.log
 StandardError=journal
-ExecStart=$NODE_BIN --import tsx/esm $SRC_DIR/upstream/apps/cli/src/bin.ts web --no-open --port $PORT --trusted-host localhost
+# Chay qua wrapper de token duoc ghi ra file 0644 cho cua noi doc.
+Environment=NODE_BIN=$NODE_BIN
+Environment=SRC_DIR=$SRC_DIR
+Environment=PORT=$PORT
+ExecStart=/bin/bash $SRC_DIR/upstream/harnessvn/install/run-web.sh
 Restart=on-failure
 RestartSec=5
 
