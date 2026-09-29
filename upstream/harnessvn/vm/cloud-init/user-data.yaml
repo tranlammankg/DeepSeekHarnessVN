@@ -40,6 +40,11 @@ write_files:
       chown -R harnessvn:harnessvn /opt/harnessvn
       echo "[harnessvn] noi dung /opt/harnessvn: $(ls /opt/harnessvn | tr '\n' ' ')"
       echo "[harnessvn] co provision.sh: $(test -f /opt/harnessvn/upstream/harnessvn/install/provision.sh && echo co || echo KHONG)"
+      # Kiem tra ngay trong may ao: anh dong goi phai co cua noi ban MOI (co endpoint trang thai)
+      # va co tieng Viet. build-image.sh doi chieu dong nay tu firstboot.log -> khong the phat hanh
+      # mot anh cu/lech ma khong biet (da gap that: goi ma nguon moi nhung anh chua dung lai).
+      echo "[harnessvn] cua noi co endpoint trang thai: $(grep -c '__harnessvn_status' /opt/harnessvn/upstream/harnessvn/vm/browser-bridge.sh || true)"
+      echo "[harnessvn] co thu muc tieng Viet: $(test -d /opt/harnessvn/upstream/packages/client/locale/src/client/locales/vi && echo co || echo KHONG)"
 
   # Hai unit tach nhau: mot unit lay ma nguon (root), mot unit cai dat (User=harnessvn).
   # Khong dung runuser/su trong ExecStartPost: duong dan runuser la /usr/sbin/runuser tren
@@ -80,6 +85,8 @@ write_files:
       Type=oneshot
       User=harnessvn
       Environment=HOME=/home/harnessvn
+      # Dong anh: cai xong thi tat may ao ngay -> qemu thoat, build-image.sh di tiep buoc nen anh.
+      Environment=HARNESSVN_POWEROFF=1
       ExecStart=/bin/bash -l /opt/harnessvn/upstream/harnessvn/install/provision.sh
       ExecStartPost=/usr/bin/touch /var/lib/harnessvn/.provisioned
       RemainAfterExit=yes
@@ -101,6 +108,8 @@ write_files:
 runcmd:
   - [mkdir, -p, /var/lib/harnessvn]
   - [chown, harnessvn:harnessvn, /var/lib/harnessvn]
+  # Chi trong lan boot DONG ANH moi co co nay; provision.sh xoa no truoc khi tat may.
+  - [touch, /var/lib/harnessvn/.poweroff-after-provision]
   - [systemctl, daemon-reload]
   - [systemctl, enable, --now, harnessvn-firstboot.service, harnessvn-provision.service]
   - [bash, -lc, "printf '\\n\\n=== HarnessVN ===\\nMay ao dang cai dat (lan dau 10-20 phut). Khi xong, mo trinh duyet tren may that: http://localhost:9998 (cong cau noi tu mo dung phien).\\n\\n' > /dev/ttyS0 || true"]

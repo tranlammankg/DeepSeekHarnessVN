@@ -167,12 +167,30 @@ for i in $(seq 1 30); do
       echo "  4. Bam 'Luu va tiep tuc' - xong."
       echo
       echo "Lan dau tien co the mat 10-20 phut de build; cau noi hien trang cho trong luc do."
-      exit 0
+      kiem_tra_xong=1
+      break
       ;;
   esac
   [ "$i" = "24" ] && start_direct   # doi 2 phut (TCG cham) roi moi khoi dong truc tiep
   sleep 5
 done
-echo "CHUA tra loi o cong $PORT. Xem: journalctl --user -u harnessvn -n 50"
-echo "Log cai dat: $LOG"
-exit 1
+if [ "${kiem_tra_xong:-}" != "1" ]; then
+  echo "CHUA tra loi o cong $PORT. Xem: journalctl --user -u harnessvn -n 50"
+  echo "Log cai dat: $LOG"
+  exit 1
+fi
+
+# Khi chay trong may ao de DONG ANH: tat may ngay khi cai xong, de qemu thoat va build di tiep.
+# PHAI dong dau moc .provisioned TRUOC khi tat: unit systemd chi touch sau khi ExecStart xong,
+# ma ta tu tat ngay trong ExecStart -> lan boot sau anh se CAI LAI va tat may cua nguoi dung.
+# Co "/.poweroff-after-provision" chi de lai boi cloud-init trong lan boot dong anh, va bi xoa
+# ngay o day -> may nguoi dung khong bao gio tu tat. Da gap that khi nghiem thu anh.
+if [ "${HARNESSVN_POWEROFF:-0}" = "1" ] && [ -f /var/lib/harnessvn/.poweroff-after-provision ]; then
+  echo "[harnessvn] cai dat xong — dong dau moc va tat may ao de dong anh."
+  touch /var/lib/harnessvn/.provisioned 2>/dev/null || sudo -n touch /var/lib/harnessvn/.provisioned || true
+  rm -f /var/lib/harnessvn/.poweroff-after-provision 2>/dev/null || sudo -n rm -f /var/lib/harnessvn/.poweroff-after-provision || true
+  sync
+  sudo -n systemctl poweroff >/dev/null 2>&1 || true
+  sleep 60
+fi
+exit 0

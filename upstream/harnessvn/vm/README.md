@@ -126,7 +126,12 @@ Việc cài đặt do `harnessvn/install/provision.sh` làm, **không cần quy�
 | Chế độ `PREPARE_ONLY=1` (tải ảnh nền + đóng gói seed) | ✅ đã chạy thật: tải 597 MB, **SHA256 khớp `SHA256SUMS` của Ubuntu**, gói mã nguồn 16.391 mục đúng tiền tố `upstream/`, không có `node_modules`, seed đủ 3 file |
 | Chép skill `vn-self-setup` vào `~/.agents/skills/` | ✅ đã mô phỏng đúng bước copy: ra `~/.agents/skills/vn-self-setup/{SKILL.md,install-tool.sh}`; provider skill đọc root này (đọc mã `join(agentsHome, 'skills')`) |
 | Script cài `install-tool.sh` | ✅ chạy thật: gói đã có → thoát 0; gói ngoài allowlist → thoát 2; ghi log theo `HARNESSVN_TOOLS_LOG` |
-| Cửa nối mở trình duyệt (`browser-bridge.sh`) | ✅ đã kiểm thật: HTTP 200 ở cổng cầu nối → chuyển hướng URL có token → UI tiếng Việt; app chưa sẵn sàng thì hiện trang chờ; sau khi có cookie, mở `http://localhost:9999` trần cũng vào được |
+| Cửa nối mở trình duyệt (`browser-bridge.sh`) | ✅ đã kiểm thật: HTTP 200 ở cổng cầu nối → chuyển hướng URL có token → UI; app chưa sẵn sàng thì hiện trang chờ; sau khi có cookie, mở `http://localhost:9999` trần cũng vào được |
+| **Cửa nối phục vụ UI từ MÁY THẬT trong VM thật** | ✅ đã kiểm trong VM boot thật: `GET /__harnessvn_status` → `{"app_ready": true, "token_len": 43}`; `GET /` qua cổng nối → **HTTP 200** kèm HTML của ứng dụng (token tự thêm) — tức không cần chuyển hướng thủ công. Ảnh: `evidence/vm-bridge-ui.png` |
+| **Ảnh phát hành KHÔNG cài lại khi khởi động** | ✅ boot lại ảnh đã đóng: không có dòng `== HarnessVN provision ==` trong log serial, mốc `/var/lib/harnessvn/.provisioned` còn nguyên |
+| **Đóng ảnh tự tắt máy ảo (không treo tới hết timeout)** | ✅ `provision.sh` ghi mốc `.provisioned` rồi mới `systemctl poweroff`; cờ dùng-một-lần `.poweroff-after-provision` do cloud-init tạo và bị xoá ngay → máy của người dùng không bao giờ tự tắt |
+| **Cổng kiểm tra sau khi boot trong `build-image.sh`** | ✅ build **thất bại** nếu ảnh thiếu cửa nối bản mới (`__harnessvn_status`), thiếu thư mục tiếng Việt, hoặc provision không chạy xong (`OK — HarnessVN dang chay`). Đã bắt được thật một lần: gói mã nguồn mới nhưng ảnh không được dựng lại |
+| **Nghiệm thu ảnh trước khi phát hành** | ✅ `tools/verify-vm-image.sh`: boot ảnh → chờ trạng thái → HTTP 200 + HTML → không cài lại → (tuỳ chọn) chụp UI qua CDP |
 | **Chạy thật `provision.sh`** (giả lập container, không qemu) | ✅ đã chạy hết 6 bước: install 9 giây (store ấm) → build:lib + build:web → chép skill vào `~/.agents/skills` → sinh 2 unit → nhánh khởi động trực tiếp lên app (HTTP 401), cửa nối 200 + chuyển hướng đúng token; ảnh `evidence/vm-provisioned-ui.png` |
 | Dạng lệnh chạy app trong unit | ✅ sửa thật: `node <node_modules/.bin/tsx>` là **shell shim** → `SyntaxError`; đã đổi sang dạng chính thức `node --import tsx/esm apps/cli/src/bin.ts` (chạy thử ra URL token) |
 | Node dùng cho dịch vụ | ✅ `provision.sh` lưu `NODE_BIN` (node hệ thống cũng dùng được), không hardcode `$PREFIX/bin/node` |
@@ -134,6 +139,10 @@ Việc cài đặt do `harnessvn/install/provision.sh` làm, **không cần quy�
 | **Boot thật trong VM (TCG, không KVM)** | ✅ đã chạy: cloud-init NoCloud lấy seed OK → tải mã nguồn 34 MB vào `/opt/harnessvn/upstream` → `provision.sh` chạy dưới `User=harnessvn` → tải Node → `pnpm install` xong (10 phút 10 giây) → `build:lib` đang chạy thì dừng (quá ~2 giờ TCG). Log: `evidence/vm-real-boot.log` |
 | Bước dịch vụ của `provision.sh` (2 phạm vi) | ✅ `tools/selftest-provision.sh` tách đúng đoạn mã bước 5 và kiểm bằng lệnh giả: 15/15 khẳng định đạt (unit hệ thống có `User=harnessvn`, `WantedBy=multi-user.target`, `--import tsx/esm`, ghi URL ra log; không sudo thì unit `--user` + `loginctl enable-linger`) |
 | **Boot bằng KVM + cài xong tới cuối** | ⏳ chưa: phiên soạn không có `/dev/kvm`; máy có ảo hoá mất 10–20 phút |
+
+Ngôn ngữ giao diện: theo **ngôn ngữ trình duyệt** của người dùng (trình duyệt tiếng Việt → UI tiếng Việt),
+đổi được bất cứ lúc nào trong **Cài đặt → Chung → Ngôn ngữ**. Ảnh hiện chưa ép mặc định `vi`; đây là
+việc còn lại nếu muốn máy ảo luôn mở bằng tiếng Việt kể cả khi trình duyệt để tiếng Anh.
 
 Khi bạn chạy `build-image.sh` trên máy có qemu, lần boot đầu sẽ ghi toàn bộ tiến trình vào
 `vm/work/firstboot.log` và console của máy ảo. Nếu provisioning lỗi, xem `~/harnessvn-provision.log`

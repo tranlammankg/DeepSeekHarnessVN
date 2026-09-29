@@ -54,11 +54,11 @@ node harnessvn/tools/capture-ui.mjs "http://localhost:10099/?token=<token>" out.
 (*"dsh web authentication required"*). Đã kiểm thật trên bản đang chạy:
 
 ```text
-GET http://localhost:10598/        (cửa nối, app sống)   -> 200: <meta refresh url=http://localhost:10099/?token=…>
+GET http://localhost:10598/__harnessvn_status  -> {"app_ready": true, "token_len": 43, "token_file": "…"}
+GET http://localhost:10598/        (cửa nối, app sống)   -> 200: HTML của ứng dụng, token tự thêm (proxy ngược)
 GET http://localhost:10599/        (app không sống)      -> 200: "HarnessVN đang chuẩn bị" (tự thử lại mỗi 5 giây)
 GET http://localhost:10099/        (mở thẳng)            -> 401
-mở cửa nối bằng trình duyệt vi-VN  -> nhảy sang localhost:10099, lang="vi", hộp thoại khoá API tiếng Việt
-sau đó mở http://localhost:10099/  -> vào thẳng (cookie đã được cấp), không còn 401
+mở cửa nối bằng trình duyệt        -> vào thẳng UI (cookie đã được cấp trên chính cửa nối), không còn 401
 ```
 
 Tái lập: `APP_PORT=10099 BRIDGE_PORT=10598 LOG_FILE=<file có dòng token> SERVE_DIR=<thư mục ghi được> harnessvn/vm/browser-bridge.sh`.
@@ -95,6 +95,28 @@ tải mã nguồn 34 MB vào `/opt/harnessvn/upstream`, `provision.sh` chạy d�
 Không kiểm được trong container: bước `dsh plugin --profile web add` — CLI dùng home theo `/etc/passwd`
 (`/path/to/home/.dsh`, chỉ đọc trong container) nên bị EROFS; provision bỏ qua plugin đó và **tiếp tục**
 đúng như thiết kế. Trong máy ảo `runuser -u harnessvn` làm home khớp `$HOME` nên bước này chạy bình thường.
+
+## Máy ảo THẬT phục vụ UI ra máy thật (ảnh phát hành)
+
+Ảnh vàng được dựng bằng `vm/build-image.sh` (PREBUILT=1, TCG, không KVM), rồi nghiệm thu bằng
+`harnessvn/tools/verify-vm-image.sh` — script boot ảnh, chờ rồi kiểm cửa nối:
+
+```text
+[dat ] cua noi tra /__harnessvn_status: {"app_ready": true, "token_len": 43, "token_file": "/home/harnessvn/harnessvn-open/token.txt"}
+[dat ] mo trang qua cua noi: HTTP 200 (tu them token)
+[dat ] tra ve HTML cua ung dung
+[dat ] anh khong cai lai khi khoi dong (moc .provisioned con nguyen)
+Ket qua: 4 dat, 0 hong
+```
+
+Ảnh chụp UI lấy từ **trình duyệt trên máy thật** qua cửa nối 9998: `vm-bridge-ui.png`
+(Chromium headless ở đây là `en-US` nên giao diện hiện tiếng Anh; trình duyệt tiếng Việt sẽ tự chọn `vi`,
+đổi bằng **Cài đặt → Chung → Ngôn ngữ**).
+
+Đóng ảnh cũng có cổng kiểm tra: `build-image.sh` dừng build nếu bản cửa nối trong ảnh không có
+`/__harnessvn_status`, thiếu thư mục tiếng Việt trong `packages/client/locale/src/client/locales/vi`,
+hoặc provision không chạy xong (`OK — HarnessVN dang chay`). Lần đầu áp cổng này đã **bắt được thật**
+một ảnh cũ: gói mã nguồn được đóng lại mới nhưng ảnh vàng vẫn là bản dựng trước.
 
 ## Chưa kiểm chứng được trong phiên này
 

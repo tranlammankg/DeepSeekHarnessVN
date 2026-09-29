@@ -43,6 +43,14 @@ Các thay đổi đáng chú ý của HarnessVN. Mục mới nhất ở trên c�
 ### Kiểm chứng trong bản này
 
 - Gate i18n xanh (2.497 khoá · 976 file copy hợp lệ · parity pass).
+- **Máy ảo thật, boot thật**: cửa nối cổng 9998 phục vụ UI từ máy thật —
+  `GET /__harnessvn_status` trả `{"app_ready": true, "token_len": 43}` và `GET /` trả **HTTP 200** kèm HTML
+  của ứng dụng (token tự thêm, không phải chuyển hướng thủ công). Ảnh: `upstream/harnessvn/evidence/vm-bridge-ui.png`.
+- **Ảnh đã đóng, boot lại không cài lại**: không còn dòng `== HarnessVN provision ==` trong log serial và mốc
+  `/var/lib/harnessvn/.provisioned` còn nguyên; `provision.sh` tự tắt máy ảo khi đóng ảnh (cờ dùng-một-lần,
+  không ảnh hưởng máy người dùng).
+- **Cổng kiểm tra khi đóng ảnh**: `vm/build-image.sh` dừng build nếu ảnh thiếu cửa nối bản mới, thiếu thư mục
+  tiếng Việt, hoặc provision không chạy xong; `tools/verify-vm-image.sh` boot ảnh và kiểm cửa nối trước khi phát hành.
 - Ảnh chụp UI thật trong `upstream/harnessvn/evidence/` (onboarding khoá API, trang Mô hình, danh mục
   nhà cung cấp, trang chờ của cửa nối) — chụp qua CDP từ bản đang chạy.
 - `provision.sh` đã chạy thật: trong container (giả lập) và **trong máy ảo thật** (cloud-init NoCloud →

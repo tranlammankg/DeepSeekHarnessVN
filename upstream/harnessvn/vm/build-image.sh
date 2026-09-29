@@ -160,6 +160,9 @@ done
 
 # 3. Dia lam viec (thin, dua tren anh nen)
 echo "[3/6] Tao dia lam viec..."
+# Phai xoa anh cu: qemu-img create se loi 'file exists' (set -e thoat giua chung) — da gap that:
+# goi ma nguon duoc dong lai moi nhung anh phat hanh van la ban cu.
+rm -f "$GOLDEN"
 "$QEMU_IMG_BIN" create -f qcow2 -F qcow2 -b "$WORK/$BASE_IMG" "$GOLDEN" "$DISK_SIZE"
 
 # 4. Boot lan dau de cloud-init cai dat (serial console ghi ra log)
@@ -172,6 +175,24 @@ timeout "${FIRSTBOOT_TIMEOUT:-1800}" "$QEMU_BIN" "${QEMU_EXTRA[@]}" \
   -smbios "type=1,serial=$SMBIOS" \
   -netdev "user,id=n0,hostfwd=tcp:127.0.0.1:$PORT-:9999${BRIDGE:+,hostfwd=tcp:127.0.0.1:$BRIDGE-:9998}" -device virtio-net-pci,netdev=n0 \
   -serial "file:$WORK/firstboot.log" || true
+
+# 4b. Cong kiem tra: ban cua noi nam TRONG anh phai la ban moi. Khong co cong nay thi rat de
+# phat hanh mot anh cu ma khong biet, vi anh duoc dung lai tu dia da cai dat.
+if ! grep -q "cua noi co endpoint trang thai: 1" "$WORK/firstboot.log"; then
+  echo "LOI: cua noi trong anh khong co /__harnessvn_status (anh cu hoac dong goi loi)."
+  echo "     Xem $WORK/firstboot.log"
+  exit 1
+fi
+if ! grep -q "OK — HarnessVN dang chay" "$WORK/firstboot.log"; then
+  echo "LOI: provision trong anh khong chay xong (khong thay 'OK — HarnessVN dang chay')."
+  echo "     Xem $WORK/firstboot.log"
+  exit 1
+fi
+if ! grep -q "co thu muc tieng Viet: co" "$WORK/firstboot.log"; then
+  echo "LOI: anh khong co goi tieng Viet trong packages/client/locale/src/client/locales/vi"
+  exit 1
+fi
+echo "    kiem tra trong anh: cua noi ban moi + co tieng Viet"
 
 # 5. Nen lai anh
 echo "[5/6] Nen anh..."
