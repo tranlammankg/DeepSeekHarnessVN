@@ -81,6 +81,8 @@ Kết quả đọc từ log:
 - Mở cửa nối bằng trình duyệt `vi-VN`: `location.href = http://localhost:10097/`, `lang = "vi"`,
   UI onboarding tiếng Việt (ảnh `vm-provisioned-ui.png`)
 
+Đoạn cuối log thật của lần chạy: `vm-provision-run.log` (48 dòng).
+
 Không kiểm được trong container: bước `dsh plugin --profile web add` — CLI dùng home theo `/etc/passwd`
 (`/home/ailamman/.dsh`, chỉ đọc trong container) nên bị EROFS; provision bỏ qua plugin đó và **tiếp tục**
 đúng như thiết kế. Trong máy ảo `runuser -u harnessvn` làm home khớp `$HOME` nên bước này chạy bình thường.
