@@ -61,7 +61,7 @@ export const vi = {
   'installGuideExampleLabel': 'Ví dụ: ',
   'installGuideFill': 'Dùng ví dụ',
   'installGuideFillAria': 'Dùng ví dụ {example}',
-  'installGuideSafety': 'Chỉ cài tiện ích bạn tin: chúng chạy với quyền của bạn và có thể làm hỏng DeepSeek Harness hoặc rò rỉ dữ liệu.',
+  'installGuideSafety': 'Chỉ cài tiện ích bạn tin: chúng chạy với quyền của bạn và có thể làm hỏng HarnessVN hoặc rò rỉ dữ liệu.',
   'registryToggle': 'Nguồn gói',
   'registryLegend': 'Nguồn npm để tải tiện ích',
   'registryDefault': 'Nguồn mặc định',

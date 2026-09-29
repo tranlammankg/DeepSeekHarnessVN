@@ -8,7 +8,7 @@ export const vi = {
   'missingFontsDescription': 'Những phông chữ này không có cho bản xem trước. Chữ và bố cục có thể khác tài liệu gốc.',
   'missingFontsCount': 'Phông chữ: {count}',
   'closeDetails': 'Đóng chi tiết phông chữ',
-  'unavailable': 'Không xem trước được Office. Hãy bật dịch vụ xem trước tài liệu trên máy chạy DeepSeek Harness.',
+  'unavailable': 'Không xem trước được Office. Hãy bật dịch vụ xem trước tài liệu trên máy chạy HarnessVN.',
   'invalid': 'Không xem trước được tệp Office này. Có thể tệp bị hỏng, có mật khẩu, hoặc sai phần mở rộng.',
   'tooLarge': 'Tệp Office hoặc PDF đã chuyển đổi vượt giới hạn xem trước. Hãy giảm dung lượng tệp hoặc chỉnh cấu hình xem trước.',
   'failed': 'Chuyển đổi Office không tạo ra PDF dùng được. Hãy kiểm tra tệp rồi thử lại.',
