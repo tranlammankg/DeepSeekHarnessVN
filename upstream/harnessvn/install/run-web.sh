@@ -12,6 +12,9 @@ HOME_DIR="${HOME:-/home/harnessvn}"
 LOG="$HOME_DIR/harnessvn-web.log"
 TOKEN_OUT="$HOME_DIR/harnessvn-open/token.txt"
 mkdir -p "$(dirname "$TOKEN_OUT")"
+# Log co the do systemd (root) tao tu lan truoc voi quyen 0600 -> phai xoa han truoc khi ghi,
+# neu khong grep se doc phai TOKEN CU va cua noi gui token sai (khach nhan 401).
+sudo -n rm -f "$LOG" 2>/dev/null || rm -f "$LOG" 2>/dev/null || true
 : > "$LOG" 2>/dev/null || true
 chmod 0644 "$LOG" 2>/dev/null || true
 : > "$TOKEN_OUT" 2>/dev/null || true
