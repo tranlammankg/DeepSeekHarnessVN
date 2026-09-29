@@ -56,6 +56,9 @@ Environment=HOME=$HOME_DIR
 Environment=PATH=$PREFIX/bin:/usr/local/bin:/usr/bin:/bin
 Environment=COREPACK_HOME=$HOME_DIR/.local/share/corepack
 WorkingDirectory=$SRC_DIR/upstream
+# Ghi URL co token ra file: cua noi doc file nay (system unit thi khong co user journal).
+StandardOutput=append:$HOME_DIR/harnessvn-web.log
+StandardError=journal
 ExecStart=$NODE_BIN --import tsx/esm $SRC_DIR/upstream/apps/cli/src/bin.ts web --no-open --port $PORT --trusted-host localhost
 Restart=on-failure
 RestartSec=5

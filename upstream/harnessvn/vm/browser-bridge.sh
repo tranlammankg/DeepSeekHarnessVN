@@ -42,6 +42,10 @@ find_token() {
   if [ -z "$text" ]; then
     text="$(journalctl --user -u harnessvn -n 300 --no-pager 2>/dev/null || true)"
   fi
+  if [ -z "$text" ]; then
+    # Dich vu chay scope he thong thi log nam o journal he thong.
+    text="$(journalctl -u harnessvn -n 300 --no-pager 2>/dev/null || true)"
+  fi
   printf '%s' "$text" | grep -ohE 'token=[A-Za-z0-9_-]+' | head -1 | cut -d= -f2 > "$TOKEN_FILE" || true
 }
 (
