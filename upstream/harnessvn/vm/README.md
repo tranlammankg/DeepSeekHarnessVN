@@ -42,8 +42,15 @@ QEMU_DIR=$PWD/.run/qemu KVM=0 MEM=2560 CPUS=2 FIRSTBOOT_TIMEOUT=10800 \
 ```
 
 Thời gian thực tế đo được (TCG, 2 vCPU): boot ≈ 3,5 phút · tải mã nguồn 34 MB ≈ 2 giây · tải Node ≈ 50 giây ·
-`pnpm install` ≈ **10 phút** (1385 gói) · `build:lib` lâu hơn nữa. Xem tiến trình:
-`tail -f harnessvn/vm/work/firstboot.log` — unit đã in cả ra console serial.
+`pnpm install` ≈ **10 phút** (1385 gói) · `build:lib` **hơn 40 phút** (tsc cho cả monorepo chạy bằng TCG).
+Xem tiến trình: `tail -f harnessvn/vm/work/firstboot.log` — unit đã in cả ra console serial.
+
+**Thời gian lần chạy đầu (để nói trước với người dùng):**
+
+| Máy | Lần đầu |
+|---|---|
+| Có ảo hoá (KVM/WHVX) | **10–20 phút** |
+| Không có ảo hoá (TCG) | **1–2,5 giờ** — cửa nối vẫn hiện trang chờ và tự chuyển khi xong |
 
 ## Xuất .ova cho VirtualBox / VMware
 

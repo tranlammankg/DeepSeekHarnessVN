@@ -35,7 +35,7 @@
 | Cửa sổ báo "đang chờ HarnessVN sẵn sàng" mãi | Máy ảo thiếu RAM | Đóng bớt ứng dụng nặng (Chrome nhiều tab) rồi chạy lại |
 | Trình duyệt không tự mở | Hệ điều hành chặn | Tự mở trình duyệt và vào **http://localhost:9998** |
 | Mở `http://localhost:9999` thấy dòng chữ tiếng Anh *"dsh web authentication required"* | Cổng 9999 chỉ phục vụ trang khi URL đã có phiên | Dùng **http://localhost:9998** — cửa nối này tự mở đúng phiên cho bạn |
-| Mở 9998 thấy **"HarnessVN đang chuẩn bị"** | Lần đầu máy ảo đang cài đặt + build (10–20 phút) | Cứ để đó, trang tự thử lại mỗi 5 giây. Quá 30 phút thì mở cửa sổ máy ảo xem lỗi |
+| Mở 9998 thấy **"HarnessVN đang chuẩn bị"** | Lần đầu máy ảo đang cài đặt + build: 10–20 phút nếu máy bật ảo hoá, **1–2 giờ nếu không** | Cứ để đó, trang tự thử lại mỗi 5 giây. Quá 2,5 giờ thì mở cửa sổ máy ảo xem lỗi |
 | Báo cổng 9998 đang bận | Có phần mềm khác dùng cổng đó | Trên Linux/macOS không cần làm gì — chương trình tự chọn cổng trống và in ra cổng đang dùng. Trên Windows, script tự đổi cửa nối sang 19998 |
 | Báo cổng 9999 đang bận | Cổng ứng dụng đang bị chiếm (trên Windows thì bắt buộc phải trống) | Linux/macOS: chương trình tự đổi. Windows: đóng chương trình đang dùng cổng 9999 rồi chạy lại |
 

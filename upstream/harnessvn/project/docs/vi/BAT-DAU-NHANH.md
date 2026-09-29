@@ -40,6 +40,8 @@ Chỉ **một thứ**: **khoá API** — hiểu đơn giản là "chìa khoá" �
 4. Trình duyệt tự mở **http://localhost:9998** → trang **"HarnessVN đang chuẩn bị"** (lần đầu) tự chuyển vào giao diện **tiếng Việt** → làm như bước 4–7 của Đường 1.
 5. Lần sau chỉ cần nhấp đúp file khởi động là dùng tiếp. **Không cần tải lại.**
 
+> **Lần đầu chạy** cần 10–20 phút nếu máy bạn bật ảo hoá, và có thể **1–2 giờ** nếu máy không bật ảo hoá (chạy chậm). Trong lúc đó cửa nối hiện trang "HarnessVN đang chuẩn bị" và tự chuyển khi xong.
+
 > Đừng mở thẳng `http://localhost:9999`: cổng đó chỉ phục vụ trang khi URL đã có phiên, mở thẳng sẽ thấy dòng chữ tiếng Anh *"dsh web authentication required"*. Luôn dùng `http://localhost:9998` — cửa nối này tự mở đúng phiên cho bạn.
 
 > Nếu máy chưa có QEMU, chương trình sẽ **hỏi trước** khi cài. Bạn chọn `C` là nó tự cài giúp.

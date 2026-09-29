@@ -85,7 +85,7 @@ WAIT_HTML = """<!doctype html>
 <meta http-equiv="refresh" content="5">
 <style>body{font-family:system-ui,sans-serif;margin:3rem auto;max-width:34rem;line-height:1.6;color:#222}</style>
 <h1>HarnessVN đang chuẩn bị</h1>
-<p>Lần đầu chạy, HarnessVN phải cài đặt và build trong máy ảo (khoảng 10–20 phút).
+<p>Lần đầu chạy, HarnessVN phải cài đặt và build trong máy ảo (khoảng 10–20 phút nếu máy có ảo hoá; nếu không, có thể 1–2 giờ).
 Trang này tự động thử lại mỗi 5 giây, bạn không cần làm gì.</p>
 <p>Nếu quá 30 phút vẫn ở trang này, mở cửa sổ máy ảo để xem thông báo lỗi.</p>
 """
