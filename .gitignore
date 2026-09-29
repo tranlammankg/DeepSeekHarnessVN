@@ -16,3 +16,6 @@ upstream/harnessvn/vm/*.tar.gz
 # Thu muc trang thai thu nghiem (khong bao gio commit)
 .dsh-test/
 .chromium-shot/
+
+# Goi bundle phat hanh cuc bo (khong commit)
+/.dist/
