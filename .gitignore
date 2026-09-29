@@ -33,3 +33,11 @@ upstream/harnessvn/vm/*.tar.gz
 /lefthook.yml
 
 /upstream/harnessvn/vm/seed.pid
+/.xdg-cache/
+/.xdg-data/
+/.pnpm-home/
+/.pnpm-store/
+/.npm-cache/
+/.corepack/
+
+# Thu muc cache tam khi build (khong commit)
