@@ -47,11 +47,22 @@ bad()  { echo "  [HONG] $1"; fail=$((fail + 1)); }
 command -v curl >/dev/null || { echo "THIEU: curl"; exit 2; }
 
 echo "Anh      : $IMAGE"
+# CONTROLLER=lsi: boot bang dia SCSI (lsilogic) giong OVF xuat cho VirtualBox/VMware — dung de
+# nghiem thu chinh file .vmdk nam trong .ova. Mac dinh virtio (giong run-vm.sh).
+CONTROLLER="${CONTROLLER:-virtio}"
+case "$CONTROLLER" in
+  lsi) DISK_ARGS=(-drive "file=$IMAGE,if=none,id=d0,format=qcow2" -device lsi53c895a,id=scsi0 -device scsi-hd,drive=d0,bus=scsi0.0) ;;
+  ahci) DISK_ARGS=(-drive "file=$IMAGE,if=none,id=d0,format=qcow2" -device ich9-ahci,id=sata0 -device ide-hd,drive=d0,bus=sata0.0) ;;
+  virtio) DISK_ARGS=(-drive "file=$IMAGE,if=virtio") ;;
+  *) echo "CONTROLLER khong hop le: $CONTROLLER (dung virtio, ahci hoac lsi)"; exit 2 ;;
+esac
+
 echo "Cong     : ung dung $PORT, cua noi $BRIDGE (chi 127.0.0.1)"
+echo "Dia      : $CONTROLLER"
 echo "Log serial: $LOG"
 : > "$LOG"
 "$QEMU_BIN" "${QEMU_EXTRA[@]}" "${KVM_ARGS[@]}" -m "$MEM" -smp "$CPUS" -display none \
-  -drive "file=$IMAGE,if=virtio" \
+  "${DISK_ARGS[@]}" \
   -netdev "user,id=n0,hostfwd=tcp:127.0.0.1:$PORT-:9999,hostfwd=tcp:127.0.0.1:$BRIDGE-:9998" \
   -device virtio-net-pci,netdev=n0 -serial "file:$LOG" &
 qemu_pid=$!

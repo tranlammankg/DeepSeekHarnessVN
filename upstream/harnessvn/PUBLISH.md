@@ -73,6 +73,27 @@ git clone .dist/HarnessVN-main.bundle HarnessVN
 git bundle verify .dist/HarnessVN-main.bundle
 ```
 
+## 5b. Nghiệm thu ảnh máy ảo TRƯỚC khi phát hành (bắt buộc)
+
+```bash
+# 1. Dựng ảnh (KVM=1 nếu máy có ảo hoá, KVM=0 nếu không)
+PREBUILT=1 KVM=1 harnessvn/vm/build-image.sh          # build TỰ DỪNG nếu ảnh thiếu cửa nối mới / thiếu tiếng Việt
+
+# 2. Boot ảnh và kiểm cửa nối cổng 9998 (trạng thái + HTTP 200 + không cài lại)
+QEMU_DIR=$PWD/.run/qemu harnessvn/tools/verify-vm-image.sh
+
+# 3. Xuất .ova, rồi kiểm CHÍNH đĩa trong .ova bằng điều khiển SATA/AHCI mà OVF khai báo
+QEMU_DIR=$PWD/.run/qemu harnessvn/vm/export-ova.sh \
+  harnessvn/vm/harnessvn-24.04-amd64.qcow2 harnessvn/vm/HarnessVN.ova
+tar -xf harnessvn/vm/HarnessVN.ova -C .run/ova-check
+qemu-img convert -O qcow2 .run/ova-check/*.vmdk .run/ova-disk.qcow2
+CONTROLLER=ahci QEMU_DIR=$PWD/.run/qemu harnessvn/tools/verify-vm-image.sh .run/ova-disk.qcow2
+
+# 4. Sinh SHA256SUMS
+OUT=harnessvn/vm/SHA256SUMS harnessvn/tools/make-checksums.sh \
+  harnessvn/vm/harnessvn-24.04-amd64.qcow2 harnessvn/vm/HarnessVN.ova
+```
+
 ## 6. Sau khi đẩy
 
 - CI (`.github/workflows/ci.yml`): job `gates` tự chạy khi push (build lib + 3 gate i18n + build web).
@@ -90,6 +111,9 @@ git bundle verify .dist/HarnessVN-main.bundle
 
 ## 7. Việc còn lại chưa kiểm chứng được trong phiên này
 
-- Boot thật của máy ảo bằng **KVM** (phiên soạn chỉ chạy được TCG — đã boot thật và chạy tới bước build).
+- Boot thật của máy ảo bằng **KVM** (phiên soạn chỉ chạy được TCG — **đã boot thật và chạy hết provisioning**,
+  cửa nối cổng 9998 phục vụ UI ra máy thật, nghiệm thu 4/4).
 - **Import `HarnessVN.ova`** trong VirtualBox/VMware (chưa có hai phần mềm đó trong phiên soạn).
+  Đĩa trong `.ova` **đã được boot thử bằng QEMU**: SATA/AHCI lên bình thường (cửa nối trả `app_ready: true`),
+  SCSI LSI thì không (thiếu driver trong initramfs) — vì vậy OVF khai báo **SATA/AHCI**.
 - Đóng gói desktop: cần host Windows (cho .exe) hoặc macOS (cho .dmg) — không build chéo được.

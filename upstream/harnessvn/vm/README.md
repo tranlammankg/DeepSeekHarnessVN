@@ -13,7 +13,7 @@ không cần làm gì trong máy ảo.
 | File | Kích thước | SHA256 |
 |---|---|---|
 | `harnessvn-24.04-amd64.qcow2` | 1,6 GB | `2d00840a28f5616df824ca3f5dd552a90c98102b012602b18636734ea060a953` |
-| `HarnessVN.ova` | 1,4 GB | `653a8c6e52f31839bb9ca58b10e7c18f8fa0cd17c2ad1a5bab058c83bf27d778` |
+| `HarnessVN.ova` | 1,4 GB | `d0086c6245c63cf5dab0106b88e889063fa35699a31932c6b6c1624b03a5131e` |
 
 Hai file này **không nằm trong git** (quá lớn) — `SHA256SUMS` thì có. Dựng lại bằng một lệnh
 (`KVM=1` nếu máy có ảo hoá, `KVM=0` nếu không), rồi nghiệm thu:
@@ -24,6 +24,12 @@ QEMU_DIR=$PWD/.run/qemu harnessvn/tools/verify-vm-image.sh      # boot ảnh và
 QEMU_DIR=$PWD/.run/qemu harnessvn/vm/export-ova.sh \
   harnessvn/vm/harnessvn-24.04-amd64.qcow2 harnessvn/vm/HarnessVN.ova
 ```
+
+Đĩa trong `.ova` khai báo **SATA/AHCI** (không phải SCSI LSI): initramfs của ảnh cloud chỉ có driver
+AHCI/virtio, nên đĩa SCSI LSI dừng ở `Gave up waiting for root file system device`. Đã boot thử chính
+đĩa trong `.ova` bằng QEMU: `-device lsi53c895a` → **hỏng**, `-device ich9-ahci` → **lên và cửa nối trả
+`app_ready: true`**. Kiểm lại bất cứ lúc nào bằng
+`CONTROLLER=ahci harnessvn/tools/verify-vm-image.sh <đĩa.qcow2>`.
 
 ## Thành phần
 

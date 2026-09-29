@@ -64,7 +64,11 @@ cat > "$WORK/$NAME.ovf" <<OVF
       </System>
       <Item><rasd:AllocationUnits>hertz * 10^6</rasd:AllocationUnits><rasd:Description>Number of Virtual CPUs</rasd:Description><rasd:ElementName>2 virtual CPU(s)</rasd:ElementName><rasd:InstanceID>1</rasd:InstanceID><rasd:ResourceType>3</rasd:ResourceType><rasd:VirtualQuantity>2</rasd:VirtualQuantity></Item>
       <Item><rasd:AllocationUnits>byte * 2^20</rasd:AllocationUnits><rasd:Description>Memory Size</rasd:Description><rasd:ElementName>4096MB of memory</rasd:ElementName><rasd:InstanceID>2</rasd:InstanceID><rasd:ResourceType>4</rasd:ResourceType><rasd:VirtualQuantity>4096</rasd:VirtualQuantity></Item>
-      <Item><rasd:Address>0</rasd:Address><rasd:Description>SCSI Controller</rasd:Description><rasd:ElementName>SCSI controller 0</rasd:ElementName><rasd:InstanceID>3</rasd:InstanceID><rasd:ResourceSubType>lsilogic</rasd:ResourceSubType><rasd:ResourceType>6</rasd:ResourceType></Item>
+      <!-- SATA/AHCI, KHONG phai SCSI lsilogic: initramfs cua anh cloud Ubuntu chi co driver
+           AHCI/virtio, khong co mptspi -> dia SCSI LSI se dung o 'Gave up waiting for root file
+           system device'. Da gap that khi boot thu chinh dia trong .ova voi -device lsi53c895a;
+           boot lai voi -device ich9-ahci (dung khai bao nay) thi len binh thuong. -->
+      <Item><rasd:Address>0</rasd:Address><rasd:Description>SATA Controller</rasd:Description><rasd:ElementName>SATA controller 0</rasd:ElementName><rasd:InstanceID>3</rasd:InstanceID><rasd:ResourceSubType>ahci</rasd:ResourceSubType><rasd:ResourceType>20</rasd:ResourceType></Item>
       <Item><rasd:AddressOnParent>0</rasd:AddressOnParent><rasd:ElementName>Hard disk 1</rasd:ElementName><rasd:HostResource>ovf:/disk/vmdisk1</rasd:HostResource><rasd:InstanceID>4</rasd:InstanceID><rasd:Parent>3</rasd:Parent><rasd:ResourceType>17</rasd:ResourceType></Item>
       <Item><rasd:Address>1</rasd:Address><rasd:Description>IDE Controller</rasd:Description><rasd:ElementName>IDE Controller</rasd:ElementName><rasd:InstanceID>5</rasd:InstanceID><rasd:ResourceType>5</rasd:ResourceType></Item>
       <Item><rasd:AddressOnParent>0</rasd:AddressOnParent><rasd:ElementName>CD-ROM 1</rasd:ElementName><rasd:InstanceID>6</rasd:InstanceID><rasd:Parent>5</rasd:Parent><rasd:ResourceType>15</rasd:ResourceType></Item>

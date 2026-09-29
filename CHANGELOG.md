@@ -63,6 +63,10 @@ Các thay đổi đáng chú ý của HarnessVN. Mục mới nhất ở trên c�
 
 - Boot ảnh máy ảo **bằng KVM** trên máy bạn (phiên soạn chỉ chạy được TCG).
 - **Import `HarnessVN.ova` trong VirtualBox/VMware** (chưa có hai phần mềm đó trong phiên soạn).
+  Đã bù bằng kiểm chứng gần nhất có thể: **boot chính đĩa trong `.ova`** bằng QEMU với các loại điều khiển
+  đĩa mà hai phần mềm này dùng. Kết quả: đĩa **SCSI LSI → không boot** (`Gave up waiting for root file
+  system device`), đĩa **SATA/AHCI → boot và cửa nối trả `app_ready: true` (4/4)**. Vì vậy OVF đã đổi
+  sang khai báo SATA/AHCI — xem `vm/README.md` và `vm/export-ova.sh`.
 - **Bộ cài desktop chạy thật** — cần Windows/macOS hoặc CI.
 
 ### Lưu ý khi nâng cấp
