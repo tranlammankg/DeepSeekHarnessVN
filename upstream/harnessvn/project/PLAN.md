@@ -108,7 +108,8 @@ Tầng 1  plugin dsh-locale-vi               ← đường nhanh: cài vào prof
 
 **Tầng 3 — ảnh máy ảo:**
 - Ubuntu cloud image (server, headless) + cloud-init; **cài 0-root**: Node tar.gz vào `~/.local`, `npm --prefix`.
-- `harnessvn.service` (systemd `--user`) tự bật web UI; QEMU hostfwd `9999` → trình duyệt máy thật mở `http://localhost:9999`.
+- `harnessvn.service` (unit hệ thống, `User=harnessvn`) tự bật web UI; `harnessvn-open.service` giữ token và
+  phục vụ cửa nối ở cổng **9998** → launcher tự chọn cổng trống rồi mở `http://localhost:9998` trên máy thật.
   *Đã kiểm chứng trong `dsh-client-connection`: loopback được xác định theo **hostname của trang** (`localhost`/`[::1]`/`127.x`), không theo IP peer
   → qua QEMU hostfwd vẫn là trang loopback nên **lựa chọn ngôn ngữ được lưu**; mở bằng IP LAN thì không lưu và cần `--trusted-host`.*
 - Dựng ảnh không cần công cụ đĩa: QEMU `-smbios type=1,serial=ds=nocloud-net;s=http://10.0.2.2:8000/` để cloud-init lấy `user-data` từ HTTP server `python3`.
@@ -237,7 +238,7 @@ Thứ tự cứng: M0 → M1 → (M2 ∥ M3) → M4 → M5 → M6 → M7 → M8 
 - Lint: `shellcheck`, kiểm `user-data.yaml`; chạy gate parity của upstream.
 
 **Trên máy có KVM (hoặc chấp nhận TCG chậm):**
-- Boot qcow2 headless, đọc log qua `-serial`; kiểm `http://localhost:9999` qua hostfwd.
+- Boot qcow2 headless, đọc log qua `-serial`; kiểm `http://127.0.0.1:9999` (401 = đang chạy) và cửa nối 9998 trả 200 + chuyển hướng.
 
 **Tiêu chí nghiệm thu (AC):**
 - **AC1**: máy trắng → boot VM → nhập API key → **web UI dùng được trong ≤ 5 phút**, không gõ lệnh.

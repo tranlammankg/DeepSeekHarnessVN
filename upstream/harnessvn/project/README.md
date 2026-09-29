@@ -48,7 +48,7 @@ Chi tiết: `PLAN.md` → mục 7.
 | Thêm `'vi'` vào `LOCALE_IDS` làm **~58 chỗ gọi lỗi biên dịch** | phải nới chữ ký `register` **trước** (đã có code cụ thể) |
 | Gate `locale-dictionary-parity.spec.ts` **mù với `vi`** (hardcode `zh/en`, ≈ dòng 153 và 185) | phải sửa gate, nếu không tưởng đã dịch đủ mà thực ra chưa được kiểm |
 | **Không cross-build được**: `.exe` cần host Windows, `.dmg` cần host macOS | dùng GitHub Actions (D7) |
-| Trong VM, trang `http://localhost:9999` vẫn là **loopback** (theo hostname trang) | lựa chọn tiếng Việt **được lưu** |
+| Trong VM, mở cửa nối `http://localhost:9998` → chuyển sang `http://localhost:9999` vẫn là **loopback** (theo hostname trang) | lựa chọn tiếng Việt **được lưu** |
 | Ghi vào `~/.dsh/profiles` **nằm ngoài workspace** | bị chặn `EROFS` → cần bạn duyệt nâng quyền **một lần** ở bước cài plugin |
 | Phiên hiện tại là **container**: không `/dev/kvm`, không root, không qemu | M0/M1–M4 làm được tại chỗ; M5 (ảnh VM) và M5b (bộ cài) cần host/CI |
 
