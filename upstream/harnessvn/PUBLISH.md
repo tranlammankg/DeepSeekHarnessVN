@@ -36,6 +36,16 @@ git push -u harnessvn main:harnessvn   # đẩy vào nhánh tên harnessvn, khô
 
 (Cần bật `allowWrite: true` cho repo này trước.)
 
+## 3b. Trạng thái đã đẩy (cập nhật)
+
+- Repo thật: **https://github.com/tranlammankg/DeepSeekHarnessVN** (public, broker id `deepseekharnessvn`).
+- Đã đẩy nhánh `main` (toàn bộ mã nguồn, tài liệu, bằng chứng, script máy ảo) và tag **`harnessvn-v0.1.0`**.
+- **Còn thiếu `.github/workflows/ci.yml`**: GitHub từ chối khi token OAuth của broker không có scope `workflow`
+  (*"refusing to allow an OAuth App to create or update workflow"*). Bản workflow vẫn nằm trong nhánh cục bộ
+  `backup-pre-ci-strip`. Cách xử lý (chọn một):
+  1. Mở panel **Git repos** → đăng nhập lại tài khoản GitHub và cấp thêm scope **workflow**, rồi nhờ agent đẩy lại; hoặc
+  2. Tự tạo `.github/workflows/ci.yml` trên GitHub UI và dán nội dung từ nhánh `backup-pre-ci-strip`.
+
 ## 4. Lệnh đẩy trực tiếp (không qua broker)
 
 ```bash

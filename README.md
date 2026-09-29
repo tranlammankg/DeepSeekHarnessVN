@@ -1,9 +1,12 @@
 # HarnessVN — hồ sơ dự án (một trang để duyệt)
 
-> **Trạng thái: đã build xong bản Việt hoá.** Upstream `dsh-v0.1.7-rc.2` đã clone và build thành công
-> (`pnpm run build:lib` exit 0); tiếng Việt đã vào giao diện web (**55 namespace / 2.497 khoá**) và shell desktop (**138 khoá**);
-> 2 gate i18n xanh; plugin của bản đang dùng (**trừ mario**) đã kèm vào repo; bộ dựng máy ảo QEMU đã viết xong.
-> Repo đã commit: **`7e23344`**. Còn lại: **push lên GitHub** — đang chờ bạn bật quyền ghi cho repo trong panel Git repos.
+> **Trạng thái: đã đẩy lên GitHub.** Repo: **https://github.com/tranlammankg/DeepSeekHarnessVN** (nhánh `main`, tag `harnessvn-v0.1.0`).
+> Upstream `dsh-v0.1.7-rc.2` đã clone và build sạch (`build:lib` + `build:web` exit 0); tiếng Việt là **locale gốc**
+> (**55 namespace / 2.498 khoá**, desktop **138 khoá**); 3 gate i18n + self-test provision 15/15 + `verify-cordis-config` xanh;
+> onboarding *khoá API + 40 nhà cung cấp* đã kiểm trên UI thật; skill `vn-self-setup` đi kèm bundle; bộ dựng máy ảo QEMU
+> đã boot thật tới bước build và có `release.sh`/`export-ova.sh`.
+> Còn lại: (1) đẩy `.github/workflows/ci.yml` — cần scope `workflow` cho token GitHub; (2) dựng ảnh máy ảo bằng KVM;
+> (3) build bộ cài desktop trên Windows/macOS. Chi tiết: `CHANGELOG.md` và `upstream/harnessvn/PUBLISH.md`.
 
 ## 1. Mục tiêu
 
