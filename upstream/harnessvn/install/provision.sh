@@ -118,6 +118,11 @@ bash "$SRC_DIR/upstream/harnessvn/install/write-units.sh" \
   --scope "$SCOPE" --dest "$UNIT_DIR" --port "$PORT" --bridge-port "$BRIDGE_PORT" --src "$SRC_DIR" \
   --home "$HOME" --user "$USER" --prefix "$PREFIX" --node-bin "$NODE_BIN"
 
+# systemd (scope he thong) tao file log bang root voi quyen 0600 -> harnessvn khong doc duoc token.
+# Tao truoc voi quyen 0644 de cua noi doc duoc dong URL.
+: > "$HOME/harnessvn-web.log" 2>/dev/null || true
+chmod 0644 "$HOME/harnessvn-web.log" 2>/dev/null || true
+
 if [ "$SCOPE" = "system" ]; then
   sudo systemctl daemon-reload
   sudo systemctl enable --now harnessvn.service && echo "    harnessvn.service: da bat"

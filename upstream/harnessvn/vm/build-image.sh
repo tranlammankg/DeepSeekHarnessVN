@@ -170,7 +170,7 @@ timeout "${FIRSTBOOT_TIMEOUT:-1800}" "$QEMU_BIN" "${QEMU_EXTRA[@]}" \
   "${KVM_ARGS[@]}" -m "$MEM" -smp "$CPUS" -display none \
   -drive "file=$GOLDEN,if=virtio" \
   -smbios "type=1,serial=$SMBIOS" \
-  -netdev "user,id=n0,hostfwd=tcp:127.0.0.1:$PORT-127.0.0.1:9999${BRIDGE:+,hostfwd=tcp:127.0.0.1:$BRIDGE-127.0.0.1:9998}" -device virtio-net-pci,netdev=n0 \
+  -netdev "user,id=n0,hostfwd=tcp:127.0.0.1:$PORT-:9999${BRIDGE:+,hostfwd=tcp:127.0.0.1:$BRIDGE-:9998}" -device virtio-net-pci,netdev=n0 \
   -serial "file:$WORK/firstboot.log" || true
 
 # 5. Nen lai anh
