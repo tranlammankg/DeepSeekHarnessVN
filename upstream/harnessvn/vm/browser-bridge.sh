@@ -11,8 +11,9 @@ SERVE_DIR="${SERVE_DIR:-$HOME/harnessvn-open}"
 TOKEN_FILE="${TOKEN_FILE:-$SERVE_DIR/token.txt}"
 LOG_FILE="${LOG_FILE:-}"
 FALLBACK_LOG="${FALLBACK_LOG:-$HOME/harnessvn-web.log}"
+# KHONG duoc truncate: wrapper run-web.sh co the da ghi token vao day truoc khi cua noi khoi dong.
 mkdir -p "$SERVE_DIR"
-: > "$TOKEN_FILE"
+[ -f "$TOKEN_FILE" ] || : > "$TOKEN_FILE"
 find_token() {
   [ -s "$TOKEN_FILE" ] && return 0
   local text=""
