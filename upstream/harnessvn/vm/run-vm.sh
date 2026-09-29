@@ -13,6 +13,16 @@ MEM="${MEM:-4096}"
 CPUS="${CPUS:-2}"
 KVM="${KVM:-auto}"
 DRY_RUN="${DRY_RUN:-0}"
+# Mac dinh qemu he thong; co the tro vao qemu da giai nen (khong can root):
+#   QEMU_DIR=$PWD/.run/qemu run-vm.sh <anh.qcow2>
+QEMU_BIN="${QEMU_BIN:-}"
+QEMU_DIR="${QEMU_DIR:-}"
+QEMU_EXTRA=()
+if [ -n "$QEMU_DIR" ]; then
+  QEMU_BIN="${QEMU_BIN:-$QEMU_DIR/usr/bin/qemu-system-x86_64}"
+  export LD_LIBRARY_PATH="$QEMU_DIR/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+  QEMU_EXTRA=(-L "$QEMU_DIR/usr/share/qemu")
+fi
 QEMU_BIN="${QEMU_BIN:-qemu-system-x86_64}"    # macOS arm64 dat qemu-system-aarch64
 
 [ -f "$IMAGE" ] || { echo "Khong thay anh: $IMAGE"; echo "Hay dung $HERE/build-image.sh truoc, hoac tai anh phat hanh."; exit 1; }
@@ -63,14 +73,14 @@ echo "  Lan dau co the mat 10-20 phut; cua noi hien trang cho roi tu chuyen tiep
 if [ "$DRY_RUN" = "1" ]; then
   echo
   echo "DRY_RUN=1 — khong boot. Lenh se chay:"
-  echo "  $QEMU_BIN ${KVM_ARGS[*]} -m $MEM -smp $CPUS -display none \\"
+  echo "  $QEMU_BIN ${QEMU_EXTRA[*]} ${KVM_ARGS[*]} -m $MEM -smp $CPUS -display none \\"
   echo "    -drive file=$IMAGE,if=virtio \\"
   echo "    -netdev user,id=n0,hostfwd=tcp::$PORT-:9999,hostfwd=tcp::$BRIDGE-:9998 -device virtio-net-pci,netdev=n0"
   exit 0
 fi
 
 ( sleep 25; (command -v xdg-open >/dev/null && xdg-open "http://localhost:$BRIDGE") || (command -v open >/dev/null && open "http://localhost:$BRIDGE") || true ) &
-exec "$QEMU_BIN" "${KVM_ARGS[@]}" -m "$MEM" -smp "$CPUS" -display none \
+exec "$QEMU_BIN" "${QEMU_EXTRA[@]}" "${KVM_ARGS[@]}" -m "$MEM" -smp "$CPUS" -display none \
   -drive "file=$IMAGE,if=virtio" \
   -netdev "user,id=n0,hostfwd=tcp::$PORT-:9999,hostfwd=tcp::$BRIDGE-:9998" -device virtio-net-pci,netdev=n0 \
   -serial mon:stdio

@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 # HarnessVN — dựng ảnh máy ảo Ubuntu headless có sẵn HarnessVN + tiếng Việt.
 #
-# YÊU CẦU: chạy trên máy CÓ qemu (qemu-system-x86_64, qemu-img) và python3.
+# YÊU CẦU: qemu (qemu-system-x86_64, qemu-img) + python3 + curl.
 #   Ubuntu/Debian:  sudo apt install -y qemu-system-x86 qemu-utils python3 curl
-# LƯU Ý: không chạy được trong container thiếu /dev/kvm — vẫn chạy được bằng
-#        TCG nhưng rất chậm; thêm KVM=0 khi gọi.
+# KHÔNG có root cũng dựng được: tải .deb của qemu rồi giải nén vào một thư mục, đặt QEMU_DIR:
+#   mkdir -p .run/qemu-deb .run/qemu && cd .run/qemu-deb
+#   apt-get download qemu-system-x86 qemu-system-common qemu-system-data qemu-utils \
+#     libslirp0 libpmem1 libfdt1 librdmacm1t64 libibverbs1 libvdeplug2t64 libndctl6 libdaxctl1
+#   for d in *.deb; do dpkg-deb -x "$d" ../qemu/; done
+#   QEMU_DIR=$PWD/.run/qemu KVM=0 FIRSTBOOT_TIMEOUT=10800 harnessvn/vm/build-image.sh
+# LƯU Ý: thiếu /dev/kvm vẫn chạy được bằng TCG nhưng RẤT chậm — thêm KVM=0 khi gọi.
 set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -22,11 +27,28 @@ PORT="${PORT:-9999}"
 KVM="${KVM:-1}"
 PREPARE_ONLY="${PREPARE_ONLY:-0}"   # 1 = chi tai anh nen + dong goi seed, khong can qemu
 
+# May khong co quyen root cung dung duoc: giai nen .deb cua qemu vao mot thu muc roi dat QEMU_DIR.
+QEMU_DIR="${QEMU_DIR:-}"
+QEMU_BIN="${QEMU_BIN:-qemu-system-x86_64}"
+QEMU_IMG_BIN="${QEMU_IMG_BIN:-qemu-img}"
+QEMU_EXTRA=()
+if [ -n "$QEMU_DIR" ]; then
+  QEMU_BIN="${QEMU_BIN_OVERRIDE:-$QEMU_DIR/usr/bin/qemu-system-x86_64}"
+  QEMU_IMG_BIN="$QEMU_DIR/usr/bin/qemu-img"
+  export LD_LIBRARY_PATH="$QEMU_DIR/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+  QEMU_EXTRA=(-L "$QEMU_DIR/usr/share/qemu")
+fi
+
 REQUIRED=(python3 curl tar sha256sum)
-[ "$PREPARE_ONLY" = "1" ] || REQUIRED+=(qemu-system-x86_64 qemu-img)
 for c in "${REQUIRED[@]}"; do
   command -v "$c" >/dev/null || { echo "THIEU: $c — hay cai truoc (xem dau file)."; exit 1; }
 done
+if [ "$PREPARE_ONLY" != "1" ]; then
+  [ -x "$QEMU_BIN" ] || command -v "$QEMU_BIN" >/dev/null \
+    || { echo "THIEU qemu: $QEMU_BIN (dat QEMU_DIR=<thu muc qemu da giai nen> neu khong cai duoc he thong)."; exit 1; }
+  [ -x "$QEMU_IMG_BIN" ] || command -v "$QEMU_IMG_BIN" >/dev/null \
+    || { echo "THIEU qemu-img: $QEMU_IMG_BIN"; exit 1; }
+fi
 
 mkdir -p "$WORK"
 cd "$WORK"
@@ -57,7 +79,12 @@ fi
 # 2. Chuan bi cloud-init: phuc vu user-data + ma nguon qua HTTP cho may ao
 echo "[2/6] Chuan bi cloud-init..."
 mkdir -p seed
-cp "$HERE/cloud-init/user-data.yaml" "$HERE/cloud-init/meta-data.yaml" seed/
+# NoCloud lay dung ten KHONG co duoi: /user-data va /meta-data. De nguyen ten .yaml thi
+# cloud-init nhan 404 va datasource that bai (da gap that khi boot lan dau).
+install -m 0644 "$HERE/cloud-init/user-data.yaml" seed/user-data
+install -m 0644 "$HERE/cloud-init/meta-data.yaml" seed/meta-data
+install -m 0644 "$HERE/cloud-init/user-data.yaml" seed/user-data.yaml
+install -m 0644 "$HERE/cloud-init/meta-data.yaml" seed/meta-data.yaml
 STAGE="$HERE/harnessvn-src.tar.gz"
 if [ ! -f "$STAGE" ]; then
   echo "    dong goi ma nguon -> $STAGE"
@@ -99,15 +126,27 @@ fi
 ( cd seed && python3 -m http.server 8000 --bind 127.0.0.1 >/dev/null 2>&1 & echo $! > ../seed.pid )
 trap '[ -f seed.pid ] && kill "$(cat seed.pid)" 2>/dev/null || true' EXIT
 
+# Kiem seed NGAY truoc khi boot: NoCloud phai tai duoc /user-data va /meta-data,
+# neu khong may ao boot len ma khong co cau hinh (rat kho doan loi).
+for f in user-data meta-data harnessvn-src.tar.gz; do
+  for _ in $(seq 1 10); do
+    code="$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:8000/$f" || true)"
+    [ "$code" = "200" ] && break
+    sleep 1
+  done
+  [ "$code" = "200" ] || { echo "SEED LOI: http://127.0.0.1:8000/$f tra $code"; exit 1; }
+  echo "    seed OK: /$f"
+done
+
 # 3. Dia lam viec (thin, dua tren anh nen)
 echo "[3/6] Tao dia lam viec..."
-qemu-img create -f qcow2 -F qcow2 -b "$WORK/$BASE_IMG" "$GOLDEN" "$DISK_SIZE"
+"$QEMU_IMG_BIN" create -f qcow2 -F qcow2 -b "$WORK/$BASE_IMG" "$GOLDEN" "$DISK_SIZE"
 
 # 4. Boot lan dau de cloud-init cai dat (serial console ghi ra log)
 echo "[4/6] Boot lan dau (cai dat)... log: $WORK/firstboot.log"
 if [ "$KVM" = "1" ]; then KVM_ARGS=(-enable-kvm -cpu host); else KVM_ARGS=(-cpu max); fi
 SMBIOS="ds=nocloud-net;s=http://10.0.2.2:8000/"
-timeout "${FIRSTBOOT_TIMEOUT:-1800}" qemu-system-x86_64 \
+timeout "${FIRSTBOOT_TIMEOUT:-1800}" "$QEMU_BIN" "${QEMU_EXTRA[@]}" \
   "${KVM_ARGS[@]}" -m "$MEM" -smp "$CPUS" -display none \
   -drive "file=$GOLDEN,if=virtio" \
   -smbios "type=1,serial=$SMBIOS" \
@@ -116,7 +155,7 @@ timeout "${FIRSTBOOT_TIMEOUT:-1800}" qemu-system-x86_64 \
 
 # 5. Nen lai anh
 echo "[5/6] Nen anh..."
-qemu-img convert -O qcow2 -c "$GOLDEN" "$GOLDEN.tmp" && mv "$GOLDEN.tmp" "$GOLDEN"
+"$QEMU_IMG_BIN" convert -O qcow2 -c "$GOLDEN" "$GOLDEN.tmp" && mv "$GOLDEN.tmp" "$GOLDEN"
 
 # 6. Xong
 echo "[6/6] Xong."
