@@ -16,6 +16,7 @@ không cần làm gì trong máy ảo.
 | `cloud-init/user-data.yaml` | Tạo người dùng `harnessvn`, bật dịch vụ cài đặt lần đầu, autologin console để xem tiến trình |
 | `run-vm.sh` | Chạy ảnh, **tự chọn cổng trống** trên máy thật cho ứng dụng và cửa nối, tự mở trình duyệt |
 | `free-port.sh` | In cổng trống đầu tiên kể từ một cổng (bỏ qua cổng đang bị chiếm) |
+| `export-ova.sh` | Xuất ảnh qcow2 thành `.ova` (VirtualBox/VMware) — tự sinh `.ovf`, `.vmdk`, `.mf` |
 | `browser-bridge.sh` | Giữ token của `dsh web`, phục vụ trang chuyển hướng / trang chờ ở cổng 9998 |
 | `../install/write-units.sh` | Sinh 2 unit systemd (scope `system` hoặc `user`) — kiểm tra được ngoài máy ảo |
 | `launchers/start-windows.bat` | Windows: kiểm QEMU → hỏi trước khi cài bằng winget → chạy VM → mở trình duyệt |
@@ -43,6 +44,19 @@ QEMU_DIR=$PWD/.run/qemu KVM=0 MEM=2560 CPUS=2 FIRSTBOOT_TIMEOUT=10800 \
 Thời gian thực tế đo được (TCG, 2 vCPU): boot ≈ 3,5 phút · tải mã nguồn 34 MB ≈ 2 giây · tải Node ≈ 50 giây ·
 `pnpm install` ≈ **10 phút** (1385 gói) · `build:lib` lâu hơn nữa. Xem tiến trình:
 `tail -f harnessvn/vm/work/firstboot.log` — unit đã in cả ra console serial.
+
+## Xuất .ova cho VirtualBox / VMware
+
+Người dùng không bật được ảo hoá (hoặc không muốn cài QEMU) dùng file `.ova`:
+
+```bash
+QEMU_DIR=$PWD/.run/qemu harnessvn/vm/export-ova.sh harnessvn-24.04-amd64.qcow2 HarnessVN.ova
+```
+
+Script tự: chuyển qcow2 → vmdk (streamOptimized) → sinh `.ovf` (2 vCPU, 4 GB RAM, SCSI, card mạng) →
+tính `.mf` (SHA256) → đóng gói tar thành `.ova`. Đã kiểm: tar đủ 3 file, OVF hợp lệ XML, `ovf:size` khớp
+file vmdk thật, `sha256sum -c` xanh, `qemu-img info` đọc được đĩa. **Chưa** thử import thật trong
+VirtualBox/VMware (phiên soạn không có hai phần mềm đó).
 
 ## Yêu cầu khi DỰNG ảnh
 
