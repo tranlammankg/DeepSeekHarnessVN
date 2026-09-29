@@ -156,7 +156,25 @@ class Handler(http.server.BaseHTTPRequestHandler):
         conn, response = self._request(self.path, headers, body)
         self._relay(conn, response)
 
+    def _status(self):
+        import json
+        payload = json.dumps({
+            "app_ready": app_ready(),
+            "token_len": len(read_token()),
+            "token_file": token_file,
+        }).encode("utf-8")
+        self.send_response(200)
+        self.send_header("content-type", "application/json; charset=utf-8")
+        self.send_header("content-length", str(len(payload)))
+        self.send_header("cache-control", "no-store")
+        self.end_headers()
+        if self.command != "HEAD":
+            self.wfile.write(payload)
+
     def _handle(self):
+        if self.path.split("?")[0] == "/__harnessvn_status":
+            self._status()
+            return
         try:
             if not app_ready():
                 self._waiting()

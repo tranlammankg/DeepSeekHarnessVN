@@ -144,10 +144,11 @@ BG=setsid
 command -v setsid >/dev/null 2>&1 || BG=nohup
 start_direct() {
   echo "    khong thay phan hoi tu dich vu — khoi dong truc tiep..."
+  # Dung CHINH wrapper run-web.sh de token duoc ghi ra $HOME/harnessvn-open/token.txt nhu dich vu that.
   $BG env HOME="$HOME" PATH="$PREFIX/bin:/usr/local/bin:/usr/bin:/bin" \
-    "$NODE_BIN" --import tsx/esm \
-    "$SRC_DIR/upstream/apps/cli/src/bin.ts" web --no-open --port "$PORT" --trusted-host localhost \
-    >"$HOME/harnessvn-web-direct.log" 2>&1 < /dev/null &
+    NODE_BIN="$NODE_BIN" SRC_DIR="$SRC_DIR" PORT="$PORT" \
+    /bin/bash "$SRC_DIR/upstream/harnessvn/install/run-web.sh" \
+    >"$HOME/harnessvn-direct.log" 2>&1 < /dev/null &
   $BG env HOME="$HOME" APP_PORT="$PORT" BRIDGE_PORT="$BRIDGE_PORT" SERVE_DIR="$HOME/harnessvn-open" \
     LOG_FILE="$HOME/harnessvn-web-direct.log" \
     /bin/bash "$SRC_DIR/upstream/harnessvn/vm/browser-bridge.sh" \
