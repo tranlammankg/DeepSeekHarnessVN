@@ -49,7 +49,7 @@ echo Lan dau co the mat 10-20 phut; trang cho se tu chuyen tiep.
 start "" cmd /c "timeout /t 25 >nul & start http://localhost:%BRIDGE%"
 qemu-system-x86_64 -m 4096 -smp 2 -display none ^
   -drive "file=%IMAGE%,if=virtio" ^
-  -netdev "user,id=n0,hostfwd=tcp::%PORT%-:9999,hostfwd=tcp::%BRIDGE%-:9998" -device virtio-net-pci,netdev=n0
+  -netdev "user,id=n0,hostfwd=tcp:127.0.0.1:%PORT%-127.0.0.1:9999,hostfwd=tcp:127.0.0.1:%BRIDGE%-127.0.0.1:9998" -device virtio-net-pci,netdev=n0
 pause
 exit /b 0
 

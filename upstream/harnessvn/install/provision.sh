@@ -138,7 +138,7 @@ start_direct() {
   echo "    khong thay phan hoi tu dich vu — khoi dong truc tiep..."
   $BG env HOME="$HOME" PATH="$PREFIX/bin:/usr/local/bin:/usr/bin:/bin" \
     "$NODE_BIN" --import tsx/esm \
-    "$SRC_DIR/upstream/apps/cli/src/bin.ts" web --no-open --port "$PORT" --trusted-host localhost \
+    "$SRC_DIR/upstream/apps/cli/src/bin.ts" web --no-open --host 0.0.0.0 --port "$PORT" --trusted-host localhost \
     >"$HOME/harnessvn-web.log" 2>&1 < /dev/null &
   $BG env HOME="$HOME" APP_PORT="$PORT" BRIDGE_PORT="$BRIDGE_PORT" SERVE_DIR="$HOME/harnessvn-open" \
     LOG_FILE="$HOME/harnessvn-web.log" \

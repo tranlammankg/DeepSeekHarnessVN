@@ -82,5 +82,5 @@ fi
 ( sleep 25; (command -v xdg-open >/dev/null && xdg-open "http://localhost:$BRIDGE") || (command -v open >/dev/null && open "http://localhost:$BRIDGE") || true ) &
 exec "$QEMU_BIN" "${QEMU_EXTRA[@]}" "${KVM_ARGS[@]}" -m "$MEM" -smp "$CPUS" -display none \
   -drive "file=$IMAGE,if=virtio" \
-  -netdev "user,id=n0,hostfwd=tcp::$PORT-:9999,hostfwd=tcp::$BRIDGE-:9998" -device virtio-net-pci,netdev=n0 \
+  -netdev "user,id=n0,hostfwd=tcp:127.0.0.1:$PORT-127.0.0.1:9999,hostfwd=tcp:127.0.0.1:$BRIDGE-127.0.0.1:9998" -device virtio-net-pci,netdev=n0 \
   -serial mon:stdio

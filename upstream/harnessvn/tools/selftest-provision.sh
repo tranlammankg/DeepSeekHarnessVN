@@ -32,6 +32,7 @@ make_shims() {   # $1 = thu muc, $2 = ok|deny
 while [ "${1:-}" = "-n" ]; do shift; done
 if [ "${SUDO_MODE:-ok}" = deny ]; then exit 1; fi
 echo "SUDO $*" >> "$SHIM_LOG"
+if [ "${1:-}" = "tee" ]; then shift; cat > "$SHIM_UNIT_DIR/$(basename "$1")"; fi
 exit 0
 SH
   cat > "$dir/systemctl" <<'SH'
@@ -63,7 +64,7 @@ run_case() {   # $1 = ok|deny
   ln -sfn "$ROOT" "$case_dir/src/upstream"
   make_shims "$case_dir/bin"
   : > "$case_dir/calls.log"
-  SHIM_LOG="$case_dir/calls.log" SUDO_MODE="$mode" UNIT_DIR_SANDBOX="$case_dir/units" \
+  SHIM_LOG="$case_dir/calls.log" SHIM_UNIT_DIR="$case_dir/units" SUDO_MODE="$mode" UNIT_DIR_SANDBOX="$case_dir/units" \
   PATH="$case_dir/bin:$PATH" HOME="$case_dir/home" USER=harnessvn \
   PREFIX="$case_dir/home/.local" SRC_DIR="$case_dir/src" PORT=9999 BRIDGE_PORT=9998 \
   NODE_BIN=/usr/bin/node \
@@ -79,6 +80,7 @@ check "sinh unit harnessvn-open.service" test -f "$C1/units/harnessvn-open.servi
 check "co User=harnessvn" has "^User=harnessvn$" "$C1/units/harnessvn.service"
 check "WantedBy=multi-user.target" has "^WantedBy=multi-user.target$" "$C1/units/harnessvn.service"
 check "ExecStart dung dang --import tsx/esm" has "--import tsx/esm" "$C1/units/harnessvn.service"
+check "nghe 0.0.0.0 (de hostfwd vao duoc tu may that)" has "--host 0.0.0.0" "$C1/units/harnessvn.service"
 check "ghi URL ra harnessvn-web.log (cua noi doc duoc)" has "StandardOutput=append:" "$C1/units/harnessvn.service"
 check "cua noi co BRIDGE_PORT=9998" has "^Environment=BRIDGE_PORT=9998$" "$C1/units/harnessvn-open.service"
 check "bat harnessvn.service bang sudo" has "SUDO systemctl enable --now harnessvn.service" "$C1/calls.log"

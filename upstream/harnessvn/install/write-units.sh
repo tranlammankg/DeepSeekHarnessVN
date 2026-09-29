@@ -39,12 +39,35 @@ case "$SCOPE" in
   *) echo "--scope phai la system hoac user"; exit 1 ;;
 esac
 NODE_BIN="${NODE_BIN:-$PREFIX/bin/node}"
-mkdir -p "$DEST"
+
+# Scope he thong thi /etc/systemd/system thuoc root: phai ghi qua sudo (may ao co NOPASSWD),
+# neu khong write se "Permission denied" va provision dung ngay tai buoc 5.
+if [ "$SCOPE" = "system" ]; then
+  if ! sudo -n true 2>/dev/null; then
+    echo "CANH BAO: scope system nhung khong co sudo — lui ve scope user"
+    SCOPE=user
+    DEST="${HOME:-/home/harnessvn}/.config/systemd/user"
+    USER_LINE=""
+    WANTED=default.target
+  fi
+  sudo -n mkdir -p "$DEST"
+else
+  mkdir -p "$DEST"
+fi
+
+write_unit() {
+  local name="$1" body="$2"
+  if [ "$SCOPE" = "system" ]; then
+    printf '%s\n' "$body" | sudo -n tee "$DEST/$name" >/dev/null
+  else
+    printf '%s\n' "$body" > "$DEST/$name"
+  fi
+  chmod 0644 "$DEST/$name" 2>/dev/null || true
+}
 
 # ExecStart dung dang thuc cua upstream: node --import tsx/esm <bin.ts> (node_modules/.bin/tsx chi la
 # shell shim, chay bang `node <shim>` se loi SyntaxError).
-cat > "$DEST/harnessvn.service" <<UNIT
-[Unit]
+WEB_UNIT="[Unit]
 Description=HarnessVN web UI
 After=network-online.target
 Wants=network-online.target
@@ -56,21 +79,20 @@ Environment=HOME=$HOME_DIR
 Environment=PATH=$PREFIX/bin:/usr/local/bin:/usr/bin:/bin
 Environment=COREPACK_HOME=$HOME_DIR/.local/share/corepack
 WorkingDirectory=$SRC_DIR/upstream
-# Ghi URL co token ra file: cua noi doc file nay (system unit thi khong co user journal).
 StandardOutput=append:$HOME_DIR/harnessvn-web.log
 StandardError=journal
-ExecStart=$NODE_BIN --import tsx/esm $SRC_DIR/upstream/apps/cli/src/bin.ts web --no-open --port $PORT --trusted-host localhost
+ExecStart=$NODE_BIN --import tsx/esm $SRC_DIR/upstream/apps/cli/src/bin.ts web --no-open --host 0.0.0.0 --port $PORT --trusted-host localhost
 Restart=on-failure
 RestartSec=5
 
 [Install]
-WantedBy=$WANTED
-UNIT
+WantedBy=$WANTED"
+
+write_unit harnessvn.service "$WEB_UNIT"
 
 # Cau noi mo trinh duyet: dsh web chi phuc vu trang khi URL co token, nen mo tran
 # http://localhost:9999 se bi 401. Dich vu nay giu token va chuyen huong dung phien.
-cat > "$DEST/harnessvn-open.service" <<UNIT
-[Unit]
+BRIDGE_UNIT="[Unit]
 Description=HarnessVN browser bridge (chuyen huong URL co token)
 After=harnessvn.service
 Wants=harnessvn.service
@@ -88,9 +110,8 @@ Restart=on-failure
 RestartSec=5
 
 [Install]
-WantedBy=$WANTED
-UNIT
+WantedBy=$WANTED"
 
-chmod 0644 "$DEST/harnessvn.service" "$DEST/harnessvn-open.service" 2>/dev/null || true
+write_unit harnessvn-open.service "$BRIDGE_UNIT"
 echo "da sinh unit ($SCOPE) trong $DEST:"
 ls -1 "$DEST" | sed "s/^/  /"

@@ -91,11 +91,7 @@ install -m 0644 "$HERE/cloud-init/meta-data.yaml" seed/meta-data.yaml
 STAGE="$HERE/harnessvn-src.tar.gz"
 if [ ! -f "$STAGE" ] || [ "$PREBUILT" = "1" ]; then
   echo "    dong goi ma nguon -> $STAGE"
-  if git -C "$ROOT" rev-parse --git-dir >/dev/null 2>&1; then
-    # Chi dong goi file da commit: nho, sach, khong lan file tam hay node_modules.
-    # --prefix=upstream/ de giai nen ra /opt/harnessvn/upstream (khop cloud-init + provision.sh)
-    git -C "$ROOT" archive --format=tar.gz --prefix=upstream/ -o "$STAGE" HEAD
-  elif [ "$PREBUILT" = "1" ]; then
+  if [ "$PREBUILT" = "1" ]; then
     # Ban dung san: giu nguyen lib/ + apps/web/dist + native addon da build tren may nay.
     tar --exclude='upstream/node_modules' --exclude='upstream/.git' --exclude='upstream/.pnpm-store' \
         --exclude='upstream/.corepack' --exclude='upstream/.npm-cache' --exclude='upstream/.pnpm-home' \
@@ -103,6 +99,10 @@ if [ ! -f "$STAGE" ] || [ "$PREBUILT" = "1" ]; then
         --exclude='upstream/harnessvn/vm/*.qcow2' --exclude='upstream/harnessvn/vm/*.tar.gz' \
         --exclude='upstream/harnessvn/vm/*.ova' --exclude='*.log' \
         -czf "$STAGE" -C "$(dirname "$ROOT")" upstream
+  elif git -C "$ROOT" rev-parse --git-dir >/dev/null 2>&1; then
+    # Chi dong goi file da commit: nho, sach, khong lan file tam hay node_modules.
+    # --prefix=upstream/ de giai nen ra /opt/harnessvn/upstream (khop cloud-init + provision.sh)
+    git -C "$ROOT" archive --format=tar.gz --prefix=upstream/ -o "$STAGE" HEAD
   else
     tar --exclude='*/node_modules' --exclude='*/.git' --exclude='*/.pnpm-store' --exclude='*/.corepack' \
         --exclude='*/.npm-cache' --exclude='*/.pnpm-home' --exclude='*/harnessvn/vm/work' \
@@ -170,7 +170,7 @@ timeout "${FIRSTBOOT_TIMEOUT:-1800}" "$QEMU_BIN" "${QEMU_EXTRA[@]}" \
   "${KVM_ARGS[@]}" -m "$MEM" -smp "$CPUS" -display none \
   -drive "file=$GOLDEN,if=virtio" \
   -smbios "type=1,serial=$SMBIOS" \
-  -netdev "user,id=n0,hostfwd=tcp::$PORT-:9999${BRIDGE:+,hostfwd=tcp::$BRIDGE-:9998}" -device virtio-net-pci,netdev=n0 \
+  -netdev "user,id=n0,hostfwd=tcp:127.0.0.1:$PORT-127.0.0.1:9999${BRIDGE:+,hostfwd=tcp:127.0.0.1:$BRIDGE-127.0.0.1:9998}" -device virtio-net-pci,netdev=n0 \
   -serial "file:$WORK/firstboot.log" || true
 
 # 5. Nen lai anh
