@@ -41,9 +41,14 @@ cp "$HERE/cloud-init/user-data.yaml" "$HERE/cloud-init/meta-data.yaml" seed/
 STAGE="$HERE/harnessvn-src.tar.gz"
 if [ ! -f "$STAGE" ]; then
   echo "    dong goi ma nguon -> $STAGE"
-  tar --exclude='*/node_modules' --exclude='./.git' --exclude='./.pnpm-store' --exclude='./.corepack' \
-      --exclude='./.npm-cache' --exclude='./.pnpm-home' --exclude='./harnessvn/vm/work' --exclude='./build-*.log' \
-      -czf "$STAGE" -C "$ROOT" .
+  if git -C "$ROOT" rev-parse --git-dir >/dev/null 2>&1; then
+    # Chi dong goi file da commit: nho, sach, khong lan file tam hay node_modules.
+    git -C "$ROOT" archive --format=tar.gz -o "$STAGE" HEAD
+  else
+    tar --exclude='*/node_modules' --exclude='./.git' --exclude='./.pnpm-store' --exclude='./.corepack' \
+        --exclude='./.npm-cache' --exclude='./.pnpm-home' --exclude='./harnessvn/vm/work' \
+        --exclude='./*.log' --exclude='./*.png' -czf "$STAGE" -C "$ROOT" .
+  fi
 fi
 cp "$STAGE" seed/harnessvn-src.tar.gz
 ( cd seed && python3 -m http.server 8000 --bind 127.0.0.1 >/dev/null 2>&1 & echo $! > ../seed.pid )
