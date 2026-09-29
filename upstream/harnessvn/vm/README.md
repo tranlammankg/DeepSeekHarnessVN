@@ -130,7 +130,9 @@ Việc cài đặt do `harnessvn/install/provision.sh` làm, **không cần quy�
 | Dạng lệnh chạy app trong unit | ✅ sửa thật: `node <node_modules/.bin/tsx>` là **shell shim** → `SyntaxError`; đã đổi sang dạng chính thức `node --import tsx/esm apps/cli/src/bin.ts` (chạy thử ra URL token) |
 | Node dùng cho dịch vụ | ✅ `provision.sh` lưu `NODE_BIN` (node hệ thống cũng dùng được), không hardcode `$PREFIX/bin/node` |
 | Cửa nối khi không có launcher/config server (ví dụ Windows) | ✅ đọc token từ `~/harnessvn-web.log` của nhánh khởi động trực tiếp; việc đọc cổng công khai được làm **lười** nên server lên ngay, không chờ mạng |
-| **Boot thật + cài thật trong VM** | ⏳ **chưa chạy được trong phiên soạn** — môi trường soạn là container không có `/dev/kvm`, không root, không qemu |
+| **Boot thật trong VM (TCG, không KVM)** | ✅ đã chạy: cloud-init NoCloud lấy seed OK → tải mã nguồn 34 MB vào `/opt/harnessvn/upstream` → `provision.sh` chạy dưới `User=harnessvn` → tải Node → `pnpm install` xong (10 phút 10 giây) → `build:lib` đang chạy thì dừng (quá ~2 giờ TCG). Log: `evidence/vm-real-boot.log` |
+| Bước dịch vụ của `provision.sh` (2 phạm vi) | ✅ `tools/selftest-provision.sh` tách đúng đoạn mã bước 5 và kiểm bằng lệnh giả: 15/15 khẳng định đạt (unit hệ thống có `User=harnessvn`, `WantedBy=multi-user.target`, `--import tsx/esm`, ghi URL ra log; không sudo thì unit `--user` + `loginctl enable-linger`) |
+| **Boot bằng KVM + cài xong tới cuối** | ⏳ chưa: phiên soạn không có `/dev/kvm`; máy có ảo hoá mất 10–20 phút |
 
 Khi bạn chạy `build-image.sh` trên máy có qemu, lần boot đầu sẽ ghi toàn bộ tiến trình vào
 `vm/work/firstboot.log` và console của máy ảo. Nếu provisioning lỗi, xem `~/harnessvn-provision.log`

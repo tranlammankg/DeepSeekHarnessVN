@@ -17,6 +17,7 @@ echo "== 4/5 gate =="
 $PNPM exec vitest run scripts/locale-dictionary-parity.spec.ts
 $PNPM exec tsx scripts/verify-client-ui-i18n.ts
 node harnessvn/tools/verify-vi-dictionaries.mjs
+bash harnessvn/tools/selftest-provision.sh
 
 echo "== 5/5 xong. Chạy thử: =="
 echo "   DSH_HOME=$(mktemp -d) $PNPM dsh web --no-open --port 3080 --trusted-host localhost"
