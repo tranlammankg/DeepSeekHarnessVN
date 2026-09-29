@@ -1,6 +1,6 @@
 # Runbook thực thi HarnessVN (planning — chưa chạy)
 
-> Dùng khi user ra lệnh bắt đầu. Mọi lệnh chạy trong `/home/ailamman/Desktop/HarnessVN`.
+> Dùng khi user ra lệnh bắt đầu. Mọi lệnh chạy trong `/path/to/HarnessVN`.
 > Nguyên tắc: **không cần root**; mỗi bước có lệnh kiểm chứng riêng; không sửa lõi upstream nếu không bắt buộc.
 
 ## Số liệu chuẩn bị (đã đo)
@@ -22,7 +22,7 @@ hiện **trùng với HEAD của `master`**, và chính là bản npm phát hàn
 → **Pin vào `dsh-v0.1.7-rc.2`** để không bị trôi theo master.
 
 ```bash
-cd /home/ailamman/Desktop/HarnessVN
+cd /path/to/HarnessVN
 git clone --depth 1 --branch dsh-v0.1.7-rc.2 https://github.com/deepseek-ai/deepseek-harness.git upstream
 cd upstream
 git log -1 --format='%H %ci'            # phải ra 477b4f420553e8a52c2fbccc464d7561b239c443

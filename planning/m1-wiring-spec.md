@@ -60,10 +60,10 @@ Runtime **không cần sửa**: `lookup()` đã đi theo fallback chain của lo
 
 ```bash
 cd <repo fork>
-cp -r /home/ailamman/Desktop/HarnessVN/planning/vi-dictionaries/packages ./   # giữ nguyên cây thư mục
+cp -r /path/to/HarnessVN/planning/vi-dictionaries/packages ./   # giữ nguyên cây thư mục
 ```
 Mỗi file là `<tên gốc>.vi.ts` nằm cạnh file gốc. Kiểm chứng trước khi copy:
-`node /home/ailamman/Desktop/HarnessVN/planning/verify_vi_ts.mjs` → phải ra `van de: 0`.
+`node /path/to/HarnessVN/planning/verify_vi_ts.mjs` → phải ra `van de: 0`.
 
 ## Bước 4 — Truyền `vi` vào chỗ đăng ký từng package
 

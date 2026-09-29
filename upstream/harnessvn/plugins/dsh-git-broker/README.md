@@ -70,7 +70,7 @@ chặn harness thao tác ghi (host trả **403**), nhưng bản thân token thì
 
 ```sh
 # 1) link package vào profile + ghi vào dsh.profile.bundles
-dsh plugin --profile web add "/home/ailamman/Desktop/ phát triển các tính năng thêm cho harness/dsh-git-broker"
+dsh plugin --profile web add "/path/to/home/Desktop/ phát triển các tính năng thêm cho harness/dsh-git-broker"
 
 # 2) row bật plugin phải nằm ở ĐÚNG MỘT layer: patch của profile (được watch live)
 #    ~/.dsh/profiles/web/cordis.patch.yml
@@ -103,7 +103,7 @@ ln -s ~/.dsh/profiles/node_modules/@deepseek-ai node_modules/@deepseek-ai
 
 ```yaml
 version: 1
-cloneRoot: /home/ailamman/dsh-repos      # nơi clone mặc định
+cloneRoot: <cloneRoot>      # nơi clone mặc định
 repos:
   # Trường hợp phổ biến: chỉ cần url. id tự suy ra, public thì clone ẩn danh.
   - id: hello-world
@@ -114,7 +114,7 @@ repos:
   # Thư mục rỗng -> clone vào đó; thư mục đã có file -> adopt tại chỗ.
   - id: tikkot
     url: https://github.com/tranlammankg/tikkot.git
-    workspace: /home/ailamman/Desktop/tikok
+    workspace: /path/to/workspace
     defaultBranch: main                  # bắt buộc khi adopt (biết branch nào để track)
     allowWrite: true
 
@@ -130,7 +130,7 @@ repos:
     allowWrite: false
     auth:
       kind: ssh-deploy-key
-      keyPath: /home/ailamman/.ssh/deploy_billing
+      keyPath: <khoa-deploy>
 
   # Token cố định từ env, không cần login tương tác
   - id: docs

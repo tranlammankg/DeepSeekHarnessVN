@@ -55,8 +55,13 @@ cd "$SRC_DIR/upstream"
 export npm_config_cache="$HOME/.npm-cache"
 export PNPM_STORE_DIR="$HOME/.pnpm-store"
 $PNPM install --frozen-lockfile --store-dir "$PNPM_STORE_DIR"
-$PNPM run build:lib
-$PNPM run build:web
+if [ -f apps/web/dist/index.html ] && [ -d packages/client/locale/lib ]; then
+  # Anh dung san: da co lib/ + frontend, khong phai build lai (nhanh hon nhieu).
+  echo "    (ban dung san: bo qua build:lib + build:web)"
+else
+  $PNPM run build:lib
+  $PNPM run build:web
+fi
 
 # 4. Cai plugin di kem (tru dsh-mario)
 echo "[4/6] Cai plugin di kem..."

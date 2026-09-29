@@ -12,7 +12,7 @@
 # file can hot-add the entry to an already-running `dsh web`.
 #
 # The package itself is pnpm-installed in this profile:
-#     dsh plugin --profile web add /home/ailamman/Desktop/plugin/dsh-mario
+#     dsh plugin --profile web add /path/to/dsh-mario
 # Removing the package means deleting this row too. See the plugin README.
 - insert:
     - id: ui-mario

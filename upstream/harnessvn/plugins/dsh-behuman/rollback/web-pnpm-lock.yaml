@@ -9,16 +9,16 @@ importers:
   .:
     dependencies:
       '@ailamman/dsh-mario':
-        specifier: link:/home/ailamman/Desktop/plugin/dsh-mario
+        specifier: link:/path/to/dsh-mario
         version: link:../../../Desktop/plugin/dsh-mario
       '@ailamman/dsh-skill-explorer':
-        specifier: link:/home/ailamman/Desktop/ phát triển các tính năng thêm cho harness/dsh-skill-explorer
+        specifier: link:/path/to/home/Desktop/ phát triển các tính năng thêm cho harness/dsh-skill-explorer
         version: link:../../../Desktop/ phát triển các tính năng thêm cho harness/dsh-skill-explorer
       '@deepseek-ai/dsh-experimental-agent-team-profile':
         specifier: 0.1.5-rc.3
         version: 0.1.5-rc.3
       '@goodddgrades/dsh-behuman':
-        specifier: file:/home/ailamman/.dsh/plugins/goodddgrades-dsh-behuman-0.1.0.tgz
+        specifier: file:/path/to/dsh-behuman.tgz
         version: file:../../plugins/goodddgrades-dsh-behuman-0.1.0.tgz(@deepseek-ai/schemastery@3.18.2)
 
 packages:

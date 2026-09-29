@@ -12,7 +12,7 @@ importers:
         specifier: 0.1.5-rc.3
         version: 0.1.5-rc.3
       '@goodddgrades/dsh-behuman':
-        specifier: file:/home/ailamman/.dsh/plugins/goodddgrades-dsh-behuman-0.1.0.tgz
+        specifier: file:/path/to/dsh-behuman.tgz
         version: file:../../plugins/goodddgrades-dsh-behuman-0.1.0.tgz(@deepseek-ai/schemastery@3.18.2)
 
 packages:

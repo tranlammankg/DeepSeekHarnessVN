@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@deepseek-ai/dsh-experimental-agent-team-profile": "0.1.5-rc.3",
-    "@goodddgrades/dsh-behuman": "file:/home/ailamman/.dsh/plugins/goodddgrades-dsh-behuman-0.1.0.tgz"
+    "@goodddgrades/dsh-behuman": "file:/path/to/dsh-behuman.tgz"
   },
   "dsh": {
     "profile": {

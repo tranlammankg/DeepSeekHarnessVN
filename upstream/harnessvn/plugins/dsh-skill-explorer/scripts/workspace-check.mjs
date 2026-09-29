@@ -10,7 +10,7 @@
  */
 const cdpBase = process.env.CDP_URL || 'http://127.0.0.1:9222';
 const pageUrl = process.argv[2];
-const workspacePath = process.argv[3] || '/home/ailamman/Desktop/muasam';
+const workspacePath = process.argv[3] || '/path/to/workspace';
 const shotPath = process.argv[4] || '/tmp/dsh-skill-explorer-workspace.png';
 const ENTRY_ID = '@ailamman/dsh-skill-explorer';
 

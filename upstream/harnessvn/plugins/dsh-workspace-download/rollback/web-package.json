@@ -2,10 +2,10 @@
   "name": "dsh-profile-web",
   "private": true,
   "dependencies": {
-    "@ailamman/dsh-mario": "link:/home/ailamman/Desktop/plugin/dsh-mario",
-    "@ailamman/dsh-skill-explorer": "link:/home/ailamman/Desktop/ phát triển các tính năng thêm cho harness/dsh-skill-explorer",
+    "@ailamman/dsh-mario": "link:/path/to/dsh-mario",
+    "@ailamman/dsh-skill-explorer": "link:/path/to/home/Desktop/ phát triển các tính năng thêm cho harness/dsh-skill-explorer",
     "@deepseek-ai/dsh-experimental-agent-team-profile": "0.1.5-rc.3",
-    "@goodddgrades/dsh-behuman": "link:/home/ailamman/Desktop/ phát triển các tính năng thêm cho harness/dsh-behuman"
+    "@goodddgrades/dsh-behuman": "link:/path/to/home/Desktop/ phát triển các tính năng thêm cho harness/dsh-behuman"
   },
   "dsh": {
     "profile": {

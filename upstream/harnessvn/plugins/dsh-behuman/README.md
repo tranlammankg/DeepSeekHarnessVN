@@ -30,7 +30,7 @@ npm test        # 14 checks: no CJK under lib/, label shape, clue facets, the fu
 Install into a profile (the row lives in the package's own bundle patch):
 
 ```sh
-dsh plugin --profile web add "/home/ailamman/Desktop/ phát triển các tính năng thêm cho harness/dsh-behuman"
+dsh plugin --profile web add "/path/to/home/Desktop/ phát triển các tính năng thêm cho harness/dsh-behuman"
 ```
 
 A host-side plugin change needs a profile restart to take effect; the package is linked rather

@@ -93,7 +93,7 @@ tải mã nguồn 34 MB vào `/opt/harnessvn/upstream`, `provision.sh` chạy d�
 (không có `/dev/kvm`); trên máy có ảo hoá bước đó chỉ vài phút.
 
 Không kiểm được trong container: bước `dsh plugin --profile web add` — CLI dùng home theo `/etc/passwd`
-(`/home/ailamman/.dsh`, chỉ đọc trong container) nên bị EROFS; provision bỏ qua plugin đó và **tiếp tục**
+(`/path/to/home/.dsh`, chỉ đọc trong container) nên bị EROFS; provision bỏ qua plugin đó và **tiếp tục**
 đúng như thiết kế. Trong máy ảo `runuser -u harnessvn` làm home khớp `$HOME` nên bước này chạy bình thường.
 
 ## Chưa kiểm chứng được trong phiên này

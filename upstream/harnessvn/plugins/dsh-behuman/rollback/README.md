@@ -5,7 +5,7 @@ before `dsh plugin --profile {web,headless} add dsh-behuman`:
 
 | File | Original |
 |---|---|
-| `web-package.json` | `@goodddgrades/dsh-behuman: file:/home/ailamman/.dsh/plugins/goodddgrades-dsh-behuman-0.1.0.tgz` (Chinese 0.1.0) |
+| `web-package.json` | `@goodddgrades/dsh-behuman: file:/path/to/dsh-behuman.tgz` (Chinese 0.1.0) |
 | `web-pnpm-lock.yaml` | lockfile matching it |
 | `headless-package.json` | same dependency, headless profile |
 | `headless-pnpm-lock.yaml` | lockfile matching it |

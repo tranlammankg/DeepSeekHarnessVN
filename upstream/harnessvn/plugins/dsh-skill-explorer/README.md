@@ -54,7 +54,7 @@ xác thực (ở máy này: `dsh web` bind loopback + nginx Basic auth phía tr�
 
 ```sh
 # 1. cài package vào profile (pnpm link + ghi vào dsh.profile.bundles)
-dsh plugin --profile web add "/home/ailamman/Desktop/ phát triển các tính năng thêm cho harness/dsh-skill-explorer"
+dsh plugin --profile web add "/path/to/home/Desktop/ phát triển các tính năng thêm cho harness/dsh-skill-explorer"
 
 # 2. bật row trong patch của profile — row phải nằm ở DUY NHẤT một layer
 #    (~/.dsh/profiles/web/cordis.patch.yml), vì profile patch được watch live:
@@ -77,10 +77,10 @@ xoá row trong `~/.dsh/profiles/web/cordis.patch.yml`.
 ## Phát triển
 
 ```sh
-cd "/home/ailamman/Desktop/ phát triển các tính năng thêm cho harness/dsh-skill-explorer"
+cd "/path/to/home/Desktop/ phát triển các tính năng thêm cho harness/dsh-skill-explorer"
 npm run build       # src/client.js -> lib/client.js (bundle lazy-CJS)
 node scripts/live-check.mjs 'http://127.0.0.1:9997/?token=<token>'          # 12 check
-node scripts/workspace-check.mjs 'http://127.0.0.1:9999/?token=<token>' /home/ailamman/Desktop/muasam
+node scripts/workspace-check.mjs 'http://127.0.0.1:9999/?token=<token>' /path/to/workspace
 ```
 
 - `lib/client.js` là **file sinh ra** — sửa `src/client.js` rồi build lại, không sửa tay.

@@ -73,7 +73,7 @@ immediately; lane 1 upgrades it to full parity on the next `dsh.service` restart
 ## Install
 
 ```sh
-dsh plugin --profile web add "/home/ailamman/Desktop/ phát triển các tính năng thêm cho harness/dsh-remote-settings"
+dsh plugin --profile web add "/path/to/home/Desktop/ phát triển các tính năng thêm cho harness/dsh-remote-settings"
 ```
 
 The activation row must live in exactly one layer. It is in the profile's own patch file

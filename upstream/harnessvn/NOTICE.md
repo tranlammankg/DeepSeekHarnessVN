@@ -4,12 +4,13 @@ HarnessVN là bản phái sinh (fork) của **DeepSeek Harness**.
 
 - Nguồn: https://github.com/deepseek-ai/deepseek-harness
 - Phiên bản ghim: tag `dsh-v0.1.7-rc.2` — commit `477b4f420553e8a52c2fbccc464d7561b239c443`
-- Giấy phép: **MIT** (xem `LICENSE` ở gốc repo — giữ nguyên của upstream)
+- Giấy phép: **MIT**. `LICENSE` ở gốc repo là bản của upstream **giữ nguyên**, có bổ sung một dòng
+  bản quyền cho các thay đổi của HarnessVN (đúng yêu cầu của MIT: phải giữ nguyên thông báo bản quyền gốc).
 
 ## Thay đổi của HarnessVN so với upstream
 
 1. **Tiếng Việt trở thành locale gốc**: `vi` nằm trong `LOCALE_IDS`; từ điển tiếng Việt cho 55 namespace
-   (2.497 khoá) nằm tại `packages/client/locale/src/client/locales/vi/`; kiểu `register` được nới để
+   (2.498 khoá) nằm tại `packages/client/locale/src/client/locales/vi/`; kiểu `register` được nới để
    `vi` có thể đến dần (khoá thiếu rơi về `en`).
 2. **Shell desktop có tiếng Việt**: `apps/desktop/src/locale.ts` thêm từ điển `vi` (138 khoá) và
    nhận diện ngôn ngữ hệ điều hành `vi`.

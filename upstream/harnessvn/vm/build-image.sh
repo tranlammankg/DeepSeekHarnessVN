@@ -26,6 +26,8 @@ CPUS="${CPUS:-2}"
 PORT="${PORT:-9999}"
 KVM="${KVM:-1}"
 PREPARE_ONLY="${PREPARE_ONLY:-0}"   # 1 = chi tai anh nen + dong goi seed, khong can qemu
+PREBUILT="${PREBUILT:-0}"         # 1 = dong goi kem lib/ + dist/ da build san (bo qua build trong VM)
+BRIDGE="${BRIDGE:-0}"             # khac 0 = hostfwd them cong nay -> guest:9998 (cua noi)
 
 # May khong co quyen root cung dung duoc: giai nen .deb cua qemu vao mot thu muc roi dat QEMU_DIR.
 QEMU_DIR="${QEMU_DIR:-}"
@@ -85,13 +87,22 @@ install -m 0644 "$HERE/cloud-init/user-data.yaml" seed/user-data
 install -m 0644 "$HERE/cloud-init/meta-data.yaml" seed/meta-data
 install -m 0644 "$HERE/cloud-init/user-data.yaml" seed/user-data.yaml
 install -m 0644 "$HERE/cloud-init/meta-data.yaml" seed/meta-data.yaml
+# PREBUILT=1 thi luon dong goi lai (goi cu chi co ma nguon, khong co lib/dist).
 STAGE="$HERE/harnessvn-src.tar.gz"
-if [ ! -f "$STAGE" ]; then
+if [ ! -f "$STAGE" ] || [ "$PREBUILT" = "1" ]; then
   echo "    dong goi ma nguon -> $STAGE"
   if git -C "$ROOT" rev-parse --git-dir >/dev/null 2>&1; then
     # Chi dong goi file da commit: nho, sach, khong lan file tam hay node_modules.
     # --prefix=upstream/ de giai nen ra /opt/harnessvn/upstream (khop cloud-init + provision.sh)
     git -C "$ROOT" archive --format=tar.gz --prefix=upstream/ -o "$STAGE" HEAD
+  elif [ "$PREBUILT" = "1" ]; then
+    # Ban dung san: giu nguyen lib/ + apps/web/dist + native addon da build tren may nay.
+    tar --exclude='upstream/node_modules' --exclude='upstream/.git' --exclude='upstream/.pnpm-store' \
+        --exclude='upstream/.corepack' --exclude='upstream/.npm-cache' --exclude='upstream/.pnpm-home' \
+        --exclude='upstream/.xdg-cache' --exclude='upstream/.xdg-data' --exclude='upstream/harnessvn/vm/work' \
+        --exclude='upstream/harnessvn/vm/*.qcow2' --exclude='upstream/harnessvn/vm/*.tar.gz' \
+        --exclude='upstream/harnessvn/vm/*.ova' --exclude='*.log' \
+        -czf "$STAGE" -C "$(dirname "$ROOT")" upstream
   else
     tar --exclude='*/node_modules' --exclude='*/.git' --exclude='*/.pnpm-store' --exclude='*/.corepack' \
         --exclude='*/.npm-cache' --exclude='*/.pnpm-home' --exclude='*/harnessvn/vm/work' \
@@ -110,6 +121,15 @@ done
 case "$SRC_LIST" in
   *node_modules*) echo "    CANH BAO: goi ma nguon co node_modules (nang vo ich)" ;;
 esac
+if [ "$PREBUILT" = "1" ]; then
+  for built in upstream/apps/web/dist/index.html \
+               upstream/packages/client/locale/lib/client.js \
+               upstream/native/system/packages/linux-x64/bin/glibc/system.node; do
+    grep -qx "$built" <<< "$SRC_LIST" \
+      || { echo "    THIEU $built — chua build tren may nay thi dung PREBUILT=0"; exit 1; }
+  done
+  echo "    ban dung san: co lib/ + apps/web/dist + native addon"
+fi
 echo "    goi ma nguon: $(printf '%s\n' "$SRC_LIST" | wc -l) muc, $(du -h "$STAGE" | cut -f1)"
 cp "$STAGE" seed/harnessvn-src.tar.gz
 echo "    seed: $(ls -1 seed | tr '\n' ' ')  |  goi ma nguon: $(du -h "$STAGE" | cut -f1)"
@@ -150,7 +170,7 @@ timeout "${FIRSTBOOT_TIMEOUT:-1800}" "$QEMU_BIN" "${QEMU_EXTRA[@]}" \
   "${KVM_ARGS[@]}" -m "$MEM" -smp "$CPUS" -display none \
   -drive "file=$GOLDEN,if=virtio" \
   -smbios "type=1,serial=$SMBIOS" \
-  -netdev "user,id=n0,hostfwd=tcp::$PORT-:9999" -device virtio-net-pci,netdev=n0 \
+  -netdev "user,id=n0,hostfwd=tcp::$PORT-:9999${BRIDGE:+,hostfwd=tcp::$BRIDGE-:9998}" -device virtio-net-pci,netdev=n0 \
   -serial "file:$WORK/firstboot.log" || true
 
 # 5. Nen lai anh

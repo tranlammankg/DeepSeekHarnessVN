@@ -56,7 +56,7 @@ thay vì tạo archive thiếu**.
 ## Cài đặt
 
 ```sh
-dsh plugin --profile web add "/home/ailamman/Desktop/ phát triển các tính năng thêm cho harness/dsh-workspace-download"
+dsh plugin --profile web add "/path/to/home/Desktop/ phát triển các tính năng thêm cho harness/dsh-workspace-download"
 ```
 
 Rồi thêm row vào **profile patch** (một layer duy nhất — trùng id là boot chết):
@@ -85,7 +85,7 @@ npm run live -- <page-url-token> <thư-mục-download> <workspace> [ảnh.png] [
 bấm mục của plugin, rồi đối chiếu **byte trên đĩa** và **đọc archive bằng Python `zipfile`** —
 kiểm tra archive khớp **đệ quy** với thư mục nguồn nên chạy được trên workspace bất kỳ.
 
-Lần chạy cuối, trên **harness thật** (9999, workspace `/home/ailamman/Desktop/Harness`):
+Lần chạy cuối, trên **harness thật** (9999, workspace `/path/to/workspace`):
 
 ```
 ok  the downloaded bytes match the workspace file — 9379 bytes

@@ -4,7 +4,7 @@
 
 ## 1. Tình trạng repo cục bộ (đã kiểm chứng)
 
-- Thư mục: `/home/ailamman/Desktop/HarnessVN`, nhánh `main`, commit gốc `de0f663d` (repo tự đứng, không dính lịch sử dự án khác).
+- Thư mục: `/path/to/HarnessVN`, nhánh `main`, commit gốc `de0f663d` (repo tự đứng, không dính lịch sử dự án khác).
 - 14.534 file được theo dõi, không có `node_modules`, `.git` ~41 MB.
 - 56 file từ điển tiếng Việt (2.497 khoá), 5 plugin kèm theo (behuman, git-broker, remote-settings, skill-explorer, workspace-download — đã loại `dsh-mario` theo yêu cầu).
 - `.dsh-test/` (chứa credentials phiên thử) đã bị xoá khỏi cây làm việc **và khỏi toàn bộ lịch sử** (kiểm tra: `git log --all -- .dsh-test` rỗng, `git archive HEAD` không còn mục nào).
@@ -21,7 +21,7 @@
 1. GitHub → **New repository** → tên `HarnessVN`, public, **không** thêm README/gitignore/license (repo đã có sẵn).
 2. DSH Web → panel **Git repos** → thêm repo với:
    - url: `https://github.com/tranlammankg/HarnessVN.git`
-   - workspace: `/home/ailamman/Desktop/HarnessVN`
+   - workspace: `/path/to/HarnessVN`
    - `allowWrite: true`
 3. Bấm login (nếu panel yêu cầu) rồi nhờ agent đẩy, hoặc tự chạy mục 4.
 
@@ -49,7 +49,7 @@ git push -u harnessvn main:harnessvn   # đẩy vào nhánh tên harnessvn, khô
 ## 4. Lệnh đẩy trực tiếp (không qua broker)
 
 ```bash
-cd /home/ailamman/Desktop/HarnessVN
+cd /path/to/HarnessVN
 git remote add harnessvn https://github.com/tranlammankg/HarnessVN.git
 git push -u harnessvn main
 git tag -a harnessvn-v0.1.0 -m 'HarnessVN 0.1.0 - ban Viet hoa dau tien'
