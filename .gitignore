@@ -12,3 +12,7 @@ upstream/harnessvn/vm/seed/
 upstream/harnessvn/vm/*.tar.gz
 
 # node_modules/lib da duoc upstream/.gitignore bo qua san
+
+# Thu muc trang thai thu nghiem (khong bao gio commit)
+.dsh-test/
+.chromium-shot/
