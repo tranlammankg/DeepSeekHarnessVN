@@ -15,6 +15,24 @@ package_update: false
 package_upgrade: false
 
 write_files:
+  # Lay ma nguon HarnessVN tu HTTP server cua may dung (10.0.2.2 = host trong user-mode net).
+  - path: /usr/local/bin/harnessvn-fetch-source.sh
+    permissions: '0755'
+    content: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+      URL="http://10.0.2.2:8000/harnessvn-src.tar.gz"
+      for i in $(seq 1 60); do
+        if curl -fsS -o /tmp/harnessvn-src.tar.gz "$URL"; then break; fi
+        echo "cho nguon ($i/60)..." >&2
+        sleep 5
+      done
+      mkdir -p /opt/harnessvn
+      tar -xzf /tmp/harnessvn-src.tar.gz -C /opt/harnessvn
+      rm -f /tmp/harnessvn-src.tar.gz
+      chown -R harnessvn:harnessvn /opt/harnessvn
+      ls /opt/harnessvn
+
   - path: /etc/systemd/system/harnessvn-firstboot.service
     permissions: '0644'
     content: |
@@ -26,18 +44,19 @@ write_files:
 
       [Service]
       Type=oneshot
-      User=harnessvn
-      Environment=HOME=/home/harnessvn
-      ExecStart=/bin/bash -lc '/opt/harnessvn/install/provision.sh'
+      User=root
+      ExecStart=/usr/local/bin/harnessvn-fetch-source.sh
+      ExecStartPost=/usr/bin/runuser -u harnessvn -- /bin/bash -lc /opt/harnessvn/harnessvn/install/provision.sh
       ExecStartPost=/usr/bin/touch /var/lib/harnessvn/.provisioned
       RemainAfterExit=yes
       StandardOutput=journal
       StandardError=journal
+      TimeoutStartSec=3600
 
       [Install]
       WantedBy=multi-user.target
 
-  # Cho phép vào console không cần mật khẩu để xem tiến trình cài đặt lần đầu.
+  # Vao console khong can mat khau de xem tien trinh cai dat lan dau.
   - path: /etc/systemd/system/serial-getty@ttyS0.service.d/autologin.conf
     permissions: '0644'
     content: |
@@ -50,4 +69,4 @@ runcmd:
   - [chown, harnessvn:harnessvn, /var/lib/harnessvn]
   - [systemctl, daemon-reload]
   - [systemctl, enable, --now, harnessvn-firstboot.service]
-  - [bash, -lc, "printf '\\n\\n=== HarnessVN ===\\nMay ao dang duoc cai dat. Khi xong, mo trinh duyet tren may that: http://localhost:9999\\n\\n' > /dev/ttyS0 || true"]
+  - [bash, -lc, "printf '\\n\\n=== HarnessVN ===\\nMay ao dang cai dat (lan dau 10-20 phut). Khi xong, mo trinh duyet tren may that: http://localhost:9999\\n\\n' > /dev/ttyS0 || true"]

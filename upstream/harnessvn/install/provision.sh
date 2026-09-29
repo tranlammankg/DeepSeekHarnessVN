@@ -1,63 +1,71 @@
 #!/usr/bin/env bash
-# HarnessVN — cài đặt bên trong máy ảo / máy Ubuntu sạch. KHÔNG cần sudo.
-# Đặt Node + HarnessVN vào ~/.local, cài plugin đi kèm, bật web UI ở 127.0.0.1:9999.
+# HarnessVN — cài đặt bên trong máy ảo / máy Ubuntu sạch. KHÔNG cần sudo cho phần Node.
+# Cài Node + pnpm vào ~/.local, build bản fork HarnessVN, cài plugin đi kèm,
+# rồi bật web UI ở 127.0.0.1:9999 bằng systemd --user.
 set -euo pipefail
 
-HARNESSVN_DIR="${HARNESSVN_DIR:-$(cd "$(dirname "$0")/../.." && pwd)}"
+SRC_DIR="${HARNESSVN_SRC:-/opt/harnessvn}"      # cay ma nguon HarnessVN da giai nen
 NODE_VERSION="${NODE_VERSION:-v24.9.0}"
+PNPM_VERSION="${PNPM_VERSION:-11.7.0}"
 PREFIX="$HOME/.local"
 PORT="${PORT:-9999}"
 LOG="$HOME/harnessvn-provision.log"
 exec > >(tee -a "$LOG") 2>&1
 
 echo "== HarnessVN provision =="
-echo "nguon: $HARNESSVN_DIR"
+echo "nguon   : $SRC_DIR"
+echo "log     : $LOG"
 
-# 1. Node (cài ở mức người dùng, không cần quyền root)
-if ! command -v node >/dev/null 2>&1 || [ "$(node -v)" != "$NODE_VERSION" ]; then
-  echo "[1/5] Tải Node $NODE_VERSION…"
-  mkdir -p "$PREFIX"
-  arch="$(uname -m)"; case "$arch" in x86_64) narch=x64 ;; aarch64|arm64) narch=arm64 ;; *) echo "không hỗ trợ $arch"; exit 1 ;; esac
-  tmp="$(mktemp -d)"
-  curl -fsSL "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-$narch.tar.xz" -o "$tmp/node.tar.xz"
-  tar -xJf "$tmp/node.tar.xz" -C "$tmp"
-  cp -a "$tmp/node-$NODE_VERSION-linux-$narch/." "$PREFIX/"
-  rm -rf "$tmp"
-else
-  echo "[1/5] Node đã có: $(node -v)"
-fi
+# 1. Node (user-level, khong dung apt)
 export PATH="$PREFIX/bin:$PATH"
-
-# 2. HarnessVN (bản fork đã build, hoặc cài từ nguồn)
-echo "[2/5] Cài HarnessVN…"
-if [ -f "$HARNESSVN_DIR/upstream/apps/cli/lib/bin.js" ] || [ -d "$HARNESSVN_DIR/upstream/apps/cli" ]; then
-  SRC="$HARNESSVN_DIR/upstream"
+if ! command -v node >/dev/null 2>&1; then
+  echo "[1/6] Tai Node $NODE_VERSION ..."
+  mkdir -p "$PREFIX"
+  case "$(uname -m)" in
+    x86_64) NARCH=x64 ;;
+    aarch64|arm64) NARCH=arm64 ;;
+    *) echo "khong ho tro $(uname -m)"; exit 1 ;;
+  esac
+  TMP="$(mktemp -d)"
+  curl -fsSL "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-$NARCH.tar.xz" -o "$TMP/node.tar.xz"
+  tar -xJf "$TMP/node.tar.xz" -C "$TMP"
+  cp -a "$TMP/node-$NODE_VERSION-linux-$NARCH/." "$PREFIX/"
+  rm -rf "$TMP"
 else
-  SRC="$HARNESSVN_DIR"
-fi
-if [ -f "$SRC/dist/harnessvn-cli.tgz" ]; then
-  npm --prefix "$PREFIX" install -g "$SRC/dist/harnessvn-cli.tgz"
-elif [ -d "$SRC/apps/cli" ] && [ -f "$SRC/apps/cli/lib/bin.js" ]; then
-  npm --prefix "$PREFIX" install -g "$SRC/apps/cli"
-else
-  echo "    (chưa có bản build sẵn — cài @deepseek-ai/dsh từ npm làm nền)"
-  npm --prefix "$PREFIX" install -g @deepseek-ai/dsh
+  echo "[1/6] Node da co: $(node -v)"
 fi
 
-# 3. Plugin đi kèm (đã bỏ plugin mario theo yêu cầu)
-echo "[3/5] Cài plugin đi kèm…"
-PLUGINS_DIR="$HARNESSVN_DIR/harnessvn/plugins"
-if [ -d "$PLUGINS_DIR" ]; then
-  for p in "$PLUGINS_DIR"/*/; do
+# 2. pnpm (corepack)
+echo "[2/6] Bat pnpm $PNPM_VERSION ..."
+export COREPACK_HOME="$HOME/.local/share/corepack"
+corepack enable --install-directory "$PREFIX/bin" >/dev/null 2>&1 || true
+corepack prepare "pnpm@$PNPM_VERSION" --activate >/dev/null 2>&1 || true
+PNPM="corepack pnpm@$PNPM_VERSION"
+$PNPM --version
+
+# 3. Build ban fork (co tieng Viet)
+echo "[3/6] Cai phu thuoc + build (lan dau co the mat 10-20 phut)..."
+cd "$SRC_DIR/upstream"
+export npm_config_cache="$HOME/.npm-cache"
+export PNPM_STORE_DIR="$HOME/.pnpm-store"
+$PNPM install --frozen-lockfile --store-dir "$PNPM_STORE_DIR"
+$PNPM run build:lib
+$PNPM run build:web
+
+# 4. Cai plugin di kem (tru dsh-mario)
+echo "[4/6] Cai plugin di kem..."
+PLUGINS="$SRC_DIR/harnessvn/plugins"
+if [ -d "$PLUGINS" ]; then
+  for p in "$PLUGINS"/*/; do
     name="$(basename "$p")"
     [ "$name" = "dsh-mario" ] && continue
     echo "    - $name"
-    "$PREFIX/bin/dsh" plugin --profile web add "$p" || echo "      (bỏ qua $name)"
+    $PNPM dsh plugin --profile web add "$p" || echo "      (bo qua $name)"
   done
 fi
 
-# 4. Dịch vụ người dùng: tự bật web UI khi máy khởi động
-echo "[4/5] Bật dịch vụ người dùng…"
+# 5. Dich vu nguoi dung: tu bat web UI khi may khoi dong
+echo "[5/6] Bat dich vu nguoi dung..."
 mkdir -p "$HOME/.config/systemd/user"
 cat > "$HOME/.config/systemd/user/harnessvn.service" <<UNIT
 [Unit]
@@ -66,9 +74,13 @@ After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=%h/.local/bin/dsh web --profile web --no-open --port $PORT --trusted-host localhost
+Environment=HOME=$HOME
+Environment=PATH=$PREFIX/bin:/usr/local/bin:/usr/bin:/bin
+Environment=COREPACK_HOME=$HOME/.local/share/corepack
+WorkingDirectory=$SRC_DIR/upstream
+ExecStart=$PREFIX/bin/node $SRC_DIR/upstream/node_modules/.bin/tsx $SRC_DIR/upstream/apps/cli/src/bin.ts web --no-open --port $PORT --trusted-host localhost
 Restart=on-failure
-RestartSec=3
+RestartSec=5
 
 [Install]
 WantedBy=default.target
@@ -77,12 +89,16 @@ systemctl --user daemon-reload
 systemctl --user enable --now harnessvn.service || true
 loginctl enable-linger "$USER" 2>/dev/null || true
 
-# 5. Kiểm tra
-echo "[5/5] Kiểm tra…"
-sleep 5
-if curl -fsS -o /dev/null "http://127.0.0.1:$PORT/" 2>/dev/null; then
-  echo "OK — HarnessVN đang chạy ở http://127.0.0.1:$PORT/"
-else
-  echo "CHƯA trả lời ở cổng $PORT — xem log: journalctl --user -u harnessvn -n 50"
-fi
-echo "Xong. Log: $LOG"
+# 6. Kiem tra
+echo "[6/6] Cho web UI tra loi..."
+for i in $(seq 1 30); do
+  if curl -fsS -o /dev/null "http://127.0.0.1:$PORT/" 2>/dev/null; then
+    echo "OK — HarnessVN dang chay: http://127.0.0.1:$PORT/"
+    echo "Mo tren may that: http://localhost:$PORT/"
+    exit 0
+  fi
+  sleep 5
+done
+echo "CHUA tra loi o cong $PORT. Xem: journalctl --user -u harnessvn -n 50"
+echo "Log cai dat: $LOG"
+exit 1
