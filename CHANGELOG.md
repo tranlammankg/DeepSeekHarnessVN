@@ -25,6 +25,9 @@ Các thay đổi đáng chú ý của HarnessVN. Mục mới nhất ở trên c�
 
 ### Cài đặt
 
+> **Chưa phát hành:** những mục dưới đây mô tả *đường cài đã dựng được bằng script trong repo*, không phải
+> file có sẵn để tải. Mục Releases hiện trống — chưa có `.exe`, `.dmg`, `.qcow2` hay `.ova` nào được đăng.
+
 - **Bộ cài desktop** cho Windows (.exe) và macOS (.dmg) — dựng bằng GitHub Actions (không build chéo được).
 - **Máy ảo QEMU Ubuntu 24.04** (`harnessvn-24.04-amd64.qcow2`): mở bằng `run-vm.sh` / `start-*.bat`,
   tự chọn cổng trống trên máy thật, tự mở trình duyệt ở cổng cầu nối **9998** (tự vào đúng phiên; trang chờ

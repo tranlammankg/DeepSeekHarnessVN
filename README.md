@@ -15,7 +15,7 @@ và trợ lý tự cài những phần mềm còn thiếu khi cần.
 - **Quên khoá API thì được chỉ dẫn**: app hiện *"Chưa có khoá API. Mở Cài đặt → Mô hình, dán khoá API rồi gửi lại."*
 - **Skill `vn-self-setup`**: thiếu phần mềm (ffmpeg, Python, …) thì trợ lý tự cài theo allowlist và báo lại bằng tiếng Việt.
 - **Hai đường cài**: bộ cài desktop (Windows/macOS) và **máy ảo QEMU Ubuntu** (Linux, hoặc máy không muốn cài gì) —
-  kèm file `.ova` cho VirtualBox/VMware.
+  kèm file `.ova` cho VirtualBox/VMware. *Mã nguồn và script dựng đã có; **chưa đăng bản tải sẵn** — xem mục Bắt đầu.*
 - **Tài liệu tiếng Việt cho người mới**: xem [`docs/vi/`](docs/vi/).
 
 ## Ảnh chụp
@@ -30,10 +30,17 @@ và trợ lý tự cài những phần mềm còn thiếu khi cần.
 
 ## Bắt đầu
 
-1. **Cài** — chọn một đường:
-   - *Desktop (dễ nhất, Windows/macOS)*: tải bộ cài trong mục **Releases** (`.exe` / `.dmg`) rồi nhấp đúp.
-   - *Máy ảo (Linux, hoặc máy không bật được ảo hoá)*: xem [`docs/vi/MAY-KHONG-BAT-AO-HOA.md`](docs/vi/MAY-KHONG-BAT-AO-HOA.md)
-     và [`upstream/harnessvn/vm/README.md`](upstream/harnessvn/vm/README.md).
+> **Chưa có bản tải sẵn.** Mục [Releases](../../releases) của repo đang trống — chưa có `.exe`, `.dmg`,
+> `.qcow2` hay `.ova` nào được đăng. Hai đường "tải về rồi nhấp đúp" mô tả trong [`docs/vi/`](docs/vi/)
+> **chỉ dùng được sau khi bản phát hành đầu tiên lên**. Tới lúc đó, đường duy nhất là tự dựng từ mã nguồn,
+> và đường đó **cần biết dùng dòng lệnh**.
+
+1. **Cài** — hiện có những đường sau:
+   - *Chạy từ mã nguồn* — **cách dùng được ngay**, cần biết dòng lệnh: xem mục *Chạy từ mã nguồn* bên dưới.
+   - *Tự dựng máy ảo* — cần Linux và QEMU: [`upstream/harnessvn/vm/README.md`](upstream/harnessvn/vm/README.md)
+     (`vm/build-image.sh` dựng ảnh `.qcow2`, `vm/export-ova.sh` xuất `.ova` cho VirtualBox/VMware).
+   - *Bộ cài desktop `.exe` / `.dmg`* — **chưa có**. Sẽ nằm ở mục Releases khi bản đầu tiên được đăng.
+   - Đã có file `.ova` do người khác dựng? Xem [`docs/vi/MAY-KHONG-BAT-AO-HOA.md`](docs/vi/MAY-KHONG-BAT-AO-HOA.md).
 2. **Mở HarnessVN** → làm theo màn hình tiếng Việt: chọn không gian làm việc → dán khoá API → chọn mô hình.
    Chưa có khoá? Xem [`docs/vi/LAY-KHOA-API.md`](docs/vi/LAY-KHOA-API.md).
 3. **Dùng**: gõ việc cần làm bằng tiếng Việt. Gặp trục trặc xem [`docs/vi/LOI-THUONG-GAP.md`](docs/vi/LOI-THUONG-GAP.md).
@@ -74,6 +81,8 @@ node harnessvn/tools/verify-vi-dictionaries.mjs                                 
 - **Đã kiểm**: build sạch (`build:lib` + `build:web`), 3 gate i18n, self-test provision 15/15, `verify-cordis-config`;
   onboarding khoá API + danh mục nhà cung cấp và skill `vn-self-setup` đã kiểm trên UI đang chạy; **máy ảo đã boot thật**
   (cloud-init → tải mã nguồn → provision → `pnpm install`) tới bước build.
+- **Chưa phát hành**: mục Releases trống — chưa có bản dựng sẵn nào cho người dùng cuối tải về. Người không
+  chuyên IT hiện **chưa có đường cài**; đó là việc cần làm trước tiên.
 - **Chưa kiểm**: boot ảnh máy ảo **bằng KVM** trên máy có ảo hoá, **import `.ova` trong VirtualBox/VMware**, và
   **bộ cài desktop chạy thật** (cần Windows/macOS). Chi tiết trong `CHANGELOG.md`.
 
@@ -99,8 +108,10 @@ node harnessvn/tools/verify-vi-dictionaries.mjs                                 
 HarnessVN is a community MIT-licensed fork of [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)
 (pinned at `dsh-v0.1.7-rc.2`). It adds Vietnamese as a built-in locale (55 namespaces, 2,498 keys), a Vietnamese-first
 onboarding that only asks for an API key and a model provider, and a bundled `vn-self-setup` skill so the agent can
-install missing tools for non-technical users. It ships as a desktop installer and as a QEMU Ubuntu VM image (plus an
-`.ova` for VirtualBox/VMware). Upstream copyright is retained in `LICENSE`; attribution details are in `NOTICE.md`.
+install missing tools for non-technical users. Build scripts for a desktop installer and for a QEMU Ubuntu VM image
+(plus an `.ova` for VirtualBox/VMware) are included, but **no release has been published yet** — the Releases page is
+empty, so there is nothing to download and non-technical users cannot install it yet. Building from source is the only
+working path today. Upstream copyright is retained in `LICENSE`; attribution details are in `NOTICE.md`.
 This is not an official DeepSeek project.
 
 </details>

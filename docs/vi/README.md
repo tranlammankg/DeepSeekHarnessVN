@@ -1,5 +1,10 @@
 # Tài liệu tiếng Việt cho người dùng HarnessVN
 
+> **Trạng thái: chưa có bản tải sẵn.** Mục Releases của dự án đang trống, nên phần cài đặt trong
+> [Bắt đầu trong 5 phút](BAT-DAU-NHANH.md) và [hướng dẫn VirtualBox](MAY-KHONG-BAT-AO-HOA.md)
+> **chưa làm theo được**. Các tài liệu còn lại (khoá API, dùng hằng ngày, xử lý lỗi) vẫn đúng khi
+> bạn đã chạy được HarnessVN.
+
 | Tài liệu | Khi nào đọc |
 |---|---|
 | [Bắt đầu trong 5 phút](BAT-DAU-NHANH.md) | Ngay lần đầu — cài và chạy |

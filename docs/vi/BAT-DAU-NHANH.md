@@ -2,6 +2,21 @@
 
 > Dành cho người **chưa từng dùng công cụ dòng lệnh**. Nếu bạn làm được theo các bước dưới đây, bạn không cần biết gì về máy tính ngoài việc cài một phần mềm.
 
+## Đọc trước: hiện chưa có bản tải sẵn
+
+> **Mục Releases của HarnessVN đang trống — chưa có file nào để tải về.**
+>
+> Cả hai đường cài bên dưới đều bắt đầu bằng việc tải một file (`.exe` / `.dmg` ở Đường 1, `.qcow2` /
+> `.ova` ở Đường 2). Những file đó **chưa được đăng**, nên hai đường này **chỉ dùng được sau khi bản
+> phát hành đầu tiên lên**.
+>
+> Nói thẳng: nếu bạn không quen dùng dòng lệnh thì **hiện chưa cài được HarnessVN**. Bạn có thể:
+>
+> - Vào trang GitHub của dự án, bấm **Watch → Custom → Releases** để được báo khi có bản đầu tiên; hoặc
+> - Nhờ người quen biết kỹ thuật dựng giúp — họ xem `upstream/harnessvn/vm/README.md` trong mã nguồn.
+>
+> Phần hướng dẫn bên dưới giữ nguyên, dùng được ngay khi có bản phát hành.
+
 ## Bạn cần chuẩn bị gì?
 
 Chỉ **một thứ**: **khoá API** — hiểu đơn giản là "chìa khoá" để trợ lý AI hoạt động, giống như thẻ cào điện thoại nhưng dùng cho AI.
@@ -10,9 +25,10 @@ Chỉ **một thứ**: **khoá API** — hiểu đơn giản là "chìa khoá" �
 - Bạn **không** phải trả tiền cho HarnessVN. Bạn trả trực tiếp cho hãng AI bạn chọn.
 - Có thể bắt đầu với khoảng **100.000 – 200.000 đồng** để thử.
 
-## Đường 1 — Bộ cài desktop (Windows / macOS) ← dễ nhất
+## Đường 1 — Bộ cài desktop (Windows / macOS) ← dễ nhất *(chưa dùng được)*
 
 1. Tải bộ cài: `HarnessVN-Setup-<phiên bản>.exe` (Windows) hoặc `HarnessVN-<phiên bản>.dmg` (macOS).
+   **Bước này hiện chưa làm được — chưa có file nào trong mục Releases.** Xem lưu ý ở đầu trang.
 2. Nhấp đúp để cài — giống như cài Zalo hay Chrome.
 3. Mở **HarnessVN** từ màn hình chính.
 4. Màn hình chào hiện ra **bằng tiếng Việt** → bấm **Tiếp tục**.
@@ -22,9 +38,9 @@ Chỉ **một thứ**: **khoá API** — hiểu đơn giản là "chìa khoá" �
 
 > Trên Windows, lần đầu mở có thể hiện cảnh báo màu xanh "Windows bảo vệ PC của bạn". Bấm **Thông tin thêm → Vẫn chạy** — đây là cảnh báo thường gặp với phần mềm chưa mua chứng chỉ ký.
 
-## Đường 2 — Máy ảo (Linux, hoặc máy không bật được ảo hoá)
+## Đường 2 — Máy ảo (Linux, hoặc máy không bật được ảo hoá) *(chưa dùng được)*
 
-1. Tải **một** trong hai thứ:
+1. Tải **một** trong hai thứ — **hiện chưa có file nào để tải**, xem lưu ý ở đầu trang:
    - `harnessvn-amd64.qcow2` (~1 GB) nếu máy bạn đã có **QEMU**, hoặc
    - `HarnessVN.ova` nếu bạn dùng **VirtualBox / VMware** (dễ hơn, không cần QEMU).
 2. Đặt file khởi động cạnh ảnh, rồi **nhấp đúp**:
