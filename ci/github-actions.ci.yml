@@ -1,0 +1,112 @@
+# CI cho HarnessVN.
+# Repo root = workspace (chứa upstream/ + harnessvn/), nên mọi bước chạy trong upstream/.
+name: HarnessVN CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      build_vm:
+        description: "Dựng luôn ảnh máy ảo (rất chậm trên runner không có KVM)"
+        type: boolean
+        default: false
+      build_desktop:
+        description: "Đóng gói bộ cài desktop (chạy trên windows-latest + macos-latest)"
+        type: boolean
+        default: false
+
+defaults:
+  run:
+    working-directory: upstream
+
+jobs:
+  gates:
+    name: Build + gate i18n
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.7.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: upstream/pnpm-lock.yaml
+      - name: Cài phụ thuộc
+        run: pnpm install --frozen-lockfile
+      - name: Build (host + client)
+        run: pnpm run build:lib
+      - name: Gate — zh/en parity
+        run: pnpm exec vitest run scripts/locale-dictionary-parity.spec.ts
+      - name: Gate — copy UI thuộc từ điển
+        run: pnpm exec tsx scripts/verify-client-ui-i18n.ts
+      - name: Gate — kiểm từ điển tiếng Việt khớp workbook
+        run: |
+          node harnessvn/tools/verify-vi-dictionaries.mjs
+      - name: Gate — tự kiểm provision.sh (bước dịch vụ, 2 phạm vi)
+        run: bash harnessvn/tools/selftest-provision.sh
+      - name: Build frontend web
+        run: pnpm run build:web
+
+  desktop:
+    name: Đóng gói desktop (${{ matrix.target }})
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.build_desktop }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: win-x64
+            os: windows-latest
+            script: package:win:x64:unsigned
+          - target: mac-arm64
+            os: macos-latest
+            script: package:mac:arm64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.7.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: upstream/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run prepare:desktop
+      # Cac script dong goi nam trong apps/desktop/package.json, khong phai package.json goc.
+      - run: pnpm --filter @deepseek-ai/dsh-desktop run ${{ matrix.script }}
+      # Dau ra nam trong apps/desktop/.desktop-build/targets/<target>/..., khong phai dist/.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: harnessvn-${{ matrix.target }}
+          path: |
+            upstream/apps/desktop/.desktop-build/targets/${{ matrix.target }}/artifacts/**
+            upstream/apps/desktop/.desktop-build/targets/${{ matrix.target }}/unsigned-artifacts/**
+          if-no-files-found: error
+
+  vm-image:
+    name: Dựng ảnh máy ảo (TCG)
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.build_vm }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cài qemu
+        run: sudo apt-get update && sudo apt-get install -y qemu-system-x86 qemu-utils python3 curl
+      - name: Dựng ảnh (không KVM → TCG)
+        run: KVM=0 FIRSTBOOT_TIMEOUT=7200 upstream/harnessvn/vm/build-image.sh
+      - name: Xuất thêm .ova cho VirtualBox/VMware
+        run: |
+          IMG="$(ls upstream/harnessvn/vm/harnessvn-*.qcow2 | head -1)"
+          upstream/harnessvn/vm/export-ova.sh "$IMG" upstream/harnessvn/vm/HarnessVN.ova
+      - uses: actions/upload-artifact@v4
+        with:
+          name: harnessvn-vm-image
+          path: |
+            upstream/harnessvn/vm/harnessvn-*.qcow2
+            upstream/harnessvn/vm/HarnessVN.ova
+          if-no-files-found: error
