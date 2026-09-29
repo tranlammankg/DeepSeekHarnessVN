@@ -35,7 +35,9 @@ import {
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const HOME = '/tmp/git-broker-check-home';
-const TOKEN = 'ghp_SUPERSECRETtokenVALUE1234567890';
+// Chuoi gia de kiem redaction — CO Y khong giong token that (khong co dang ghp_<36 ky tu>),
+// de trinh quet secret cua GitHub khong chan khi push.
+const TOKEN = 'placeholder-redaction-test-khong-phai-token';
 
 let passed = 0;
 let failed = 0;
