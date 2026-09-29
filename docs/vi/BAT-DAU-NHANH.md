@@ -2,6 +2,10 @@
 
 > Dành cho người **chưa từng dùng công cụ dòng lệnh**. Nếu bạn làm được theo các bước dưới đây, bạn không cần biết gì về máy tính ngoài việc cài một phần mềm.
 
+> **Lưu ý về bản tải sẵn:** dự án **chưa đăng file cài đặt** lên mục Releases. Hiện tại hãy dùng **Đường 2 (máy ảo)**
+> và tự dựng ảnh — chỉ **một lệnh** trên máy Linux/macOS có QEMU (xem [hướng dẫn](../../upstream/harnessvn/vm/README.md)),
+> hoặc nhờ người bảo trì đăng `HarnessVN.ova` (đã dựng và kiểm xong, kèm `upstream/harnessvn/vm/SHA256SUMS`) lên Releases.
+
 ## Bạn cần chuẩn bị gì?
 
 Chỉ **một thứ**: **khoá API** — hiểu đơn giản là "chìa khoá" để trợ lý AI hoạt động, giống như thẻ cào điện thoại nhưng dùng cho AI.
@@ -12,7 +16,8 @@ Chỉ **một thứ**: **khoá API** — hiểu đơn giản là "chìa khoá" �
 
 ## Đường 1 — Bộ cài desktop (Windows / macOS) ← dễ nhất
 
-1. Tải bộ cài: `HarnessVN-Setup-<phiên bản>.exe` (Windows) hoặc `HarnessVN-<phiên bản>.dmg` (macOS).
+1. **Chưa có file tải sẵn** (bộ cài do CI dựng — xem [`ci/README.md`](../../ci/README.md)). Khi đã có, tải
+   `HarnessVN-Setup-<phiên bản>.exe` (Windows) hoặc `HarnessVN-<phiên bản>.dmg` (macOS) trong mục **Releases**.
 2. Nhấp đúp để cài — giống như cài Zalo hay Chrome.
 3. Mở **HarnessVN** từ màn hình chính.
 4. Màn hình chào hiện ra **bằng tiếng Việt** → bấm **Tiếp tục**.
@@ -24,9 +29,11 @@ Chỉ **một thứ**: **khoá API** — hiểu đơn giản là "chìa khoá" �
 
 ## Đường 2 — Máy ảo (Linux, hoặc máy không bật được ảo hoá)
 
-1. Tải **một** trong hai thứ:
-   - `harnessvn-amd64.qcow2` (~1 GB) nếu máy bạn đã có **QEMU**, hoặc
-   - `HarnessVN.ova` nếu bạn dùng **VirtualBox / VMware** (dễ hơn, không cần QEMU).
+1. Chuẩn bị **một** trong hai thứ:
+   - `harnessvn-24.04-amd64.qcow2` (~1,6 GB) nếu máy bạn đã có **QEMU** — hoặc tự dựng ảnh bằng một lệnh
+     (xem [`vm/README.md`](../../upstream/harnessvn/vm/README.md)),
+   - `HarnessVN.ova` (1,4 GB) nếu bạn dùng **VirtualBox / VMware** (không cần QEMU): xuất bằng
+     `vm/export-ova.sh`, hoặc tải trong mục Releases khi người bảo trì đã đăng.
 2. Đặt file khởi động cạnh ảnh, rồi **nhấp đúp**:
    - Windows: `start-windows.bat`
    - macOS: `start-macos.command`

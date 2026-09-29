@@ -8,6 +8,23 @@ không cần làm gì trong máy ảo.
 > *"authentication required"*. Vì vậy có `browser-bridge.sh` giữ token và phục vụ trang
 > chuyển hướng ở cổng 9998.
 
+## Bản đã dựng và kiểm (trong phiên soạn này)
+
+| File | Kích thước | SHA256 |
+|---|---|---|
+| `harnessvn-24.04-amd64.qcow2` | 1,6 GB | `2d00840a28f5616df824ca3f5dd552a90c98102b012602b18636734ea060a953` |
+| `HarnessVN.ova` | 1,4 GB | `653a8c6e52f31839bb9ca58b10e7c18f8fa0cd17c2ad1a5bab058c83bf27d778` |
+
+Hai file này **không nằm trong git** (quá lớn) — `SHA256SUMS` thì có. Dựng lại bằng một lệnh
+(`KVM=1` nếu máy có ảo hoá, `KVM=0` nếu không), rồi nghiệm thu:
+
+```bash
+PREBUILT=1 KVM=1 harnessvn/vm/build-image.sh                     # ~10–20 phút với KVM
+QEMU_DIR=$PWD/.run/qemu harnessvn/tools/verify-vm-image.sh      # boot ảnh và kiểm cửa nối
+QEMU_DIR=$PWD/.run/qemu harnessvn/vm/export-ova.sh \
+  harnessvn/vm/harnessvn-24.04-amd64.qcow2 harnessvn/vm/HarnessVN.ova
+```
+
 ## Thành phần
 
 | File | Việc |
