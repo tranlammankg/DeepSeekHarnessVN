@@ -5,7 +5,9 @@
 
 ## Bạn cần chuẩn bị gì?
 
-1. File **`HarnessVN.ova`** (khoảng 1–2 GB) — tải trong mục Releases của HarnessVN.
+1. File **`HarnessVN.ova`** (1,4 GB) — tải trong mục Releases của HarnessVN **nếu đã được đăng**; nếu chưa,
+   nhờ người bảo trì đăng lên (file đã dựng và kiểm xong, checksum trong `upstream/harnessvn/vm/SHA256SUMS`),
+   hoặc tự xuất bằng `bash upstream/harnessvn/vm/export-ova.sh <ảnh.qcow2> HarnessVN.ova`.
 2. **VirtualBox** — phần mềm miễn phí của Oracle, tải ở <https://www.virtualbox.org/wiki/Downloads>.
 
 Không cần dòng lệnh. Không cần biết gì về máy ảo.

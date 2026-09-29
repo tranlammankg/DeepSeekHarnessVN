@@ -31,9 +31,12 @@ và trợ lý tự cài những phần mềm còn thiếu khi cần.
 ## Bắt đầu
 
 1. **Cài** — chọn một đường:
-   - *Desktop (dễ nhất, Windows/macOS)*: tải bộ cài trong mục **Releases** (`.exe` / `.dmg`) rồi nhấp đúp.
-   - *Máy ảo (Linux, hoặc máy không bật được ảo hoá)*: xem [`docs/vi/MAY-KHONG-BAT-AO-HOA.md`](docs/vi/MAY-KHONG-BAT-AO-HOA.md)
-     và [`upstream/harnessvn/vm/README.md`](upstream/harnessvn/vm/README.md).
+   - *Máy ảo (đang sẵn sàng nhất)*: dựng ảnh một lệnh rồi mở bằng launcher —
+     xem [`upstream/harnessvn/vm/README.md`](upstream/harnessvn/vm/README.md); bản `.ova` cho VirtualBox/VMware
+     xuất bằng `vm/export-ova.sh` (checksum trong `vm/SHA256SUMS`), xem
+     [`docs/vi/MAY-KHONG-BAT-AO-HOA.md`](docs/vi/MAY-KHONG-BAT-AO-HOA.md).
+   - *Desktop (Windows/macOS)*: bộ cài `.exe`/`.dmg` **do CI dựng** — xem [`ci/README.md`](ci/README.md);
+     hiện **chưa có file tải sẵn**, sẽ nằm trong mục **Releases** khi CI chạy.
 2. **Mở HarnessVN** → làm theo màn hình tiếng Việt: chọn không gian làm việc → dán khoá API → chọn mô hình.
    Chưa có khoá? Xem [`docs/vi/LAY-KHOA-API.md`](docs/vi/LAY-KHOA-API.md).
 3. **Dùng**: gõ việc cần làm bằng tiếng Việt. Gặp trục trặc xem [`docs/vi/LOI-THUONG-GAP.md`](docs/vi/LOI-THUONG-GAP.md).
@@ -64,9 +67,11 @@ node harnessvn/tools/verify-vi-dictionaries.mjs                                 
 
 ## Trạng thái (nói thật)
 
-- **Đã kiểm**: build sạch (`build:lib` + `build:web`), 3 gate i18n, self-test provision 15/15, `verify-cordis-config`;
-  onboarding khoá API + danh mục nhà cung cấp và skill `vn-self-setup` đã kiểm trên UI đang chạy; **máy ảo đã boot thật**
-  (cloud-init → tải mã nguồn → provision → `pnpm install`) tới bước build.
+- **Đã kiểm**: build sạch (`build:lib` + `build:web`), 3 gate i18n, self-test provision 16/16, `verify-cordis-config`;
+  onboarding khoá API + danh mục nhà cung cấp và skill `vn-self-setup` đã kiểm trên UI đang chạy.
+  **Máy ảo đã boot thật và nghiệm thu đạt 4/4**: provision chạy hết → cửa nối cổng 9998 phục vụ UI ra **máy thật**
+  (`GET /__harnessvn_status` → `app_ready: true`, `token_len: 43`; `GET /` → HTTP 200 + HTML), boot lại **không cài lại**;
+  đã xuất `HarnessVN.ova` (1,4 GB) kèm `vm/SHA256SUMS`. Ảnh chụp: `upstream/harnessvn/evidence/vm-bridge-ui.png`.
 - **Chưa kiểm**: boot ảnh máy ảo **bằng KVM** trên máy có ảo hoá, **import `.ova` trong VirtualBox/VMware**, và
   **bộ cài desktop chạy thật** (cần Windows/macOS). Chi tiết trong `CHANGELOG.md`.
 
