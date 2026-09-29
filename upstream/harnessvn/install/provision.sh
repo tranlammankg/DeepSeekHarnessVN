@@ -9,6 +9,7 @@ NODE_VERSION="${NODE_VERSION:-v24.9.0}"
 PNPM_VERSION="${PNPM_VERSION:-11.7.0}"
 PREFIX="$HOME/.local"
 PORT="${PORT:-9999}"
+BRIDGE_PORT="${BRIDGE_PORT:-9998}"   # cong cua noi mo trinh duyet (phia may that phai trung)
 LOG="$HOME/harnessvn-provision.log"
 exec > >(tee -a "$LOG") 2>&1
 
@@ -104,7 +105,7 @@ fi
 
 # Sinh unit bang script rieng (kiem tra duoc ngoai may ao: harnessvn/install/write-units.sh).
 bash "$SRC_DIR/upstream/harnessvn/install/write-units.sh" \
-  --scope "$SCOPE" --dest "$UNIT_DIR" --port "$PORT" --src "$SRC_DIR" \
+  --scope "$SCOPE" --dest "$UNIT_DIR" --port "$PORT" --bridge-port "$BRIDGE_PORT" --src "$SRC_DIR" \
   --home "$HOME" --user "$USER" --prefix "$PREFIX"
 
 if [ "$SCOPE" = "system" ]; then
@@ -129,7 +130,7 @@ start_direct() {
     "$PREFIX/bin/node" "$SRC_DIR/upstream/node_modules/.bin/tsx" \
     "$SRC_DIR/upstream/apps/cli/src/bin.ts" web --no-open --port "$PORT" --trusted-host localhost \
     >"$HOME/harnessvn-web.log" 2>&1 < /dev/null &
-  $BG env HOME="$HOME" APP_PORT="$PORT" BRIDGE_PORT=9998 SERVE_DIR="$HOME/harnessvn-open" \
+  $BG env HOME="$HOME" APP_PORT="$PORT" BRIDGE_PORT="$BRIDGE_PORT" SERVE_DIR="$HOME/harnessvn-open" \
     /bin/bash "$SRC_DIR/upstream/harnessvn/vm/browser-bridge.sh" \
     >"$HOME/harnessvn-bridge.log" 2>&1 < /dev/null &
 }
@@ -140,7 +141,7 @@ for i in $(seq 1 30); do
       echo "OK — HarnessVN dang chay (HTTP $code)"
       echo
       echo "TU MAY THAT (khong phai trong cua so nay):"
-      echo "  1. Mo: http://localhost:9998/  (cau noi se tu chuyen sang dung phien)"
+      echo "  1. Mo: http://localhost:$BRIDGE_PORT/  (cau noi se tu chuyen sang dung phien)"
       echo "  2. Bam 'Tiep tuc' o man hinh chao tieng Viet"
       echo "  3. Dan khoa API (DeepSeek), hoac chon 'Cau hinh sau' roi vao Cai dat > Mo hinh"
       echo "  4. Bam 'Luu va tiep tuc' - xong."

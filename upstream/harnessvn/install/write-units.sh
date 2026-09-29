@@ -10,6 +10,7 @@ set -euo pipefail
 SCOPE=user
 DEST=""
 PORT=9999
+BRIDGE_PORT=9998
 SRC_DIR=/opt/harnessvn
 HOME_DIR="${HOME:-/home/harnessvn}"
 RUN_USER="$(id -un)"
@@ -20,6 +21,7 @@ while [ "$#" -gt 0 ]; do
     --scope) SCOPE="$2"; shift 2 ;;
     --dest) DEST="$2"; shift 2 ;;
     --port) PORT="$2"; shift 2 ;;
+    --bridge-port) BRIDGE_PORT="$2"; shift 2 ;;
     --src) SRC_DIR="$2"; shift 2 ;;
     --home) HOME_DIR="$2"; shift 2 ;;
     --user) RUN_USER="$2"; shift 2 ;;
@@ -71,7 +73,7 @@ $USER_LINE
 Environment=HOME=$HOME_DIR
 Environment=PATH=$PREFIX/bin:/usr/local/bin:/usr/bin:/bin
 Environment=APP_PORT=$PORT
-Environment=BRIDGE_PORT=9998
+Environment=BRIDGE_PORT=$BRIDGE_PORT
 Environment=SERVE_DIR=$HOME_DIR/harnessvn-open
 ExecStart=/bin/bash $SRC_DIR/upstream/harnessvn/vm/browser-bridge.sh
 Restart=on-failure

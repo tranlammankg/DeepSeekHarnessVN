@@ -44,7 +44,7 @@ corepack pnpm@11.7.0 exec tsx scripts/verify-client-ui-i18n.ts
 
 ```bash
 harnessvn/vm/build-image.sh      # cần qemu trên máy chạy (không chạy được trong container thiếu /dev/kvm)
-harnessvn/vm/run-vm.sh           # chạy ảnh + mở http://localhost:9998 (cửa nối tự vào đúng phiên)
+harnessvn/vm/run-vm.sh           # chạy ảnh, tự chọn cổng trống rồi mở trình duyệt (mặc định 9998)
 ```
 
 Windows: nhấp đúp `harnessvn/vm/launchers/start-windows.bat` — tự kiểm QEMU, hỏi trước khi cài, rồi mở trình duyệt.

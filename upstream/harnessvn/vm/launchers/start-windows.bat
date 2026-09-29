@@ -6,6 +6,21 @@ set IMAGE=%HERE%harnessvn-24.04-amd64.qcow2
 set PORT=9999
 set BRIDGE=9998
 
+REM Cong 9999 phai trong: cua noi trong may ao chuyen huong co dinh toi cong nay.
+netstat -ano | findstr /R /C:":9999 .*LISTENING" >nul 2>nul
+if not errorlevel 1 (
+  echo Cong 9999 dang bi mot chuong trinh khac dung.
+  echo Hay dong chuong trinh do roi chay lai file nay.
+  pause
+  exit /b 1
+)
+REM Cong cua noi co the doi: trinh duyet mo cong nay, con ung dung van o cong 9999.
+netstat -ano | findstr /R /C:":9998 .*LISTENING" >nul 2>nul
+if not errorlevel 1 (
+  echo Cong 9998 dang ban - dung cong 19998 cho cua noi.
+  set BRIDGE=19998
+)
+
 where qemu-system-x86_64 >nul 2>nul
 if errorlevel 1 (
   echo May ban chua co QEMU - phan mem mien phi de chay may ao ^(khoang 200 MB^).

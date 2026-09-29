@@ -14,7 +14,8 @@ không cần làm gì trong máy ảo.
 |---|---|
 | `build-image.sh` | Tải Ubuntu cloud image → tạo đĩa thin → boot với cloud-init (NoCloud qua SMBIOS) → nén thành `harnessvn-<release>-<arch>.qcow2` |
 | `cloud-init/user-data.yaml` | Tạo người dùng `harnessvn`, bật dịch vụ cài đặt lần đầu, autologin console để xem tiến trình |
-| `run-vm.sh` | Chạy ảnh, hostfwd `9999` (ứng dụng) + `9998` (cửa nối), tự mở trình duyệt máy thật |
+| `run-vm.sh` | Chạy ảnh, **tự chọn cổng trống** trên máy thật cho ứng dụng và cửa nối, tự mở trình duyệt |
+| `free-port.sh` | In cổng trống đầu tiên kể từ một cổng (bỏ qua cổng đang bị chiếm) |
 | `browser-bridge.sh` | Giữ token của `dsh web`, phục vụ trang chuyển hướng / trang chờ ở cổng 9998 |
 | `../install/write-units.sh` | Sinh 2 unit systemd (scope `system` hoặc `user`) — kiểm tra được ngoài máy ảo |
 | `launchers/start-windows.bat` | Windows: kiểm QEMU → hỏi trước khi cài bằng winget → chạy VM → mở trình duyệt |
@@ -37,6 +38,17 @@ KVM=1 harnessvn/vm/build-image.sh
 
 `PREPARE_ONLY=1` kiểm luôn **SHA256 của ảnh nền** với `SHA256SUMS` của Ubuntu và tính toàn vẹn của
 gói mã nguồn (đúng tiền tố `upstream/`, không có `node_modules`) — chạy được cả trên máy không có qemu.
+
+## Cổng mạng (đã xử lý chuyện đụng cổng)
+
+- Trong máy ảo, ứng dụng luôn ở `127.0.0.1:9999` và cửa nối luôn ở `9998`.
+- Trên **máy thật**, `run-vm.sh` tự dò cổng trống (mặc định bắt đầu từ `9999` cho ứng dụng và `9998`
+  cho cửa nối) nên không đụng dịch vụ đang chạy. Muốn cố định: `PORT=… BRIDGE=… run-vm.sh`.
+- Vì cổng công khai có thể khác 9999, `run-vm.sh` mở một HTTP server nhỏ ở cổng `18080` (tự đổi nếu bận)
+  để báo cổng đó cho máy ảo; cửa nối đọc `http://10.0.2.2:18080/config` rồi chuyển hướng đúng cổng.
+- Kiểm tra không cần qemu: `DRY_RUN=1 run-vm.sh <ảnh.qcow2>` — in ra cổng đã chọn và lệnh qemu sẽ chạy.
+- **Windows** (`start-windows.bat`): không có `python3` nên cổng ứng dụng phải là `9999`; script báo lỗi
+  rõ nếu cổng 9999 bận, và tự đổi cửa nối sang `19998` khi `9998` bận.
 
 ## Bên trong máy ảo
 
