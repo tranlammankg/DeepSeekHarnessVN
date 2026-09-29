@@ -97,12 +97,15 @@ jobs:
       - uses: actions/checkout@v4
       - name: Cài qemu
         run: sudo apt-get update && sudo apt-get install -y qemu-system-x86 qemu-utils python3 curl
+      # `defaults.run.working-directory` phia tren la `upstream`, nen duong dan trong cac buoc `run`
+      # duoi day tinh TU `upstream/`, khong phai tu goc repo. Rieng `path:` cua upload-artifact
+      # van tinh tu goc workspace nen giu tien to `upstream/`.
       - name: Dựng ảnh (không KVM → TCG)
-        run: KVM=0 FIRSTBOOT_TIMEOUT=7200 upstream/harnessvn/vm/build-image.sh
+        run: KVM=0 FIRSTBOOT_TIMEOUT=7200 harnessvn/vm/build-image.sh
       - name: Xuất thêm .ova cho VirtualBox/VMware
         run: |
-          IMG="$(ls upstream/harnessvn/vm/harnessvn-*.qcow2 | head -1)"
-          upstream/harnessvn/vm/export-ova.sh "$IMG" upstream/harnessvn/vm/HarnessVN.ova
+          IMG="$(ls harnessvn/vm/harnessvn-*.qcow2 | head -1)"
+          harnessvn/vm/export-ova.sh "$IMG" harnessvn/vm/HarnessVN.ova
       - uses: actions/upload-artifact@v4
         with:
           name: harnessvn-vm-image
