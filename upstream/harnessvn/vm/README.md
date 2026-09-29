@@ -62,7 +62,7 @@ QEMU_DIR=$PWD/.run/qemu harnessvn/vm/export-ova.sh harnessvn-24.04-amd64.qcow2 H
 
 Script tự: chuyển qcow2 → vmdk (streamOptimized) → sinh `.ovf` (2 vCPU, 4 GB RAM, SCSI, card mạng) →
 tính `.mf` (SHA256) → đóng gói tar thành `.ova`. Đã kiểm: tar đủ 3 file, OVF hợp lệ XML, `ovf:size` khớp
-file vmdk thật, `sha256sum -c` xanh, `qemu-img info` đọc được đĩa. **Chưa** thử import thật trong
+file vmdk thật, `sha256sum -c` xanh, `qemu-img info` đọc được đĩa; đã chạy thật trên **ảnh golden 20 GB** → `.ova` 1,4 GB đủ 3 thành phần. **Chưa** thử import thật trong
 VirtualBox/VMware (phiên soạn không có hai phần mềm đó).
 
 ## Yêu cầu khi DỰNG ảnh
