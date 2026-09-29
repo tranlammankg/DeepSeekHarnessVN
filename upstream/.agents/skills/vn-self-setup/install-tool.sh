@@ -3,7 +3,7 @@
 # Dùng: bash install-tool.sh <gói> [<gói> ...]
 set -euo pipefail
 
-LOG="$HOME/.harnessvn-tools.log"
+LOG="${HARNESSVN_TOOLS_LOG:-$HOME/.harnessvn-tools.log}"
 
 # allowlist: tên gói -> gói apt | gói npm | gói pip
 allow_apt="ffmpeg python3 python3-pip git jq unzip zip curl wget rsync imagemagick poppler-utils libreoffice pandoc chromium-browser tesseract-ocr"

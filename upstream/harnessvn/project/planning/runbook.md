@@ -96,14 +96,17 @@ await document.documentElement.lang            // phải là 'vi'
 ## M4 — Provision 0-root + service (1 ngày)
 
 ```bash
-# trong VM/Ubuntu sạch, KHÔNG sudo
-mkdir -p ~/.local && cd ~/.local
-curl -fsSL https://nodejs.org/dist/latest-v24.x/node-v24.x-linux-x64.tar.xz | tar -xJ --strip-components=1 -C ~/.local
-npm --prefix ~/.local install -g @deepseek-ai/dsh
-~/.local/bin/dsh doctor
-systemctl --user enable --now harnessvn.service
+# trong VM/Ubuntu sạch: provision.sh làm tự động; đây là các bước tương đương
+corepack pnpm@11.7.0 install --frozen-lockfile
+corepack pnpm@11.7.0 run build:lib && corepack pnpm@11.7.0 run build:web
+corepack pnpm@11.7.0 dsh plugin --profile web add harnessvn/plugins/<tên>   # từng plugin, trừ dsh-mario
+cp -a .agents/skills/vn-self-setup ~/.agents/skills/                        # skill tự cài phần mềm
+bash harnessvn/install/write-units.sh --scope system --dest /etc/systemd/system --port 9999
+sudo systemctl enable --now harnessvn.service harnessvn-open.service
 ```
-**Kiểm chứng:** chạy script **2 lần** liên tiếp không lỗi; `systemctl --user is-active harnessvn` = active; `curl -sI http://127.0.0.1:9999` trả 200/302.
+**Kiểm chứng:** chạy script **2 lần** liên tiếp không lỗi; `systemctl is-active harnessvn` = active;
+`curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:9999/` trả **401** (đang chạy, chờ token);
+cửa nối `http://localhost:9998/` trả **200** và chuyển hướng sang URL có token.
 
 ## M5 — Ảnh VM (1,5 ngày) — **cần qemu**
 

@@ -17,11 +17,14 @@ Skill này là cách duy nhất để cài thêm phần mềm cho họ.
 ## Cách làm
 
 1. **Kiểm tra trước**: `command -v <tool>`. Nếu đã có, dùng luôn — không cài lại.
-2. **Chạy script cài** (trong repo, có allowlist):
+2. **Chạy script cài** (nằm ngay cạnh file `SKILL.md` này, có allowlist):
 
    ```bash
-   bash .agents/skills/vn-self-setup/install-tool.sh <tên-gói> [tên-gói ...]
+   bash "$HOME/.agents/skills/vn-self-setup/install-tool.sh" <tên-gói> [tên-gói ...]
    ```
+
+   Nếu `$HOME/.agents/skills/vn-self-setup/` không tồn tại (ví dụ đang chạy trong repo mã nguồn),
+   dùng bản trong repo: `bash .agents/skills/vn-self-setup/install-tool.sh <tên-gói>`.
 
 3. **Kiểm chứng sau khi cài**: chạy lại `command -v <tool>` và một lệnh nhỏ (ví dụ `ffmpeg -version`).
    Không báo "đã cài xong" nếu chưa kiểm.
@@ -34,7 +37,7 @@ Skill này là cách duy nhất để cài thêm phần mềm cho họ.
 - **Không cài im lặng**: nếu là việc nặng (tải > 200 MB, cần khởi động lại dịch vụ), nói trước một câu
   rồi mới làm; nếu người dùng từ chối, dừng lại và đề xuất cách khác.
 - **Không dùng `curl | bash`** cho nguồn ngoài allowlist.
-- **Ghi log** vào `~/.harnessvn-tools.log` để lần sau biết đã cài gì.
+- **Ghi log** vào `~/.harnessvn-tools.log` (đổi bằng biến `HARNESSVN_TOOLS_LOG`) để lần sau biết đã cài gì.
 - Trong máy ảo HarnessVN, người dùng `harnessvn` có `sudo` NOPASSWD nên `apt-get` chạy được;
   trên máy thật thì kiểm tra `sudo -n true` trước, không có thì báo người dùng.
 
@@ -43,7 +46,7 @@ Skill này là cách duy nhất để cài thêm phần mềm cho họ.
 Người dùng: *"Cắt giúp tôi video này"* → `ffmpeg` chưa có →
 
 ```bash
-command -v ffmpeg || bash .agents/skills/vn-self-setup/install-tool.sh ffmpeg
+command -v ffmpeg || bash "$HOME/.agents/skills/vn-self-setup/install-tool.sh" ffmpeg
 ffmpeg -version | head -1
 ```
 

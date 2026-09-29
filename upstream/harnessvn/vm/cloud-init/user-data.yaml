@@ -46,7 +46,7 @@ write_files:
       Type=oneshot
       User=root
       ExecStart=/usr/local/bin/harnessvn-fetch-source.sh
-      ExecStartPost=/usr/bin/runuser -u harnessvn -- /bin/bash -lc /opt/harnessvn/harnessvn/install/provision.sh
+      ExecStartPost=/usr/bin/runuser -u harnessvn -- /bin/bash -lc /opt/harnessvn/upstream/harnessvn/install/provision.sh
       ExecStartPost=/usr/bin/touch /var/lib/harnessvn/.provisioned
       RemainAfterExit=yes
       StandardOutput=journal

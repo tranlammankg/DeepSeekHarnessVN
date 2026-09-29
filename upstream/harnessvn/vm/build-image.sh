@@ -20,8 +20,11 @@ MEM="${MEM:-4096}"
 CPUS="${CPUS:-2}"
 PORT="${PORT:-9999}"
 KVM="${KVM:-1}"
+PREPARE_ONLY="${PREPARE_ONLY:-0}"   # 1 = chi tai anh nen + dong goi seed, khong can qemu
 
-for c in qemu-system-x86_64 qemu-img python3 curl tar; do
+REQUIRED=(python3 curl tar sha256sum)
+[ "$PREPARE_ONLY" = "1" ] || REQUIRED+=(qemu-system-x86_64 qemu-img)
+for c in "${REQUIRED[@]}"; do
   command -v "$c" >/dev/null || { echo "THIEU: $c — hay cai truoc (xem dau file)."; exit 1; }
 done
 
@@ -30,8 +33,25 @@ cd "$WORK"
 
 # 1. Anh nen Ubuntu cloud image (ho tro tai tiep khi dut mang)
 if [ ! -f "$BASE_IMG" ]; then
-  echo "[1/6] Tai anh nen $BASE_IMG ..."
+  echo "[1/6] Tai anh nen $BASE_IMG (~600 MB, tai tiep duoc neu dut mang)..."
   curl -fL -C - -o "$BASE_IMG" "$BASE_URL"
+fi
+if [ ! -f SHA256SUMS ]; then
+  curl -fsSL -o SHA256SUMS "$(dirname "$BASE_URL")/SHA256SUMS" || rm -f SHA256SUMS
+fi
+if [ -f SHA256SUMS ]; then
+  want="$(grep -E " [*]?$BASE_IMG\$" SHA256SUMS | head -1 | awk '{print $1}')"
+  if [ -n "$want" ]; then
+    got="$(sha256sum "$BASE_IMG" | awk '{print $1}')"
+    if [ "$want" = "$got" ]; then
+      echo "    SHA256 khop: $got"
+    else
+      echo "    SHA256 KHONG KHOP — mong $want, thuc te $got"
+      exit 1
+    fi
+  else
+    echo "    khong thay dong SHA256 cho $BASE_IMG trong SHA256SUMS"
+  fi
 fi
 
 # 2. Chuan bi cloud-init: phuc vu user-data + ma nguon qua HTTP cho may ao
@@ -43,14 +63,39 @@ if [ ! -f "$STAGE" ]; then
   echo "    dong goi ma nguon -> $STAGE"
   if git -C "$ROOT" rev-parse --git-dir >/dev/null 2>&1; then
     # Chi dong goi file da commit: nho, sach, khong lan file tam hay node_modules.
-    git -C "$ROOT" archive --format=tar.gz -o "$STAGE" HEAD
+    # --prefix=upstream/ de giai nen ra /opt/harnessvn/upstream (khop cloud-init + provision.sh)
+    git -C "$ROOT" archive --format=tar.gz --prefix=upstream/ -o "$STAGE" HEAD
   else
-    tar --exclude='*/node_modules' --exclude='./.git' --exclude='./.pnpm-store' --exclude='./.corepack' \
-        --exclude='./.npm-cache' --exclude='./.pnpm-home' --exclude='./harnessvn/vm/work' \
-        --exclude='./*.log' --exclude='./*.png' -czf "$STAGE" -C "$ROOT" .
+    tar --exclude='*/node_modules' --exclude='*/.git' --exclude='*/.pnpm-store' --exclude='*/.corepack' \
+        --exclude='*/.npm-cache' --exclude='*/.pnpm-home' --exclude='*/harnessvn/vm/work' \
+        --exclude='*.log' --exclude='*.png' -czf "$STAGE" -C "$(dirname "$ROOT")" upstream
   fi
 fi
+# Doc danh sach mot lan va doi chieu bang here-string: grep -q trong pipeline thoat som
+# se lam ben trai nhan SIGPIPE, va pipefail bien dieu do thanh loi gia.
+SRC_LIST="$(tar -tzf "$STAGE")"
+for required in upstream/harnessvn/install/provision.sh \
+                upstream/harnessvn/vm/browser-bridge.sh \
+                upstream/apps/cli/src/bin.ts; do
+  grep -qx "$required" <<< "$SRC_LIST" \
+    || { echo "    THIEU $required trong goi ma nguon"; exit 1; }
+done
+case "$SRC_LIST" in
+  *node_modules*) echo "    CANH BAO: goi ma nguon co node_modules (nang vo ich)" ;;
+esac
+echo "    goi ma nguon: $(printf '%s\n' "$SRC_LIST" | wc -l) muc, $(du -h "$STAGE" | cut -f1)"
 cp "$STAGE" seed/harnessvn-src.tar.gz
+echo "    seed: $(ls -1 seed | tr '\n' ' ')  |  goi ma nguon: $(du -h "$STAGE" | cut -f1)"
+
+if [ "$PREPARE_ONLY" = "1" ]; then
+  echo
+  echo "PREPARE_ONLY=1 — da chuan bi xong, KHONG boot may ao."
+  echo "  anh nen: $WORK/$BASE_IMG ($(du -h "$BASE_IMG" | cut -f1))"
+  echo "  seed   : $WORK/seed/"
+  echo "Buoc tiep (tren may co qemu):   KVM=1 $HERE/build-image.sh"
+  exit 0
+fi
+
 ( cd seed && python3 -m http.server 8000 --bind 127.0.0.1 >/dev/null 2>&1 & echo $! > ../seed.pid )
 trap '[ -f seed.pid ] && kill "$(cat seed.pid)" 2>/dev/null || true' EXIT
 

@@ -87,7 +87,7 @@ Quét `lib/types/**/*.d.ts` của toàn bộ package client đã cài:
 
 ```
 Tầng 3  VM Ubuntu headless (QEMU)         ← sản phẩm phát hành cho người dùng cuối
-          └─ provision 0-root → dsh web + systemd --user + onboarding VI
+          └─ provision 0-root → dsh web + 2 unit systemd + onboarding VI
 Tầng 2  Fork HarnessVN (nhánh vn)          ← bản "chính thức" song ngữ, rebase được
           └─ vi thành locale built-in + docs README.vi.md
 Tầng 1  plugin dsh-locale-vi               ← đường nhanh: cài vào profile là có tiếng Việt

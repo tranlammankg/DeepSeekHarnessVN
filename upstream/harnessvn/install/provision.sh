@@ -54,7 +54,7 @@ $PNPM run build:web
 
 # 4. Cai plugin di kem (tru dsh-mario)
 echo "[4/6] Cai plugin di kem..."
-PLUGINS="$SRC_DIR/harnessvn/plugins"
+PLUGINS="$SRC_DIR/upstream/harnessvn/plugins"
 if [ -d "$PLUGINS" ]; then
   for p in "$PLUGINS"/*/; do
     name="$(basename "$p")"
@@ -64,57 +64,75 @@ if [ -d "$PLUGINS" ]; then
   done
 fi
 
-# 5. Dich vu nguoi dung: tu bat web UI khi may khoi dong
-echo "[5/6] Bat dich vu nguoi dung..."
-mkdir -p "$HOME/.config/systemd/user"
+# 4b. Skill "tu cai phan mem con thieu" phai co san o ~/.agents/skills: harness chi tim
+#     thay skill trong khong gian lam viec nguoi dung chon, ma nguoi moi thuong chon thu muc khac.
+echo "[4/6] Cai skill vn-self-setup vao ~/.agents/skills..."
+SKILLS_SRC="$SRC_DIR/upstream/.agents/skills"
+if [ -d "$SKILLS_SRC" ]; then
+  mkdir -p "$HOME/.agents/skills"
+  for d in "$SKILLS_SRC"/vn-*/; do
+    [ -d "$d" ] || continue
+    name="$(basename "$d")"
+    echo "    - $name"
+    rm -rf "$HOME/.agents/skills/$name"
+    cp -a "$d" "$HOME/.agents/skills/$name"
+  done
+  ls "$HOME/.agents/skills"
+else
+  echo "    (bo qua: khong thay $SKILLS_SRC)"
+fi
+
+# 5. Dich vu: uu tien systemd muc HE THONG (User=$USER) vi khong phu thuoc user manager.
+# Lan boot dau, `systemctl --user` co the chua co bus -> service im lang khong chay,
+# nguoi dung chi thay trang khong mo duoc. Khong co sudo thi lui ve systemd --user.
+echo "[5/6] Bat dich vu..."
 command -v python3 >/dev/null 2>&1 || echo "CANH BAO: thieu python3 - cau noi mo trinh duyet se khong chay"
-cat > "$HOME/.config/systemd/user/harnessvn.service" <<UNIT
-[Unit]
-Description=HarnessVN web UI
-After=network-online.target
+SCOPE=user
+if sudo -n true 2>/dev/null; then SCOPE=system; fi
+if [ "$SCOPE" = "system" ]; then
+  USER_LINE="User=$USER"
+  UNIT_DIR=/etc/systemd/system
+  WANTED=multi-user.target
+  echo "    pham vi: systemd he thong (User=$USER)"
+else
+  USER_LINE=""
+  UNIT_DIR="$HOME/.config/systemd/user"
+  WANTED=default.target
+  mkdir -p "$UNIT_DIR"
+  echo "    pham vi: systemd --user (khong co sudo)"
+fi
 
-[Service]
-Type=simple
-Environment=HOME=$HOME
-Environment=PATH=$PREFIX/bin:/usr/local/bin:/usr/bin:/bin
-Environment=COREPACK_HOME=$HOME/.local/share/corepack
-WorkingDirectory=$SRC_DIR/upstream
-ExecStart=$PREFIX/bin/node $SRC_DIR/upstream/node_modules/.bin/tsx $SRC_DIR/upstream/apps/cli/src/bin.ts web --no-open --port $PORT --trusted-host localhost
-Restart=on-failure
-RestartSec=5
+# Sinh unit bang script rieng (kiem tra duoc ngoai may ao: harnessvn/install/write-units.sh).
+bash "$SRC_DIR/upstream/harnessvn/install/write-units.sh" \
+  --scope "$SCOPE" --dest "$UNIT_DIR" --port "$PORT" --src "$SRC_DIR" \
+  --home "$HOME" --user "$USER" --prefix "$PREFIX"
 
-[Install]
-WantedBy=default.target
-UNIT
-# Cau noi mo trinh duyet: dsh web chi phuc vu trang khi URL co token, nen mo tran
-# http://localhost:9999 se bi 401. Dich vu nay giu token va chuyen huong dung phien.
-cat > "$HOME/.config/systemd/user/harnessvn-open.service" <<UNIT
-[Unit]
-Description=HarnessVN browser bridge (chuyen huong URL co token)
-After=harnessvn.service
-
-[Service]
-Type=simple
-Environment=HOME=$HOME
-Environment=PATH=$PREFIX/bin:/usr/local/bin:/usr/bin:/bin
-Environment=APP_PORT=$PORT
-Environment=BRIDGE_PORT=9998
-Environment=SERVE_DIR=$HOME/harnessvn-open
-ExecStart=/bin/bash $SRC_DIR/harnessvn/vm/browser-bridge.sh
-Restart=on-failure
-RestartSec=5
-
-[Install]
-WantedBy=default.target
-UNIT
-systemctl --user daemon-reload
-systemctl --user enable --now harnessvn.service || true
-systemctl --user enable --now harnessvn-open.service || true
-loginctl enable-linger "$USER" 2>/dev/null || true
+if [ "$SCOPE" = "system" ]; then
+  sudo systemctl daemon-reload
+  sudo systemctl enable --now harnessvn.service && echo "    harnessvn.service: da bat"
+  sudo systemctl enable --now harnessvn-open.service && echo "    harnessvn-open.service: da bat"
+else
+  systemctl --user daemon-reload 2>/dev/null || true
+  systemctl --user enable --now harnessvn.service || echo "    (khong bat duoc systemd --user)"
+  systemctl --user enable --now harnessvn-open.service || true
+  loginctl enable-linger "$USER" 2>/dev/null || true
+fi
 
 # 6. Kiem tra
 echo "[6/6] Cho web UI tra loi..."
 # dsh web tra 401 khi thieu token, nen "co phan hoi HTTP" da la "dang chay".
+BG=setsid
+command -v setsid >/dev/null 2>&1 || BG=nohup
+start_direct() {
+  echo "    khong thay phan hoi tu dich vu — khoi dong truc tiep..."
+  $BG env HOME="$HOME" PATH="$PREFIX/bin:/usr/local/bin:/usr/bin:/bin" \
+    "$PREFIX/bin/node" "$SRC_DIR/upstream/node_modules/.bin/tsx" \
+    "$SRC_DIR/upstream/apps/cli/src/bin.ts" web --no-open --port "$PORT" --trusted-host localhost \
+    >"$HOME/harnessvn-web.log" 2>&1 < /dev/null &
+  $BG env HOME="$HOME" APP_PORT="$PORT" BRIDGE_PORT=9998 SERVE_DIR="$HOME/harnessvn-open" \
+    /bin/bash "$SRC_DIR/upstream/harnessvn/vm/browser-bridge.sh" \
+    >"$HOME/harnessvn-bridge.log" 2>&1 < /dev/null &
+}
 for i in $(seq 1 30); do
   code="$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT/" 2>/dev/null || true)"
   case "$code" in
@@ -131,6 +149,7 @@ for i in $(seq 1 30); do
       exit 0
       ;;
   esac
+  [ "$i" = "12" ] && start_direct
   sleep 5
 done
 echo "CHUA tra loi o cong $PORT. Xem: journalctl --user -u harnessvn -n 50"

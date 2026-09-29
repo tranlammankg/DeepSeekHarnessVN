@@ -22,8 +22,8 @@
    (Electron + runtime dsh,              (tự kiểm QEMU → boot VM Ubuntu headless)
     có pnpm kèm, KHÔNG cần Node)                   │
               │                          cloud-init provision 0-root
-              │                          systemd --user tự bật web UI
-              │                          hostfwd 9999 → trình duyệt máy thật
+              │                          systemd (User=harnessvn) tự bật web UI
+              │                          hostfwd 9998 (cửa nối) + 9999 → trình duyệt máy thật
               └───────────────┬────────────────────┘
                               │
                     dsh Web app (CÙNG MỘT MÃ NGUỒN)

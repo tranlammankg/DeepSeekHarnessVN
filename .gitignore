@@ -22,3 +22,9 @@ upstream/harnessvn/vm/*.tar.gz
 
 # Trang thai chay thu (DSH_HOME moi, anh tam)
 /.run/
+
+# San pham dung anh may ao (khong commit)
+/upstream/harnessvn/vm/*.tar.gz
+/upstream/harnessvn/vm/*.qcow2
+/upstream/harnessvn/vm/*.vmdk
+/upstream/harnessvn/vm/*.ova

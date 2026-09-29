@@ -16,6 +16,7 @@ không cần làm gì trong máy ảo.
 | `cloud-init/user-data.yaml` | Tạo người dùng `harnessvn`, bật dịch vụ cài đặt lần đầu, autologin console để xem tiến trình |
 | `run-vm.sh` | Chạy ảnh, hostfwd `9999` (ứng dụng) + `9998` (cửa nối), tự mở trình duyệt máy thật |
 | `browser-bridge.sh` | Giữ token của `dsh web`, phục vụ trang chuyển hướng / trang chờ ở cổng 9998 |
+| `../install/write-units.sh` | Sinh 2 unit systemd (scope `system` hoặc `user`) — kiểm tra được ngoài máy ảo |
 | `launchers/start-windows.bat` | Windows: kiểm QEMU → hỏi trước khi cài bằng winget → chạy VM → mở trình duyệt |
 | `launchers/start-macos.command` | macOS: kiểm QEMU → gợi ý `brew install qemu` → chạy VM (arm64 dùng `qemu-system-aarch64`) |
 | `launchers/start-linux.sh` | Linux: gọi `run-vm.sh` |
@@ -27,19 +28,31 @@ không cần làm gì trong máy ảo.
 - Dung lượng: ảnh nền ~600 MB + đĩa làm việc 20 GB (thin) + ảnh vàng ~1 GB
 
 ```bash
+# Chỉ tải ảnh nền + đóng gói seed (không cần qemu — dùng để kiểm tra trước hoặc cache sẵn):
+PREPARE_ONLY=1 harnessvn/vm/build-image.sh
+
+# Dựng thật (boot, cài đặt trong máy ảo, nén ảnh vàng):
 KVM=1 harnessvn/vm/build-image.sh
 ```
+
+`PREPARE_ONLY=1` kiểm luôn **SHA256 của ảnh nền** với `SHA256SUMS` của Ubuntu và tính toàn vẹn của
+gói mã nguồn (đúng tiền tố `upstream/`, không có `node_modules`) — chạy được cả trên máy không có qemu.
 
 ## Bên trong máy ảo
 
 Việc cài đặt do `harnessvn/install/provision.sh` làm, **không cần quyền root**:
 
-1. Tải Node vào `~/.local` (không dùng apt)
-2. Build **chính bản fork này** trong `~/.local` (không cài `dsh` từ npm)
-3. Cài các plugin trong `harnessvn/plugins/` (trừ `dsh-mario`) vào profile `web`
-4. Bật `harnessvn.service` (systemd `--user`) để web UI tự chạy khi máy khởi động
-5. Bật `harnessvn-open.service` — cửa nối cổng 9998 giữ token và chuyển hướng đúng phiên
-6. Chờ `http://127.0.0.1:9999` trả lời (401 cũng tính là "đang chạy") và ghi log vào `~/harnessvn-provision.log`
+1. Cloud-init tải gói mã nguồn từ host qua HTTP và giải nén vào **`/opt/harnessvn/upstream`**
+   (gói mang sẵn tiền tố `upstream/`; `provision.sh` dùng đúng đường dẫn này cho mã nguồn, plugin và cửa nối)
+2. Tải Node vào `~/.local` (không dùng apt)
+3. Build **chính bản fork này** trong `~/.local` (không cài `dsh` từ npm)
+4. Cài các plugin trong `harnessvn/plugins/` (trừ `dsh-mario`) vào profile `web`
+5. Chép skill `vn-self-setup` vào `~/.agents/skills/` — để harness tự cài phần mềm còn thiếu cho
+   người dùng ở **mọi** không gian làm việc, không phụ thuộc thư mục họ chọn
+6. Sinh unit bằng `install/write-units.sh` rồi bật `harnessvn.service` — ưu tiên unit **hệ thống**
+   (`User=harnessvn`, không phụ thuộc user manager ở lần boot đầu), không có sudo thì lùi về `systemd --user`
+7. Bật `harnessvn-open.service` — cửa nối cổng 9998 giữ token và chuyển hướng đúng phiên
+8. Chờ `http://127.0.0.1:9999` trả lời (401 cũng tính là "đang chạy") và ghi log vào `~/harnessvn-provision.log`
 
 ## Đã kiểm chứng gì / chưa kiểm chứng gì
 
@@ -48,6 +61,9 @@ Việc cài đặt do `harnessvn/install/provision.sh` làm, **không cần quy�
 | Cú pháp bash (`bash -n`) của mọi script | ✅ đã kiểm |
 | Hợp lệ YAML của `user-data.yaml` | ✅ đã kiểm |
 | Cài đặt độc lập với root (Node + npm `--prefix`) | ✅ nguyên tắc đã áp dụng, xem `provision.sh` |
+| Chế độ `PREPARE_ONLY=1` (tải ảnh nền + đóng gói seed) | ✅ đã chạy thật: tải 597 MB, **SHA256 khớp `SHA256SUMS` của Ubuntu**, gói mã nguồn 16.391 mục đúng tiền tố `upstream/`, không có `node_modules`, seed đủ 3 file |
+| Chép skill `vn-self-setup` vào `~/.agents/skills/` | ✅ đã mô phỏng đúng bước copy: ra `~/.agents/skills/vn-self-setup/{SKILL.md,install-tool.sh}`; provider skill đọc root này (đọc mã `join(agentsHome, 'skills')`) |
+| Script cài `install-tool.sh` | ✅ chạy thật: gói đã có → thoát 0; gói ngoài allowlist → thoát 2; ghi log theo `HARNESSVN_TOOLS_LOG` |
 | Cửa nối mở trình duyệt (`browser-bridge.sh`) | ✅ đã kiểm thật: HTTP 200 ở cổng cầu nối → chuyển hướng URL có token → UI tiếng Việt; app chưa sẵn sàng thì hiện trang chờ; sau khi có cookie, mở `http://localhost:9999` trần cũng vào được |
 | **Boot thật + cài thật trong VM** | ⏳ **chưa chạy được trong phiên soạn** — môi trường soạn là container không có `/dev/kvm`, không root, không qemu |
 

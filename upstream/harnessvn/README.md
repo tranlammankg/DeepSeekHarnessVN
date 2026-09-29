@@ -79,9 +79,11 @@ và `productName` khi đóng gói). Hộp thoại nhập khoá API nói rõ đư
 
 1. `build-image.sh` tải Ubuntu cloud image, đóng gói mã nguồn repo, phục vụ qua HTTP nội bộ,
    boot VM với `-smbios type=1,serial=ds=nocloud-net;s=http://10.0.2.2:8000/` để cloud-init lấy cấu hình.
-2. Cloud-init tải `harnessvn-src.tar.gz` giải nén vào `/opt/harnessvn`, rồi gọi
-   `harnessvn/install/provision.sh` bằng người dùng `harnessvn`.
+2. Cloud-init tải `harnessvn-src.tar.gz` giải nén vào `/opt/harnessvn/upstream`, rồi gọi
+   `upstream/harnessvn/install/provision.sh` bằng người dùng `harnessvn`.
 3. Provision cài Node + pnpm ở mức người dùng, **build chính bản fork này** (không cài dsh từ npm),
-   cài plugin kèm, bật `harnessvn.service` (systemd --user), chờ tới khi web UI trả lời.
+   cài plugin kèm, chép skill `vn-self-setup` vào `~/.agents/skills/` (để harness tự cài phần mềm còn thiếu),
+   bật `harnessvn.service` + `harnessvn-open.service` (unit hệ thống `User=harnessvn` khi có sudo,
+   không thì `systemd --user`), chờ tới khi web UI trả lời.
 4. Người dùng mở `http://localhost:9998` bằng trình duyệt máy thật — cửa nối
    (`harnessvn/vm/browser-bridge.sh`) giữ token và chuyển hướng vào đúng phiên của `dsh web`.
