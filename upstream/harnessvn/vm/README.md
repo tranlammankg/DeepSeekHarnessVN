@@ -107,8 +107,9 @@ Việc cài đặt do `harnessvn/install/provision.sh` làm, **không cần quy�
 2. Tải Node vào `~/.local` (không dùng apt)
 3. Build **chính bản fork này** trong `~/.local` (không cài `dsh` từ npm)
 4. Cài các plugin trong `harnessvn/plugins/` (trừ `dsh-mario`) vào profile `web`
-5. Chép skill `vn-self-setup` vào `~/.agents/skills/` — để harness tự cài phần mềm còn thiếu cho
-   người dùng ở **mọi** không gian làm việc, không phụ thuộc thư mục họ chọn
+5. Chép skill `vn-self-setup` vào `~/.agents/skills/` — để harness tự cài phần mềm còn thiếu cho người dùng
+   ở **mọi** không gian làm việc, không phụ thuộc thư mục họ chọn (skill này cũng đã đi kèm bản đóng gói ở
+   `packages/preset/agent-preset/skills/`, provision chép thêm là lớp dự phòng)
 6. Sinh unit bằng `install/write-units.sh` rồi bật `harnessvn.service` — ưu tiên unit **hệ thống**
    (`User=harnessvn`, không phụ thuộc user manager ở lần boot đầu), không có sudo thì lùi về `systemd --user`
 7. Bật `harnessvn-open.service` — cửa nối cổng 9998 giữ token và chuyển hướng đúng phiên

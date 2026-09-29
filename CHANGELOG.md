@@ -14,7 +14,9 @@ Các thay đổi đáng chú ý của HarnessVN. Mục mới nhất ở trên c�
   dùng nhà cung cấp khác thì **Cấu hình sau → Cài đặt → Mô hình → Thêm nhà cung cấp mô hình**
   (danh mục 40 nhà cung cấp: OpenAI, Anthropic, Google, Kimi, OpenRouter…).
 - **Skill `vn-self-setup`**: khi thiếu phần mềm (ví dụ `ffmpeg`, Python), trợ lý tự cài theo allowlist rồi
-  báo lại bằng tiếng Việt — người dùng không phải mở dòng lệnh.
+  báo lại bằng tiếng Việt — người dùng không phải mở dòng lệnh. Skill này **đi kèm bản đóng gói**
+  (`packages/preset/agent-preset/skills/vn-self-setup/`, được mount tự động qua `customSkillDirs`), nên có
+  cả trên app desktop, bản chạy web và trong máy ảo; máy ảo còn chép thêm vào `~/.agents/skills/`.
 - **6 tài liệu tiếng Việt cho người không chuyên IT**: bắt đầu nhanh, lấy khoá API, làm việc hằng ngày,
   câu hỏi thường gặp, xử lý lỗi, và hướng dẫn VirtualBox cho máy không bật được ảo hoá.
 
