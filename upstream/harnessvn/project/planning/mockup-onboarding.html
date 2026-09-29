@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>HarnessVN — mockup onboarding tiếng Việt</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f4f6f8; font-family: "Noto Sans", "DejaVu Sans", Arial, sans-serif; color: #1f2933; }
+  .page { width: 1500px; padding: 28px 30px 34px; }
+  h1 { margin: 0 0 4px; font-size: 27px; color: #1a237e; }
+  .sub { margin: 0 0 20px; color: #62727b; font-size: 14.5px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .card { background: #fff; border: 1px solid #d7dee3; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(15,40,70,.07); }
+  .bar { background: #e8eef3; border-bottom: 1px solid #d7dee3; padding: 7px 12px; font-size: 12.5px; color: #52616b; display: flex; align-items: center; gap: 6px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #b8c4cc; display: inline-block; }
+  .body { padding: 16px 18px 18px; min-height: 262px; }
+  .step { font-size: 11.5px; letter-spacing: .06em; color: #ef6c00; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+  .t { font-size: 17px; font-weight: 700; margin: 0 0 6px; }
+  .d { font-size: 13.5px; color: #52616b; line-height: 1.5; margin: 0 0 12px; }
+  .opt { display: flex; align-items: center; gap: 9px; border: 1px solid #d7dee3; border-radius: 9px; padding: 8px 10px; font-size: 14px; margin-bottom: 7px; }
+  .opt.sel { border-color: #1565c0; background: #e8f2fd; }
+  .radio { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #90a4ae; flex: 0 0 auto; }
+  .opt.sel .radio { border-color: #1565c0; background: radial-gradient(#1565c0 40%, #fff 45%); }
+  .tag { margin-left: auto; font-size: 11.5px; background: #e8f5e9; color: #2e7d32; border-radius: 20px; padding: 2px 8px; }
+  .field { border: 1px solid #cfd8dc; border-radius: 9px; padding: 10px 12px; font-size: 15px; color: #455a64; letter-spacing: 2px; }
+  .btn { display: inline-block; background: #1565c0; color: #fff; border-radius: 9px; padding: 9px 16px; font-size: 14px; font-weight: 600; }
+  .btn.ghost { background: #fff; color: #1565c0; border: 1px solid #1565c0; }
+  .btn.off { background: #cfd8dc; color: #78909c; }
+  .row { display: flex; gap: 8px; align-items: center; margin-top: 12px; }
+  .note { margin-top: 10px; font-size: 12.5px; color: #6d4c41; background: #fff8e1; border-left: 3px solid #ffb300; padding: 8px 10px; border-radius: 0 6px 6px 0; line-height: 1.45; }
+  .ok { font-size: 15.5px; font-weight: 700; color: #1b5e20; margin: 0 0 10px; }
+  .bullet { font-size: 13.5px; color: #37474f; line-height: 1.7; }
+  .err { background: #fdecea; border-left: 3px solid #d32f2f; color: #8e2420; }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>HarnessVN — màn hình lần đầu, bản tiếng Việt (mockup)</h1>
+  <p class="sub">Dựng theo đúng chuỗi trong <code>planning/onboarding-spec.md</code> · mục đích: duyệt câu chữ trước khi thành code · 6 màn hình chính + 1 màn hình lỗi</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> &nbsp;HarnessVN — màn hình chào</div>
+      <div class="body">
+        <div class="step">Bắt đầu</div>
+        <h2 class="t">Chào mừng bạn đến với HarnessVN 👋</h2>
+        <p class="d">Chỉ cần 3 bước để bắt đầu — khoảng 2 phút.<br>1. Chọn nhà cung cấp AI<br>2. Dán khoá API<br>3. Chọn mô hình</p>
+        <div class="row"><span class="btn">Bắt đầu</span><span class="btn ghost">Đăng nhập DeepSeek</span></div>
+        <div class="note">Chưa có tài khoản nào? Không sao — bạn chỉ cần một khoá API của hãng bạn chọn.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> &nbsp;Bước 1/3 — Nhà cung cấp AI</div>
+      <div class="body">
+        <div class="step">Bước 1/3</div>
+        <h2 class="t">Bạn muốn dùng AI của hãng nào?</h2>
+        <div class="opt sel"><span class="radio"></span> DeepSeek <span class="tag">khuyến nghị · rẻ</span></div>
+        <div class="opt"><span class="radio"></span> FPT AI Factory <span class="tag">Việt Nam · dễ nạp tiền</span></div>
+        <div class="opt"><span class="radio"></span> OpenRouter <span class="tag">nhiều mô hình</span></div>
+        <div class="opt"><span class="radio"></span> Anthropic (Claude)</div>
+        <div class="opt"><span class="radio"></span> Khác — tự nhập địa chỉ API + tên</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> &nbsp;Bước 2/3 — Khoá API</div>
+      <div class="body">
+        <div class="step">Bước 2/3</div>
+        <h2 class="t">Dán khoá API của bạn</h2>
+        <p class="d">Khoá giống như mật khẩu — chỉ lưu trên máy bạn, không gửi cho ai khác ngoài hãng bạn chọn.</p>
+        <div class="field">•••••••••••••••••••••</div>
+        <div class="row"><span class="btn">Tiếp tục</span><span class="btn ghost">👁 Hiện</span></div>
+        <div class="note">Chưa có khoá? <b>Xem cách lấy trong 2 phút</b> — có hướng dẫn nạp tiền bằng thẻ Việt Nam.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> &nbsp;Bước 3/3 — Mô hình</div>
+      <div class="body">
+        <div class="step">Bước 3/3</div>
+        <h2 class="t">Chọn mô hình để bắt đầu</h2>
+        <div class="opt sel"><span class="radio"></span> Nhanh &amp; rẻ <span class="tag">việc thường ngày</span></div>
+        <div class="opt"><span class="radio"></span> Mạnh hơn <span class="tag">việc khó · tốn hơn</span></div>
+        <div class="opt"><span class="radio"></span> Tự nhập tên mô hình</div>
+        <div class="row"><span class="btn">Kiểm tra kết nối</span></div>
+        <div class="note">Có thể đổi sau trong <b>Cài đặt → Mô hình</b>. Bạn trả tiền trực tiếp cho hãng, HarnessVN không thu phí.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> &nbsp;Khi khoá sai</div>
+      <div class="body">
+        <div class="step">Kiểm tra kết nối</div>
+        <h2 class="t">Chưa kết nối được</h2>
+        <div class="note err"><b>Khoá API không đúng.</b><br>Bạn kiểm tra lại, hoặc dán khoá mới. Nếu vừa nạp tiền, chờ 1–2 phút rồi thử lại.</div>
+        <div class="note err" style="margin-top:8px"><b>Không kết nối được tới máy chủ của hãng.</b><br>Kiểm tra mạng rồi thử lại.</div>
+        <div class="row"><span class="btn">Dán lại khoá</span><span class="btn ghost">Đổi nhà cung cấp</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span> &nbsp;Xong</div>
+      <div class="body">
+        <div class="step">Hoàn tất</div>
+        <p class="ok">✅ Xong! HarnessVN đã sẵn sàng.</p>
+        <p class="d">Gợi ý để bắt đầu:</p>
+        <div class="bullet">
+          • “Tóm tắt giúp tôi tệp này”<br>
+          • “Viết cho tôi một script đổi tên ảnh hàng loạt”<br>
+          • “Dịch đoạn văn này sang tiếng Anh”
+        </div>
+        <div class="note">Cần cài thêm gì cứ nói — HarnessVN tự lo. Bạn không phải mở dòng lệnh.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

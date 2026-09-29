@@ -1,0 +1,8 @@
+/** Tu dien tieng Viet cho namespace settings.plugins - sinh tu dong, khong sua tay. */
+export const vi = {
+  'nav': 'Tiện ích có sẵn',
+  'title': 'Tiện ích có sẵn',
+  'intro': 'Xem các tiện ích mà bản triển khai này kèm theo.',
+  'tabs': 'Màn hình tiện ích',
+  'empty': 'Bản triển khai này không có màn hình tiện ích nào.',
+} satisfies Record<string, string>

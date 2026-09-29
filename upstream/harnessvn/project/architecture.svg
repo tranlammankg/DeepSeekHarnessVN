@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1020" viewBox="0 0 1400 1020" font-family="Noto Sans, DejaVu Sans, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#455a64"/>
+    </marker>
+  </defs>
+  <rect width="1400" height="1020" fill="#ffffff"/>
+
+  <text x="700" y="46" font-size="30" font-weight="700" text-anchor="middle" fill="#1a237e">Kiến trúc HarnessVN</text>
+  <text x="700" y="76" font-size="15" text-anchor="middle" fill="#546e7a">Fork DeepSeek Harness · song ngữ Anh–Việt · cho người Việt không chuyên IT</text>
+
+  <g font-size="14">
+    <rect x="1000" y="20" width="20" height="14" rx="3" fill="#e8f5e9" stroke="#2e7d32"/>
+    <text x="1028" y="32" fill="#37474f">upstream có sẵn</text>
+    <rect x="1000" y="46" width="20" height="14" rx="3" fill="#fff3e0" stroke="#ef6c00"/>
+    <text x="1028" y="58" fill="#37474f">phần HarnessVN thêm/sửa</text>
+    <rect x="1000" y="72" width="20" height="14" rx="3" fill="#e3f2fd" stroke="#1565c0"/>
+    <text x="1028" y="84" fill="#37474f">trung tính / dùng chung</text>
+  </g>
+
+  <rect x="550" y="106" width="300" height="54" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="700" y="139" font-size="18" font-weight="600" text-anchor="middle" fill="#0d47a1">NGƯỜI DÙNG VIỆT</text>
+
+  <path d="M 640 160 L 640 186 L 400 186 L 400 208" stroke="#455a64" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 760 160 L 760 186 L 1000 186 L 1000 208" stroke="#455a64" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="80" y="210" width="560" height="176" rx="12" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+  <text x="100" y="240" font-size="17" font-weight="700" fill="#e65100">ĐƯỜNG CHÍNH — Bộ cài desktop (D12)</text>
+  <g font-size="14.5" fill="#37474f">
+    <text x="100" y="270">Windows 10/11 · macOS · nhấp đúp là chạy</text>
+    <text x="100" y="296">HarnessVN-Setup.exe / .dmg  (≈150–300 MB)</text>
+    <text x="100" y="322">Electron + runtime dsh, có pnpm kèm theo</text>
+    <text x="100" y="348">KHÔNG cần Node · KHÔNG cần QEMU · KHÔNG cần bật ảo hoá</text>
+    <text x="100" y="374" font-size="13.5" fill="#6d4c41">macOS muốn mở trên máy khác thì phải notarize</text>
+  </g>
+
+  <rect x="760" y="210" width="560" height="176" rx="12" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+  <text x="780" y="240" font-size="17" font-weight="700" fill="#e65100">ĐƯỜNG DỰ PHÒNG — Máy ảo QEMU (D12)</text>
+  <g font-size="14.5" fill="#37474f">
+    <text x="780" y="270">Linux · máy thiếu ảo hoá · người cần cách ly</text>
+    <text x="780" y="296">start-windows.bat / .command / .sh  (≈1 GB)</text>
+    <text x="780" y="322">Ubuntu cloud image + cloud-init, provision 0-root</text>
+    <text x="780" y="348">systemd --user tự bật web UI · hostfwd 9999</text>
+    <text x="780" y="374" font-size="13.5" fill="#6d4c41">trình duyệt máy thật mở http://localhost:9999</text>
+  </g>
+
+  <path d="M 360 386 L 360 412 L 700 412 L 700 432" stroke="#455a64" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 1040 386 L 1040 412 L 700 412" stroke="#455a64" stroke-width="2" fill="none"/>
+
+  <rect x="440" y="434" width="520" height="58" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="700" y="470" font-size="17" font-weight="600" text-anchor="middle" fill="#0d47a1">dsh Web app — CÙNG MỘT MÃ NGUỒN</text>
+
+  <path d="M 700 492 L 700 528" stroke="#455a64" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="330" y="530" width="740" height="72" rx="10" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+  <text x="700" y="560" font-size="17" font-weight="700" text-anchor="middle" fill="#e65100">Màn hình chào + wizard TIẾNG VIỆT</text>
+  <text x="700" y="586" font-size="14.5" text-anchor="middle" fill="#37474f">chọn nhà cung cấp → dán API key → chọn model   ·   khoá vào credential store (600), cấu hình không chứa bí mật</text>
+
+  <path d="M 700 602 L 700 638" stroke="#455a64" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="550" y="640" width="300" height="52" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="700" y="673" font-size="18" font-weight="600" text-anchor="middle" fill="#1b5e20">Chat với AI</text>
+
+  <text x="80" y="742" font-size="16" font-weight="700" fill="#263238">BA TẦNG CỦA REPO</text>
+
+  <rect x="80" y="754" width="1240" height="58" rx="10" fill="#e3f2fd" stroke="#1565c0" stroke-width="2"/>
+  <text x="100" y="778" font-size="15" font-weight="700" fill="#0d47a1">TẦNG 3 — ĐÓNG GÓI &amp; PHÁT HÀNH</text>
+  <text x="100" y="800" font-size="14" fill="#37474f">bộ cài desktop · qcow2 amd64 + ova + qcow2 arm64 · launcher 3 hệ · GitHub Releases + SHA256SUMS</text>
+
+  <rect x="80" y="820" width="1240" height="58" rx="10" fill="#fff3e0" stroke="#ef6c00" stroke-width="2"/>
+  <text x="100" y="844" font-size="15" font-weight="700" fill="#e65100">TẦNG 2 — FORK HarnessVN (đường chính, D5)</text>
+  <text x="100" y="866" font-size="14" fill="#37474f">vi là locale gốc (LOCALE_IDS = zh, en, vi) · nới kiểu register để dịch tăng dần · dịch 2.518 cặp khoá · sửa 2 gate i18n</text>
+
+  <rect x="80" y="886" width="1240" height="46" rx="10" fill="#eceff1" stroke="#78909c" stroke-width="2"/>
+  <text x="100" y="915" font-size="14.5" fill="#455a64">TẦNG 1 (tuỳ chọn) — plugin language pack xem trước: D5 đã bỏ qua, chỉ dùng nếu muốn thấy tiếng Việt trước khi build xong</text>
+
+  <rect x="80" y="944" width="1240" height="58" rx="10" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="2"/>
+  <text x="100" y="968" font-size="15" font-weight="700" fill="#4a148c">CI (D7) — vì KHÔNG cross-build được</text>
+  <text x="100" y="990" font-size="14" fill="#37474f">gates (ubuntu) · desktop-win (windows-latest → .exe) · desktop-mac (macos-latest → .dmg) · vm-image (ubuntu → qcow2/ova)</text>
+</svg>

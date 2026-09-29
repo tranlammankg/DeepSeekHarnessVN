@@ -1,0 +1,17 @@
+# @ailamman/dsh-git-broker — bundle patch layer.
+#
+# Intentionally empty.
+#
+# The row that activates this plugin lives in the *profile's own*
+# `cordis.patch.yml`, and it must live in exactly one layer, because the Cordis
+# loader rejects a duplicate loader-entry id across layers:
+#
+#     duplicate loader entry id: ui-git-broker
+#
+# A bundle layer is only composed at boot, while the profile patch file is
+# watched live (`patchReload: live`), so the profile layer is the one that can
+# also hot-enable the plugin in an already-running `dsh web` — F5 is enough.
+#
+# The package still declares `dsh.bundle.patch`, so `dsh plugin add/remove`
+# tracks it as a profile bundle and keeps `dsh.profile.bundles` in sync.
+[]

@@ -1,0 +1,62 @@
+title|PDF
+copy|Sao chép
+copied|Đã sao chép
+language|en
+loading|Đang dựng tài liệu...
+invalid|Không xem trước được tệp Office này. Có thể tệp bị hỏng, có mật khẩu, hoặc sai phần mở rộng.
+tooLarge|Tệp Office hoặc PDF đã chuyển đổi vượt giới hạn xem trước. Hãy giảm dung lượng tệp hoặc chỉnh cấu hình xem trước.
+timeout|Chuyển đổi Office quá thời gian chờ. Hãy thử lại.
+encoding|Không đọc được bảng mã này. Hãy lưu tệp dạng UTF-8 hoặc UTF-16 kèm BOM rồi thử lại.
+formulaWarning|Bảng tính này có công thức. Kết quả hiện ra có thể thiếu hoặc không chính xác.
+unsupportedNotice|Bản xem trước này không hỗ trợ {features} trong bảng tính. Hãy mở bằng ứng dụng hệ thống để xem đầy đủ.
+charts|biểu đồ
+images|hình ảnh
+shapes|hình vẽ
+conditionalFormatting|định dạng có điều kiện
+featureSeparator|, 
+retry|Thử lại
+frame|Xem trước tài liệu HTML
+failed|Không hiện được PDF: {message}
+zoomControls|Điều khiển thu phóng
+zoomMenu|Chọn mức thu phóng
+zoomOut|Thu nhỏ
+zoomIn|Phóng to
+zoomFitWidth|Vừa chiều rộng
+zoomValue|{percent}%
+preview|Xem trước ảnh: {name}
+unsupported|Xem trước PDF cần toàn bộ nội dung tệp.
+loadMore|Tải thêm
+changed|Tệp đã thay đổi trong lúc đọc. Hãy mở lại bản xem trước.
+reloadNow|Tải lại
+reload|Đọc lại tệp
+autoRefresh|Tự động làm mới
+autoRefresh.enable|Bật tự động làm mới
+autoRefresh.disable|Tắt tự động làm mới
+wrap.enable|Bật xuống dòng
+wrap.disable|Tắt xuống dòng
+wrap.aria|Xuống dòng
+openWith|Mở bằng
+viewer.text|Văn bản thuần
+resourceUnavailable|Dịch vụ tài nguyên tệp không dùng được.
+rendererUnavailable|Không xem trước được {name}.
+unsupportedFile|Chưa xem trước được loại tệp này.
+error.notFound|Không tìm thấy tệp. Có thể đã bị di chuyển hoặc xoá.
+error.tooLarge|Trang này vượt giới hạn {limit} nên không đọc được.
+error.notText|Chưa xem trước được loại tệp này.
+error.notRegularFile|Không phải tệp thường, không có gì để hiển thị.
+error.unavailable|Đọc thất bại: {message}
+viewer.label|Markdown
+code.copy|Sao chép
+code.copied|Đã sao chép
+footnotes|Chú thích cuối trang
+viewMissingFonts|Thiếu phông chữ: {count}. Bấm để xem.
+missingFontsTitle|Thiếu phông chữ
+missingFontsDescription|Những phông chữ này không có cho bản xem trước. Chữ và bố cục có thể khác tài liệu gốc.
+missingFontsCount|Phông chữ: {count}
+closeDetails|Đóng chi tiết phông chữ
+unavailable|Không xem trước được Office. Hãy bật dịch vụ xem trước tài liệu trên máy chạy DeepSeek Harness.
+busy|Xem trước Office đang bận. Hãy thử lại sau ít phút.
+pageImage|Trang PDF {page}
+rendering|Đang dựng trang…
+password|PDF này cần mật khẩu; bản xem trước có mật khẩu không được hỗ trợ.
+workerFailed|Tiến trình dựng PDF không tiếp tục được. Hãy thử lại.

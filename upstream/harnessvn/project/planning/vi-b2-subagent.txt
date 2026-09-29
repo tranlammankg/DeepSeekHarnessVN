@@ -1,0 +1,35 @@
+overridden|Đã ghi đè
+reset|Đặt lại mặc định
+readOnly|Bản triển khai này lưu cài đặt ở chế độ chỉ đọc.
+unavailable|Tiện ích này chưa được nạp nên hiện chưa cấu hình được.
+save|Lưu
+saving|Đang lưu…
+saveFailed|Bản triển khai không nhận các giá trị này; chúng được giữ lại để bạn sửa.
+subagentTitle|Agent con
+subagentDescription|Đặt độ sâu đệ quy, số lượng và mô hình cho agent con.
+subagentLimitsTitle|Giới hạn
+subagentMaxDepth|Độ sâu đệ quy tối đa
+subagentDepthHelpLabel|Về độ sâu đệ quy tối đa
+subagentDepthHelp|Giới hạn số tầng agent con mà một agent có thể tạo.
+subagentDepthZero|Tắt agent con
+subagentDepthOne|Chỉ agent chính được tạo agent con
+subagentDepthOverride|Nếu một công cụ tự đặt độ sâu đệ quy tối đa thì mức đó được ưu tiên.
+subagentMaxActive|Giới hạn số agent con chạy song song
+subagentCapacityHelpLabel|Về giới hạn chạy song song của agent con
+subagentCapacityHelp|Tổng số agent con đang sống dưới cùng một agent chính, tính cả mọi tầng đệ quy. Không tính agent chính. Yêu cầu tạo mới sẽ bị từ chối khi chạm giới hạn.
+subagentDepthInvalid|Nhập một số nguyên từ 0 trở lên.
+subagentCapacityInvalid|Nhập một số nguyên từ 1 trở lên.
+subagentModelSelectionTitle|Chọn mô hình
+subagentModelSelectionToggle|Cho phép agent tự chọn mô hình cho agent con
+subagentModelSelectionChoose|Khi bật, agent có thể chọn nhà cung cấp, mô hình và mức suy luận cho từng agent con trong số mô hình được phép dưới đây. Chỉ áp dụng cho phiên mới.
+subagentModelSelectionAllowed|Mô hình agent được chọn
+subagentModelSelectionLoading|Đang tải mô hình…
+subagentModelSelectionLoadFailed|Không tải được mô hình.
+subagentModelSelectionRetry|Thử lại
+subagentModelSelectionPartial|Một số nhà cung cấp mô hình không tải được; các lựa chọn đã lưu vẫn bỏ được.
+subagentModelSelectionUnavailable|Hiện không dùng được
+subagentModelSelectionUnavailableGroup|Đã lưu nhưng hiện không dùng được
+subagentModelSelectionEmpty|Hiện chưa nhà cung cấp nào công bố mô hình.
+subagentModelSelectionRequired|Chọn ít nhất một mô hình trước khi lưu.
+subagentModelSelectionConflict|Cài đặt đã bị đổi ở nơi khác. Hãy bỏ bản nháp và thử lại.
+subagentModelSelectionOff|Agent con dùng mặc định đã cấu hình hoặc theo mô hình của agent cha. Các lựa chọn mô hình đã lưu vẫn được giữ.

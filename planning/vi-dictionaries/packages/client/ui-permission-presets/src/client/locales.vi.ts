@@ -1,0 +1,18 @@
+/** Tu dien tieng Viet sinh tu dong — KHONG sua tay.
+ * Nguon goc: packages/client/ui-permission-presets/src/client/locales.ts
+ * Du lieu: planning/key-inventory-vi.tsv
+ */
+export const vi = {
+  'title': 'Quyền',
+  'description': 'Chọn mức quyền mặc định cho phiên mới',
+  'loading': 'Đang tải',
+  'unavailable': 'Không dùng được',
+  'preset.readOnly': 'Chỉ đọc',
+  'preset.workspaceWrite': 'Ghi trong không gian làm việc',
+  'preset.fullAccess': 'Toàn quyền',
+  'confirm.title': 'Bật Toàn quyền?',
+  'confirm.description': 'Toàn quyền cho phép phiên mới giảm bớt bước xác nhận và làm nhiều việc trực tiếp hơn, kể cả thao tác nhạy cảm, thay đổi tệp hoặc chạy lệnh bên ngoài. Chỉ dùng khi bạn tin các việc tiếp theo.',
+  'confirm.acknowledge': 'Tôi hiểu rủi ro và muốn tiếp tục',
+  'confirm.cancel': 'Huỷ',
+  'confirm.enable': 'Bật Toàn quyền',
+} satisfies Record<string, string>

@@ -1,0 +1,43 @@
+{
+  "name": "@ailamman/dsh-git-broker",
+  "version": "0.1.0",
+  "description": "Scoped git remote broker for DeepSeek Harness: operate only on declared repositories, each with its own narrow credential (SSH deploy key or fine-grained token) instead of a whole git account",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./core": "./lib/core.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "src",
+    "scripts",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "git",
+    "deploy-key",
+    "scoped-credentials",
+    "client-plugin"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/core-check.mjs",
+    "e2e": "node scripts/git-e2e.mjs"
+  }
+}

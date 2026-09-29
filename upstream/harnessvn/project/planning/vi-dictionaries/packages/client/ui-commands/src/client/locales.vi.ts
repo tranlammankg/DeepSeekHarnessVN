@@ -1,0 +1,34 @@
+/** Tu dien tieng Viet sinh tu dong — KHONG sua tay.
+ * Nguon goc: packages/client/ui-commands/src/client/locales.ts
+ * Du lieu: planning/key-inventory-vi.tsv
+ */
+export const vi = {
+  'section.add': 'Thêm',
+  'section.commands': 'Lệnh',
+  'label.goal': 'Mục tiêu',
+  'label.plan': 'Kế hoạch',
+  'label.feedback': 'Phản hồi',
+  'label.compact': 'Nén lịch sử',
+  'label.permission': 'Quyền',
+  'label.export': 'Xuất',
+  'description.goal': 'Đặt hoặc xem mục tiêu cho việc chạy dài',
+  'description.plan': 'Bật hoặc tắt chế độ kế hoạch',
+  'description.feedback': 'Ghi lại phản hồi về phiên này',
+  'description.compact': 'Nén bớt lịch sử trò chuyện cũ',
+  'description.permission': 'Đổi mức quyền (chế độ sandbox + cách phê duyệt)',
+  'description.export': 'Tải nhật ký phiên này dưới dạng tệp ZIP',
+  'token.goal': 'goal',
+  'token.plan': 'plan',
+  'token.feedback': 'feedback',
+  'token.compact': 'compact',
+  'token.permission': 'permission',
+  'token.export': 'export',
+  'search.placeholder': 'Tìm…',
+  'search.aria': 'Lọc lựa chọn',
+  'status.loading': 'Đang tải lựa chọn…',
+  'status.applying': 'Đang áp dụng…',
+  'status.empty': 'Không có lựa chọn',
+  'overlay.aria': 'Lựa chọn của /{command}',
+  'listbox.aria': 'Kết quả khớp của /{command}',
+  'notice.attachmentsUnsupported': '/{command} không nhận tệp đính kèm; hãy bỏ đính kèm trước',
+} satisfies Record<string, string>

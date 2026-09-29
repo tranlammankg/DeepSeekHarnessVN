@@ -1,0 +1,18 @@
+title|Tìm kiếm web
+description|Thiết lập nhà cung cấp tìm kiếm DeepSeek.
+apiKey|Khoá API
+apiKeyHint|Được lưu ngoài tệp cài đặt. Để trống để giữ khoá hiện tại.
+apiKeySet|Đã cấu hình khoá.
+apiKeyUnset|Chưa có khoá; tìm kiếm sẽ không dùng được cho tới khi có.
+baseUrl|Địa chỉ API
+baseUrlHint|Để trống để dùng mặc định của nhà cung cấp.
+maxUses|Số lần tìm tối đa mỗi yêu cầu
+maxUsesHint|Một yêu cầu được tìm bao nhiêu lần trước khi buộc phải trả lời.
+overridden|Đã ghi đè
+reset|Đặt lại mặc định
+readOnly|Bản triển khai này lưu cài đặt ở chế độ chỉ đọc.
+unavailable|Tiện ích này chưa được nạp nên hiện chưa cấu hình được.
+save|Lưu
+saving|Đang lưu…
+saveFailed|Bản triển khai không nhận các giá trị này; chúng được giữ lại để bạn sửa.
+invalidNumber|Nhập một số, hoặc để trống để dùng mặc định.

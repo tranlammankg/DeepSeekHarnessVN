@@ -1,0 +1,40 @@
+tab|Danh sách tiện ích
+loading|Đang đọc tiện ích…
+clientSyncing|Đang đồng bộ tiện ích trên trang này…
+clientSyncFailed|Một số tiện ích không đồng bộ được trên trang này. Trạng thái bật trên Host không đổi.
+clientSyncRetry|Thử lại trang này
+error|Tiện ích tạm thời không dùng được.
+metadataError|Lỗi metadata gói: {error}
+retry|Thử lại
+search|Tìm tiện ích
+empty|Không có tiện ích nào.
+emptySearch|Không có tiện ích nào khớp.
+presetTitle|Tiện ích theo phiên
+presetSubtitle|Được ghép cho từng phiên bởi preset agent
+countUnit|tiện ích
+switcherLabel|Chọn preset agent để xem
+presetOptionDefault|{name} (mặc định)
+presetOptionBroken|{name} (tải thất bại)
+globalTitle|Tiện ích chung
+globalSubtitle|Dùng chung cho hệ thống và mọi phiên
+presetProvidedDetail|Bị tắt toàn cục; preset agent cấp nó theo từng phiên
+enabledIn|Được bật trong
+viewInPreset|Xem trong nhóm preset
+matchesInOtherPresets|Còn {count} kết quả khớp ở preset khác: 
+failedCountLabel|lỗi
+enabledTag|Đang bật
+disabledTag|Đang tắt
+conditionalTag|Có điều kiện
+presetEnabledTag|Bật qua preset
+failedTag|Lỗi
+moduleLabel|Mô-đun
+fromPreset|Từ
+condition|Tắt khi
+configuration|Cấu hình
+runtime|Trạng thái
+unobserved|Không chạy
+pending|Đang chờ phụ thuộc
+loadingPhase|Đang nạp
+active|Đang chạy
+failed|Khởi động thất bại
+unloading|Đang gỡ

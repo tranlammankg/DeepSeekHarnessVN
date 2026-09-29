@@ -1,0 +1,88 @@
+dictate|Nhập bằng giọng nói
+setupPrompt.title|Thiết lập nhập giọng nói trước khi ghi âm
+setupPrompt.body|Nhập bằng giọng nói đã bật. Lần đầu dùng cần tải và chuẩn bị mô hình nhận dạng trên máy. Hãy mở chi tiết tiện ích để xem ước lượng dung lượng đĩa, bộ nhớ và thời gian trước khi bắt đầu.
+setupPrompt.later|Để sau
+setupPrompt.open|Đi tới thiết lập
+setupPrompt.trigger|Mở thiết lập nhập giọng nói
+setupPrompt.details|Mở cài đặt tiện ích giọng nói
+setupPrompt.unavailableTitle|Nhận dạng giọng nói chưa sẵn sàng
+setupPrompt.unavailableBody|Mở chi tiết tiện ích giọng nói để xem trạng thái nhận dạng, tiến trình chuẩn bị hoặc lỗi.
+setup.local|Mô hình cục bộ sẽ được tải về máy chạy DSH. Không cần Python hay trình biên dịch.
+setup.disk|Dung lượng đĩa
+setup.diskValue|Cần khoảng {gb} GB cho mô hình, runtime và bộ đệm tải về
+setup.memory|Bộ nhớ
+setup.memoryValue|Khoảng {gb} GB khi đã nạp mô hình; nhận dạng có thể dùng nhiều hơn
+setup.time|Thiết lập lần đầu
+setup.timeValue|Cần khoảng {min}–{max} phút, tuỳ mạng và máy
+setup.estimateNote|Đây là ước lượng; mạng chậm có thể lâu hơn. Các tệp đã tải được dùng lại; mô hình nhàn rỗi mặc định nhả bộ nhớ.
+step.check|Kiểm tra tài nguyên trên máy
+step.model|Chuẩn bị mô hình nhận dạng
+step.vad|Chuẩn bị mô hình phát hiện giọng nói
+step.verify|Kiểm tra tệp mô hình
+step.load|Nạp {name}
+stepStatus.pending|Chưa bắt đầu
+stepStatus.running|Đang làm
+stepStatus.complete|Đã xong
+stepStatus.failed|Thất bại
+stepStatus.cancelled|Đã huỷ
+short.downloading|Đang tải
+short.failed|Thiết lập thất bại
+retryRecording|Ghi âm lại
+preparationSteps|Các bước chuẩn bị
+prepare|Tải và chuẩn bị
+retryPrepare|Thử chuẩn bị lại
+cancelPrepare|Huỷ chuẩn bị
+downloadProgress|Tiến trình tải
+downloadBytes|Đã tải: {completed} / {total} MB, {percent}%
+downloadUnknown|Đã tải {completed} MB
+elapsed|Đã chờ {seconds} giây
+preparationFailed|Chuẩn bị thất bại: {message}
+download.network|Không tải được {resource}: kết nối tới dịch vụ tải thất bại.
+download.dns|Không tải được {resource}: không phân giải được địa chỉ tải.
+download.timeout|Tải {resource} quá thời gian chờ.
+download.certificate|Không tải được {resource}: kiểm tra chứng chỉ thất bại.
+download.http|Không tải được {resource}: dịch vụ tải trả về HTTP {status}.
+download.integrity|Tệp {resource} tải về chưa xong hoặc không qua kiểm tra.
+download.storage|Không lưu được {resource}: thiếu dung lượng đĩa hoặc không có quyền ghi.
+download.unknown|Không chuẩn bị được {resource}.
+downloadAdvice.network|Kiểm tra xem máy chạy DSH có tới được nguồn tải và dịch vụ tải mô hình không. Nếu cần, cấu hình proxy trên máy đó rồi thử lại.
+downloadAdvice.dns|Kiểm tra DNS và proxy trên máy chạy DSH. Xác nhận máy phân giải được tên miền nguồn tải rồi thử lại.
+downloadAdvice.timeout|Kiểm tra mạng hoặc proxy trên máy chạy DSH rồi thử lại sau. Các tệp đã tải và xác minh vẫn được giữ.
+downloadAdvice.certificate|Kiểm tra đồng hồ hệ thống, chứng chỉ tin cậy và proxy trên máy chạy DSH rồi thử lại.
+downloadAdvice.http|Xác nhận địa chỉ tải còn dùng được và proxy tới được dịch vụ tải, hoặc thử lại sau.
+downloadAdvice.integrity|Hãy tải lại. Các tệp khác đã tải và xác minh vẫn được giữ.
+downloadAdvice.storage|Kiểm tra dung lượng đĩa và quyền ghi vào thư mục mô hình trên máy chạy DSH rồi thử lại.
+downloadAdvice.unknown|Kiểm tra mạng, dung lượng đĩa và quyền thư mục mô hình trên máy chạy DSH rồi thử lại.
+downloadSource|Nguồn tải: {source}
+sourceChoice|Nguồn tải mô hình
+sourceAuto|Tự động (khuyến nghị)
+sourceHuggingFace|Hugging Face
+sourceMirror|HF-Mirror (mirror Trung Quốc)
+sourceAutoHelp|Ưu tiên nguồn phản hồi trước và thử nguồn khác nếu tải thất bại.
+sourceManualHelp|Chỉ tải từ nguồn đã chọn. Tệp đã tải và xác minh được dùng lại.
+downloadCode|Mã lỗi: {code}
+reconnecting|Đang kết nối tới nhận dạng giọng nói…
+preparation.unprepared|Lần đầu dùng sẽ tải mô hình nhận dạng cục bộ.
+preparation.checking|Đang kiểm tra tài nguyên trên máy…
+preparation.loading|Đang nạp {name}…
+preparation.waking|Đang đánh thức nhận dạng giọng nói cục bộ…
+preparation.ready|Nhận dạng giọng nói cục bộ đã sẵn sàng.
+preparation.standby|Tài nguyên trên máy đã chuẩn bị. Ghi âm sẽ đánh thức bộ nhận dạng.
+preparation.cancelled|Đã huỷ chuẩn bị. Các phần đã tải xong vẫn được giữ.
+preparation.cancelling|Đang huỷ chuẩn bị…
+cloudReady|Nhận dạng giọng nói trên đám mây đã sẵn sàng.
+discard|Bỏ bản ghi
+transcribingShort|Đang chuyển thành văn bản…
+provider|Dịch vụ nhận dạng
+auto|Tự phát hiện
+start|Bắt đầu ghi âm
+loading|Đang tải dịch vụ nhận dạng…
+interrupted|Ghi âm bị ngắt. Hãy thử lại.
+local|Âm thanh được nhận dạng trên máy chạy DSH. Nếu cần tải mô hình, máy đó phải tới được nguồn đã chọn và dịch vụ tệp của nguồn. Nếu cần, cấu hình proxy trên máy đó.
+cloud|Âm thanh sẽ được gửi tới dịch vụ đám mây đã chọn.
+empty|Không nhận ra giọng nói nào
+conflict|Bản nháp của bạn đã thay đổi. Bản ghi được giữ và có thể chèn tại vị trí con trỏ hiện tại.
+failed|Nhận dạng giọng nói thất bại: {message}
+unavailable|Trình duyệt này không ghi âm được. Hãy dùng trình duyệt hỗ trợ micrô.
+permission|Quyền dùng micrô đang bị tắt. Hãy bật trong cài đặt trình duyệt và hệ thống.
+tooLarge|Bản ghi vượt giới hạn của dịch vụ. Hãy ghi đoạn ngắn hơn.

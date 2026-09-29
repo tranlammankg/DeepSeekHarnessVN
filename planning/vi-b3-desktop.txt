@@ -1,0 +1,137 @@
+application|Ứng dụng
+fileMenu|Tệp
+closePage|Đóng trang hoặc cửa sổ
+aboutMenu|Giới thiệu DeepSeek Harness
+aboutProduct|DeepSeek Harness
+aboutVersion|Phiên bản V{version}
+hideApplication|Ẩn DeepSeek Harness
+hideOtherApplications|Ẩn các ứng dụng khác
+showAllApplications|Hiện tất cả
+quitApplication|Thoát DeepSeek Harness
+openApplication|Mở DeepSeek Harness
+quit|Thoát
+cancel|Huỷ
+quitTitle|Thoát DeepSeek Harness?
+quitActiveTasks|Tác vụ đang chạy sẽ bị gián đoạn.
+quitScheduledTasks|Tác vụ theo lịch sẽ không chạy khi ứng dụng đóng.
+quitActiveAndScheduledTasks|Tác vụ đang chạy sẽ bị gián đoạn, và tác vụ theo lịch sẽ không chạy khi ứng dụng đóng.
+backgroundNoticeBody|Tác vụ đang chạy vẫn tiếp tục. Bạn có thể mở lại cửa sổ từ khay hệ thống.
+backgroundNoticeConfirm|Xác nhận
+edit|Sửa
+menuBar|Menu ứng dụng
+delete|Xoá
+undo|Hoàn tác
+redo|Làm lại
+cut|Cắt
+copy|Sao chép
+paste|Dán
+selectAll|Chọn tất cả
+startupFailed|DeepSeek Harness không dùng được
+fatalSummary|Ứng dụng không khởi động được hoặc đã dừng bất ngờ.
+startupAddressInUse|Đang có một DSH khác chạy (như dsh web hoặc bản desktop). Chúng không thể chạy cùng lúc. Hãy thoát DSH còn lại rồi khởi động lại.
+diagnosticTruncated|… Đã rút gọn chi tiết lỗi.
+reportWrittenTo|Báo cáo chẩn đoán: {path}
+startupReinstallAdvice|Nếu tệp ứng dụng bị thiếu hoặc hỏng, hãy đóng ứng dụng rồi cài lại. Tác vụ của bạn được lưu riêng.
+exitApplication|Thoát
+restartApplication|Khởi động lại
+recoveryOperationFailed|Thao tác khôi phục thất bại
+disableThirdPartyPlugins|Tắt tiện ích bên thứ ba, sao lưu bản vá profile rồi khởi động lại
+welcomeTitle|DeepSeek Harness
+welcomeBrand|DeepSeek Harness
+welcomeTaglineBefore|Chào mừng đến với 
+welcomeTaglineBrand|DeepSeek Harness
+welcomeDescription|Kiến tạo tiềm năng. Khám phá trí tuệ.
+welcomeAuthStarting|Đang mở trang đăng nhập…
+welcomeAuthWaiting|Trình duyệt không tự mở?
+welcomeAuthWaitingDescription|Sao chép liên kết đăng nhập rồi mở trong trình duyệt để đăng nhập.
+welcomeAuthExchanging|Đang hoàn tất đăng nhập…
+welcomeAuthExpired|Hết thời gian đăng nhập
+welcomeAuthExpiredDescription|Hãy đăng nhập lại để tiếp tục
+welcomeAuthFailed|Không hoàn tất được đăng nhập. Hãy thử lại.
+welcomeAuthCopyLink|Sao chép liên kết đăng nhập
+welcomeAuthCopied|Đã sao chép
+welcomeAuthCopyFailed|Không sao chép được. Hãy thử lại.
+welcomeAuthCancel|Huỷ
+welcomeAuthRetry|Đăng nhập lại
+welcomeSignIn|Đăng nhập
+welcomeApiKey|Thêm khoá API
+welcomeKeyTitle|Thêm khoá API để bắt đầu
+welcomeKeyDescription|Cấu hình mô hình DeepSeek chính thức để bắt đầu dùng Harness
+welcomeKeyPlaceholder|Nhập khoá API
+welcomeKeySave|Lưu và tiếp tục
+welcomeKeyLater|Thiết lập sau
+welcomeKeyBack|Quay lại đăng nhập
+welcomeSessionExpired|Bạn đã đăng xuất khỏi tài khoản, hãy đăng nhập lại.
+welcomeKeyBlank|Hãy nhập khoá API.
+welcomeKeyInvalid|Hãy nhập đúng phần khoá API, không kèm dấu ngoặc kép, dấu cách, hay dạng gán biến môi trường.
+welcomeKeyFailed|Không lưu được khoá API. Hãy thử lại.
+welcomeContinueFailed|Không mở được không gian làm việc. Hãy thử lại.
+checkUpdatesMenu|Kiểm tra cập nhật…
+reloadPageMenu|Tải lại trang
+restartAppHostMenu|Khởi động lại ứng dụng và máy chủ
+updateCheckFailedTitle|Kiểm tra cập nhật thất bại
+updateCheckFailed|Không kiểm tra được cập nhật. Hãy thử lại sau.
+updateDownloadFailed|Không tải được bản cập nhật. Hãy thử lại.
+updateInstallFailed|Không cài được bản cập nhật. Hãy thử lại sau.
+updateCheckNetworkFailed|Không kiểm tra được cập nhật. Kết nối bị ngắt. Hãy kiểm tra mạng rồi thử lại.
+updateDownloadNetworkFailed|Không tải được bản cập nhật. Kết nối bị ngắt. Hãy kiểm tra mạng rồi thử lại.
+updateInstallNetworkFailed|Không cài được bản cập nhật. Kết nối bị ngắt. Hãy kiểm tra mạng rồi thử lại.
+unknownError|Lỗi không xác định
+updateCheckTitle|Kiểm tra cập nhật
+updateCurrent|Không có bản cập nhật. Phiên bản hiện tại: V{version}
+updateChecking|Đang kiểm tra cập nhật…
+updateDownload|Tải bản cập nhật
+updateDownloadedTitle|Đã tải DeepSeek Harness v{version}
+updateDownloadedDetail|Gói cập nhật đã tải xong. Chọn "Cài đặt và khởi động lại" để khởi động lại ứng dụng và bắt đầu cài.
+updateDownloadedTitleWindows|Bản mới v{version} đã sẵn sàng
+updateDownloadedDetailWindows|Ứng dụng sẽ tạm đóng trong lúc cập nhật và tự mở lại khi xong. Quá trình có thể mất chút thời gian. Hãy đợi và không mở lại ứng dụng trong lúc cài.
+updateClose|Đóng
+updateAcknowledge|OK
+updateLater|Cập nhật sau
+updateDownloading|Đang tải {percent}%…
+updateVerifying|Đang kiểm tra tệp cập nhật…
+updateInstalling|Đang chuẩn bị khởi động lại…
+updateRetry|Thử cập nhật lại
+updateActiveTasks|Vẫn còn tác vụ đang chạy
+updateActiveTasksDetail|Khởi động lại để cập nhật có thể làm gián đoạn các tác vụ này. Vẫn tiếp tục cập nhật?
+updateStopTasks|Dừng tác vụ và cập nhật
+updateTasksChanged|Có tác vụ mới bắt đầu. Hãy xem lại xác nhận cập nhật.
+updateTasksUnavailable|Không xem được trạng thái tác vụ. Hãy thử cập nhật lại khi không gian làm việc sẵn sàng.
+updateStopFailed|Không dừng được các tác vụ một cách an toàn. Bản cập nhật chưa được cài. Hãy thử lại sau.
+updateTechnicalDetails|Xem chi tiết kỹ thuật
+updateTitle|Cập nhật DeepSeek Harness
+updateAvailable|Có bản cập nhật
+updateDetail|DeepSeek Harness {version}  DeepSeek Harness sẽ khởi động lại để hoàn tất cập nhật.
+installAndRestart|Cài đặt và khởi động lại
+later|Để sau
+updateFailedTitle|Cập nhật thất bại
+mandatoryTitle|Bắt buộc cập nhật
+mandatoryDetail|Phiên bản này không còn được hỗ trợ. Hãy cập nhật để tiếp tục. Tác vụ hiện có vẫn chạy được cho tới khi bạn đồng ý khởi động lại.
+mandatoryUnavailable|Không kiểm tra được yêu cầu cập nhật. Hãy thử lại khi có kết nối.
+policyLoginTitle|Đăng nhập vào môi trường thử nghiệm
+policyLoginRequired|Đây là bản thử nghiệm. Kiểm tra yêu cầu cập nhật cần đăng nhập Feishu. Đăng nhập không tải hay cài bản cập nhật.
+policyLogin|Đăng nhập bằng Feishu
+policyLoginFailed|Đăng nhập môi trường thử nghiệm chưa xong. Hãy kiểm tra kết nối rồi thử lại.
+policyLoginLoading|Đang tải trang đăng nhập…
+mandatoryNoRelease|Không có bản cập nhật phù hợp. Hãy kiểm tra lại hoặc liên hệ hỗ trợ.
+mandatoryRefresh|Kiểm tra lại
+mandatoryPage|Mở trang tải
+mandatoryCopy|Sao chép địa chỉ tải
+mandatoryPageFailed|Không mở được trang tải. Hãy sao chép địa chỉ dưới đây và mở bằng trình duyệt.
+mandatoryActionFailed|Thao tác cập nhật thất bại. Hãy thử lại; yêu cầu cập nhật vẫn còn hiệu lực.
+mandatoryReady|Bản cập nhật đã sẵn sàng
+mandatoryVersion|V{version}
+mandatoryReadyDetail|Cài bản cập nhật sẽ khởi động lại ứng dụng.
+mandatoryDeferred|Tác vụ hiện có vẫn chạy được. Hãy cập nhật để tiếp tục dùng ứng dụng.
+mandatoryContinue|Tiếp tục cài bản cập nhật
+mandatoryInspecting|Đang kiểm tra tác vụ…
+mandatoryStopping|Đang dừng tác vụ trong ứng dụng một cách an toàn.
+mandatoryRestarting|Ứng dụng sẽ khởi động lại ngay. Hãy đợi.
+mandatoryDownloadFailed|Không tải hoặc chuẩn bị được tệp cập nhật. Hãy thử lại.
+mandatoryInstallFailed|Bản cập nhật chưa được cài. Hãy kiểm tra tác vụ rồi thử lại.
+mandatoryOpenHelp|Nếu trang không mở, bạn có thể
+mandatoryReopen|Mở lại trang tải
+mandatoryCopied|Đã sao chép liên kết
+mandatoryCopyFailed|Sao chép thất bại. Hãy chọn và sao chép địa chỉ dưới đây bằng tay.
+mandatoryAddress|Địa chỉ tải
+mandatoryNotification|Quay lại ứng dụng để xác nhận cài đặt và khởi động lại.

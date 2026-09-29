@@ -1,0 +1,23 @@
+{
+  "name": "dsh-profile-web",
+  "private": true,
+  "dependencies": {
+    "@ailamman/dsh-mario": "link:/home/ailamman/Desktop/plugin/dsh-mario",
+    "@ailamman/dsh-skill-explorer": "link:/home/ailamman/Desktop/ phát triển các tính năng thêm cho harness/dsh-skill-explorer",
+    "@deepseek-ai/dsh-experimental-agent-team-profile": "0.1.5-rc.3",
+    "@goodddgrades/dsh-behuman": "file:/home/ailamman/.dsh/plugins/goodddgrades-dsh-behuman-0.1.0.tgz"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app",
+        "@deepseek-ai/dsh-experimental-agent-team-profile",
+        "@goodddgrades/dsh-behuman",
+        "@ailamman/dsh-mario",
+        "@ailamman/dsh-skill-explorer"
+      ],
+      "patchReload": "live"
+    }
+  }
+}

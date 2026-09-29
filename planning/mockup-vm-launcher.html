@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><title>HarnessVN — cửa sổ khởi động (mockup)</title>
+<style>
+ *{box-sizing:border-box}
+ body{margin:0;background:#eef1f4;font-family:"Noto Sans","DejaVu Sans",Arial,sans-serif;color:#1f2933}
+ .wrap{width:1500px;padding:22px 28px 26px}
+ h1{margin:0 0 4px;font-size:24px;color:#1a237e}
+ .sub{margin:0 0 14px;color:#62727b;font-size:13.5px}
+ .term{background:#0f1720;border-radius:12px;overflow:hidden;border:1px solid #22303d;margin-bottom:14px;box-shadow:0 3px 12px rgba(10,25,45,.16)}
+ .tbar{background:#1c2a36;color:#b0bec5;font-size:12.5px;padding:6px 12px;display:flex;align-items:center;gap:7px}
+ .d{width:9px;height:9px;border-radius:50%;background:#546e7a;display:inline-block}
+ pre{margin:0;padding:12px 16px 14px;font-family:"DejaVu Sans Mono","Noto Sans Mono",monospace;font-size:14px;line-height:1.62;color:#cfd8dc;white-space:pre-wrap}
+ .g{color:#7ee787}.y{color:#ffd479}.r{color:#ff8a80}.b{color:#79c0ff}.dim{color:#78909c}.w{color:#ffffff;font-weight:700}
+ .cap{font-size:13px;color:#546e7a;margin:-4px 0 16px 2px}
+</style></head>
+<body><div class="wrap">
+ <h1>HarnessVN — cửa sổ khởi động trên máy thật (mockup)</h1>
+ <p class="sub">Đây là thứ người dùng thấy khi nhấp đúp file khởi động · đường máy ảo (D12) · câu chữ lấy từ <code>planning/onboarding-spec.md</code> mục S0</p>
+
+ <div class="term">
+  <div class="tbar"><span class="d"></span><span class="d"></span><span class="d"></span>&nbsp; HarnessVN — start-windows.bat</div>
+  <pre><span class="b">HarnessVN 1.0</span> — trợ lý AI chạy ngay trên máy bạn. Bạn không cần biết dòng lệnh.
+
+<span class="g">[1/5]</span> Kiểm tra QEMU…            <span class="g">đã có (bản 8.2)</span>
+<span class="g">[2/5]</span> Kiểm tra ảnh hệ thống…    <span class="g">đã có (0,9 GB)</span>
+<span class="g">[3/5]</span> Khởi động máy ảo…         <span class="g">xong (12 giây)</span>
+<span class="g">[4/5]</span> Chờ HarnessVN sẵn sàng…   <span class="g">xong</span>
+<span class="g">[5/5]</span> Mở trình duyệt của bạn…
+
+   <span class="w">✅ Xong! Đang mở: http://localhost:9999</span>
+   <span class="dim">Lần sau chỉ cần nhấp đúp file này là dùng tiếp.</span>
+   <span class="dim">Cần cài thêm gì cứ nói với trợ lý — hệ thống tự lo.</span></pre>
+ </div>
+ <div class="cap">Trường hợp thường gặp: mọi thứ đã sẵn sàng, người dùng chỉ đợi ~15 giây rồi trình duyệt tự mở.</div>
+
+ <div class="term">
+  <div class="tbar"><span class="d"></span><span class="d"></span><span class="d"></span>&nbsp; HarnessVN — máy chưa có QEMU</div>
+  <pre><span class="b">HarnessVN 1.0</span>
+
+<span class="y">[1/5] Kiểm tra QEMU…            chưa có</span>
+
+Máy bạn chưa có QEMU — đây là phần mềm miễn phí để chạy máy ảo (khoảng 200 MB).
+Tôi có thể tự cài giúp bạn bằng lệnh:   <span class="w">winget install SoftwareFreedomConservancy.QEMU</span>
+
+  <span class="w">[C] Cài giúp tôi</span>      <span class="dim">[T] Tôi tự cài sau</span>      <span class="dim">[H] Xem hướng dẫn có ảnh</span>
+
+<span class="dim">(Bạn không cần tự gõ lệnh — chọn C là xong.)</span></pre>
+ </div>
+ <div class="cap">Không bao giờ tự cài im lặng: luôn hỏi trước, luôn có đường "để tôi tự làm sau".</div>
+
+ <div class="term">
+  <div class="tbar"><span class="d"></span><span class="d"></span><span class="d"></span>&nbsp; HarnessVN — máy không bật ảo hoá</div>
+  <pre><span class="b">HarnessVN 1.0</span>
+
+<span class="r">[3/5] Khởi động máy ảo…</span>      <span class="r">máy bạn chưa bật tính năng ảo hoá (VT-x / AMD-V)</span>
+
+Hai cách để tiếp tục — chọn cách nào cũng được:
+
+  <span class="w">[1] Dùng VirtualBox / VMware</span>  (dễ nhất — tải file <span class="b">HarnessVN.ova</span>, nhấp đúp để import)
+  <span class="w">[2] Xem hướng dẫn bật ảo hoá</span> (có ảnh từng bước cho máy ASUS / Dell / HP / Lenovo)
+
+<span class="dim">Gợi ý: nếu bạn không rành, chọn [1] — không cần vào BIOS.</span></pre>
+ </div>
+ <div class="cap">Thất bại phải nói rõ bằng tiếng Việt và luôn kèm đường đi tiếp, không để người dùng bơ vơ.</div>
+</div></body></html>

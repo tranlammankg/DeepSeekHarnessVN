@@ -1,0 +1,178 @@
+detail.status.exited|Đã thoát
+detail.field.id|ID
+detail.field.revision|Bản sửa
+detail.field.platform|Nền tảng
+detail.field.provider|Nhà cung cấp
+detail.field.model|Mô hình
+detail.field.role|Vai trò
+detail.field.context|Ngữ cảnh
+detail.field.owner|Phụ trách
+detail.field.ready|Sẵn sàng
+detail.field.dependencies|Phụ thuộc
+detail.field.writeScopes|Phạm vi ghi
+detail.field.warnings|Cảnh báo
+detail.field.diagnostics|Chẩn đoán
+detail.field.methods|Phương thức
+detail.field.inputSchema|Lược đồ đầu vào
+detail.field.outputSchema|Lược đồ đầu ra
+detail.field.currentPackage|Gói hiện tại
+detail.field.nextPackage|Gói tiếp theo
+detail.field.latestRun|Lần chạy gần nhất
+detail.field.packages|Gói
+detail.field.registrations|Đăng ký
+detail.field.props|Thuộc tính
+detail.field.data|Dữ liệu
+detail.field.source|Nguồn
+detail.field.content|Nội dung
+detail.field.message|Tin nhắn
+detail.field.messageId|ID tin nhắn
+detail.field.root|Thư mục gốc
+detail.field.pid|ID tiến trình
+detail.field.type|Loại
+detail.field.time|Thời điểm
+detail.field.seq|Thứ tự sự kiện
+detail.field.turn|Lượt
+detail.field.step|Bước
+detail.field.callId|ID lần gọi
+detail.field.agents|Số agent đã tạo
+detail.field.result|Kết quả
+detail.field.parent|Cấp trên
+detail.field.depth|Độ sâu
+detail.field.exitCode|Mã thoát
+detail.field.signal|Tín hiệu
+detail.field.previousStatus|Trạng thái trước
+detail.field.agent|ID agent
+detail.field.job|ID tác vụ
+detail.field.task|Việc
+detail.field.processGroup|Nhóm tiến trình
+detail.field.availability|Tình trạng sẵn sàng
+detail.field.bestMatch|Khớp nhất
+detail.field.target|Sự kiện đích
+detail.field.surface|Trạng thái ghi nhận
+detail.agents.count|{count} agent
+detail.jobs.count|{count} tác vụ nền
+detail.terminals.count|{count} dòng lệnh
+detail.tasks.count|{count} việc của nhóm
+detail.tasks.nextPage|Còn việc khác; con trỏ tiếp theo là {cursor}
+detail.locations.count|{count} vị trí
+detail.location|Dòng {line}, cột {column}
+detail.receipt.delivered|Đã gửi tin nhắn
+detail.receipt.interrupt|Đã yêu cầu ngắt
+detail.receipt.started|Đã bắt đầu
+detail.receipt.cancel|Đã yêu cầu huỷ
+detail.receipt.alreadyFinished|Đã xong từ trước
+detail.receipt.signal|Đã gửi tín hiệu
+detail.receipt.closed|Đã đóng
+detail.receipt.closing|Đang đóng
+detail.wait.noProgress|Không có agent con nào đang chạy
+detail.wait.title|Hoạt động của agent con
+detail.wait.timeout|Hết thời gian chờ
+detail.wait.changed|Có thay đổi
+detail.agent.reply|Phản hồi của agent
+detail.models.title|Mô hình đang có
+detail.output.lines|Dòng {begin}–{end} trên {total}
+detail.output.truncated|Kết quả đã bị cắt
+detail.providers.count|{count} nhà cung cấp để xem
+detail.plugins.count|{count} tiện ích động
+detail.workflow.script|Kịch bản quy trình
+detail.ralph.reportedComplete|Nhân viên báo đã xong
+detail.ralph.reportedBlocker|Nhân viên báo đang vướng
+detail.ralph.limit|Đã chạm giới hạn số vòng
+detail.report.nextSteps|Việc còn lại
+detail.trace.replacedBy|Được thay bởi
+detail.trace.replacementChain|Chuỗi thay thế
+detail.trace.replaces|Sự kiện bị thay
+detail.trace.sources|Sự kiện nguồn
+detail.trace.derived|Sự kiện dẫn xuất
+detail.trace.ancestors|Phiên cấp trên
+detail.trace.descendants|Phiên cấp dưới
+detail.matches.count|{count} kết quả khớp
+detail.matches.capped|Đã chạm giới hạn kết quả; hãy thu hẹp tìm kiếm
+detail.event.neighbors|Sự kiện xung quanh
+todo.completed|{done}/{total} đã xong
+command.attachmentsUnsupported|/{command} không nhận tệp đính kèm; hãy bỏ đính kèm trước
+ask.rowTitle|Đặt câu hỏi
+ask.waiting|đang chờ
+ask.cancelled|đã huỷ
+ask.cancelledDetail|Bộ câu hỏi này đã bị huỷ trước khi có câu trả lời.
+ask.interrupted|bị ngắt
+ask.interruptedDetail|Bộ câu hỏi này bị ngắt trước khi có câu trả lời.
+ask.answered|đã trả lời {answered}/{total}
+ask.skipped|Không trả lời
+bash.running|Đang chạy
+bash.failed|Thất bại
+bash.stopped|Đã dừng
+row.running|Đang chạy
+row.preparing|Đang chuẩn bị gọi công cụ
+row.failed|Thất bại
+row.stopped|Đã dừng
+row.input|VÀO
+row.output|RA
+row.inspect|Xem chi tiết
+tool.title.search|Tìm kiếm
+tool.title.read|Đọc
+tool.title.bash|Bash
+tool.title.write|Ghi
+tool.title.edit|Sửa
+tool.title.code|Chạy mã
+tool.title.generic|Gọi công cụ
+tool.title.inspect|Truy vấn môi trường Cordis
+tool.title.runCordis|Chạy tiện ích Cordis
+tool.title.stopCordis|Dừng tiện ích Cordis
+tool.title.removeCordis|Gỡ tiện ích Cordis
+tool.title.pwsh|PowerShell
+tool.title.readImage|Đọc ảnh
+tool.title.grep|Tìm trong tệp
+tool.title.glob|Tìm tệp theo mẫu
+tool.title.webSearch|Tìm trên web
+tool.title.webFetch|Mở trang web
+tool.autoReviewRejected|Bị từ chối bởi tự động duyệt
+tool.autoReviewNotExecuted|Công cụ không được chạy. Lý do: {reason}
+tool.autoReviewReasonFallback|Tự động duyệt không cho phép thao tác này
+diff.collapseAria|Thu gọn phần khác biệt
+diff.expandAria|Mở rộng thêm {count} dòng khác biệt
+diff.expandRest|… {count} dòng nữa
+read.window|Đang hiện {shown} trên {total} dòng
+read.collapseAria|Thu gọn nội dung
+read.expandAria|Mở rộng thêm {count} dòng
+read.expandRest|… {count} dòng nữa
+search.paths|{shown} đường dẫn
+search.paths.truncated|Đang hiện {shown} trên {total} đường dẫn
+search.matches|{shown} kết quả · {files} tệp
+search.matches.truncated|Đang hiện {shown} trên {total} kết quả · {files} tệp
+search.noResults|Không có kết quả
+search.collapseAria|Thu gọn kết quả
+search.expandAria|Mở rộng thêm {count} dòng kết quả
+search.expandRest|… {count} dòng nữa
+web.noResults|Không tìm thấy kết quả
+web.sourcesTruncated|Danh sách nguồn đã bị cắt
+web.http|HTTP
+web.contentTruncated|Nội dung đã bị cắt
+details.running|Đang chạy…
+queue.count|{n} tin nhắn đang xếp hàng
+queue.sending|Đang gửi…
+queue.image|Ảnh trong tin nhắn xếp hàng
+queue.file|Tệp trong tin nhắn xếp hàng {name}
+queue.edit|Sửa tin nhắn đang xếp hàng
+queue.edit.unsupported|Có nội dung không phải văn bản; chưa sửa được
+queue.save|Lưu tin nhắn đang xếp hàng
+queue.cancelEdit|Huỷ sửa
+queue.remove|Bỏ tin nhắn đang xếp hàng
+queue.steer|Chèn ngay tin nhắn đang xếp hàng
+queue.steer.unavailable|Chỉ chèn ngay được khi trợ lý đang chạy
+error.sessionInUse|Phiên này đang được dùng, có thể bởi một DSH khác (như dsh web hoặc bản desktop). Hãy đóng các DSH khác rồi thử lại.
+queue.editFailed|Sửa thất bại: tin nhắn này có thể đã bắt đầu gửi.
+queue.removeFailed|Bỏ thất bại: tin nhắn này có thể đã bắt đầu gửi.
+queue.steerFailed|Chèn ngay thất bại. Hãy thử lại.
+terminal.signal|tín hiệu {signal}
+terminal.exitCode|mã thoát {code}
+terminal.noExitCode|không có mã thoát
+terminal.running|Đang chạy
+terminal.failed|Thất bại
+terminal.done|Đã xong
+terminal.noOutput|Không có kết quả
+terminal.collapseAria|Thu gọn kết quả
+terminal.expandAria|Mở rộng {n} dòng kết quả còn lại
+terminal.expandRest|… {n} dòng nữa
+terminal.sendInput|(gửi nội dung vào)
+terminal.session|Dòng lệnh {sessionId}

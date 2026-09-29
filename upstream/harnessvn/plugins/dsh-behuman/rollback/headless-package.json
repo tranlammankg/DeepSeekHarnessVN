@@ -1,0 +1,19 @@
+{
+  "name": "dsh-profile-headless",
+  "private": true,
+  "dependencies": {
+    "@deepseek-ai/dsh-experimental-agent-team-profile": "0.1.5-rc.3",
+    "@goodddgrades/dsh-behuman": "file:/home/ailamman/.dsh/plugins/goodddgrades-dsh-behuman-0.1.0.tgz"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-headless",
+        "@deepseek-ai/dsh-experimental-agent-team-profile",
+        "@goodddgrades/dsh-behuman"
+      ],
+      "patchReload": "startup"
+    }
+  }
+}

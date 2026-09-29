@@ -1,0 +1,20 @@
+/** Tu dien tieng Viet cho namespace sidebarFiles - sinh tu dong, khong sua tay. */
+export const vi = {
+  'shortcut.noSession': 'Hãy chọn một phiên trước',
+  'type.label': 'Tệp',
+  'guide.title': 'Tệp trong không gian làm việc',
+  'guide.description': 'Duyệt tệp trong không gian làm việc của phiên này',
+  'loading': 'Đang đọc…',
+  'empty': 'Thư mục trống',
+  'truncated': 'Quá nhiều mục, chỉ hiện một phần.',
+  'noWorkspace': 'Phiên này chưa có thư mục làm việc.',
+  'reload': 'Tải lại',
+  'autoRefresh': 'Tự động làm mới',
+  'autoRefresh.enable': 'Bật tự động làm mới',
+  'autoRefresh.disable': 'Tắt tự động làm mới',
+  'entry.other': 'Không phải tệp hay thư mục nên không mở được.',
+  'error.notFound': 'Thư mục đó không còn nữa. Có thể đã bị di chuyển hoặc xoá.',
+  'error.outsideWorkspace': 'Thư mục đó nằm ngoài không gian làm việc nên thanh bên không đọc.',
+  'error.notDirectory': 'Đó không phải là thư mục.',
+  'error.unavailable': 'Đọc thất bại: {message}',
+} satisfies Record<string, string>

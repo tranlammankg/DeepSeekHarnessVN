@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><title>HarnessVN — màn hình chat (mockup)</title>
+<style>
+ *{box-sizing:border-box}
+ body{margin:0;background:#eef1f4;font-family:"Noto Sans","DejaVu Sans",Arial,sans-serif;color:#1f2933}
+ .wrap{width:1500px;padding:24px 28px 28px}
+ h1{margin:0 0 4px;font-size:25px;color:#1a237e}
+ .sub{margin:0 0 16px;color:#62727b;font-size:14px}
+ .app{display:flex;height:820px;background:#fff;border:1px solid #d7dee3;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(15,40,70,.10)}
+ .side{width:290px;background:#f7f9fb;border-right:1px solid #e0e6ea;padding:14px;display:flex;flex-direction:column;gap:14px}
+ .brand{font-weight:800;font-size:16px;color:#1a237e}
+ .newbtn{background:#1565c0;color:#fff;border-radius:9px;padding:9px 12px;font-size:14px;font-weight:600;text-align:center}
+ .sec{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:#78909c;font-weight:700;margin:2px 0 6px}
+ .ws{font-size:13.5px;color:#37474f;padding:5px 7px;border-radius:7px;background:#eef4fa;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .sess{font-size:13.5px;padding:6px 8px;border-radius:7px;color:#455a64;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .sess.on{background:#e3f0fb;color:#0d47a1;font-weight:600}
+ .main{flex:1;display:flex;flex-direction:column}
+ .top{height:52px;border-bottom:1px solid #e0e6ea;display:flex;align-items:center;gap:10px;padding:0 16px}
+ .title{font-weight:700;font-size:15px}
+ .chip{font-size:12px;background:#eef4fa;color:#1565c0;border-radius:20px;padding:3px 10px}
+ .spacer{flex:1}
+ .iconbtn{font-size:13px;color:#546e7a;border:1px solid #d7dee3;border-radius:8px;padding:5px 9px;background:#fff}
+ .msgs{flex:1;overflow:hidden;padding:16px 22px;display:flex;flex-direction:column;gap:12px}
+ .user{align-self:flex-end;max-width:66%;background:#e8f2fd;border:1px solid #cfe2f7;border-radius:12px;padding:10px 13px;font-size:14px;line-height:1.5}
+ .ai{max-width:78%;font-size:14px;line-height:1.55}
+ .card{border:1px solid #e0e6ea;border-radius:10px;padding:9px 12px;font-size:13.5px;background:#fbfcfd;margin-top:7px;display:flex;align-items:center;gap:9px}
+ .ok{color:#2e7d32;font-weight:700}
+ .spin{width:11px;height:11px;border:2px solid #c5d3dd;border-top-color:#1565c0;border-radius:50%}
+ .appr{border:1px solid #ffe0b2;background:#fff8e1;border-radius:10px;padding:10px 12px;font-size:13.5px;margin-top:8px}
+ .appr b{color:#e65100}
+ .btns{display:flex;gap:8px;margin-top:9px}
+ .b{font-size:13px;border-radius:8px;padding:6px 12px;font-weight:600}
+ .b.primary{background:#1565c0;color:#fff}
+ .b.ghost{background:#fff;border:1px solid #b0bec5;color:#455a64}
+ .todo{border:1px solid #e0e6ea;border-radius:10px;padding:10px 12px;margin-top:9px;background:#fff}
+ .todo .h{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#78909c;font-weight:700;margin-bottom:6px}
+ .todo .i{font-size:13.5px;color:#37474f;line-height:1.7}
+ .composer{border-top:1px solid #e0e6ea;padding:12px 16px 14px}
+ .inputbox{border:1px solid #cfd8dc;border-radius:12px;padding:10px 12px;font-size:14px;color:#78909c}
+ .crow{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12.5px;color:#607d8b}
+ .legend{margin-top:14px;font-size:13px;color:#546e7a}
+</style></head>
+<body><div class="wrap">
+ <h1>HarnessVN — màn hình chat, bản tiếng Việt (mockup)</h1>
+ <p class="sub">Chuỗi lấy từ workbook thật (<code>ui-chat</code>, <code>ui-conversation</code>, <code>ui-sidebar</code>, <code>ui-workspace</code>, <code>ui-commands</code>) và dịch theo <code>planning/glossary-vi.md</code> · bố cục mô phỏng theo Harness Web</p>
+ <div class="app">
+  <div class="side">
+   <div class="brand">HarnessVN</div>
+   <div class="newbtn">+ Phiên mới</div>
+   <div>
+    <div class="sec">Không gian làm việc</div>
+    <div class="ws">📁 Du-an-cua-toi</div>
+   </div>
+   <div>
+    <div class="sec">Phiên</div>
+    <div class="sess on">Tóm tắt báo cáo quý</div>
+    <div class="sess">Sửa lỗi đăng nhập</div>
+    <div class="sess">Viết email xin nghỉ phép</div>
+    <div class="sess">Đổi tên ảnh hàng loạt</div>
+   </div>
+   <div style="margin-top:auto">
+    <div class="sec">Bảng điều khiển chung</div>
+    <div class="sess">⚙️ Cài đặt · Mô hình: DeepSeek</div>
+   </div>
+  </div>
+  <div class="main">
+   <div class="top">
+    <span class="title">Tóm tắt báo cáo quý</span>
+    <span class="chip">Mục tiêu: đang chạy</span>
+    <span class="spacer"></span>
+    <span class="iconbtn">Thu gọn thanh bên</span>
+    <span class="iconbtn">Tuỳ chọn hiển thị</span>
+   </div>
+   <div class="msgs">
+    <div class="user">Tóm tắt giúp tôi tệp báo-cáo.md và chỉ ra 3 việc cần làm tiếp.</div>
+    <div class="ai">Được, tôi đọc tệp rồi tóm tắt cho bạn.
+      <div class="card"><span class="ok">✔</span> Đang đọc tệp · báo-cáo.md</div>
+      <div class="card"><span class="ok">✔</span> Đang tìm trong mã · 8 kết quả</div>
+      <div class="appr"><b>Công cụ chạy lệnh yêu cầu quyền nâng cao</b><br>Lệnh: <code>git diff --stat</code> — chỉ đọc, không thay đổi tệp.
+        <div class="btns"><span class="b primary">Phê duyệt</span><span class="b ghost">Từ chối</span></div>
+      </div>
+      <div class="card"><span class="spin"></span> Đang phân tích yêu cầu…</div>
+      <div class="todo">
+        <div class="h">Kế hoạch</div>
+        <div class="i">1. Đọc và tóm tắt nội dung chính — <b>xong</b><br>2. Liệt kê 3 việc cần làm tiếp — <b>đang làm</b><br>3. Gợi ý mốc thời gian — chưa bắt đầu</div>
+      </div>
+    </div>
+   </div>
+   <div class="composer">
+    <div class="inputbox">Nhập tin nhắn…  (gõ <b>/</b> để mở menu lệnh, <b>@</b> để tham chiếu tệp)</div>
+    <div class="crow"><span class="iconbtn">＋ Thêm tệp</span><span class="iconbtn">/ Lệnh</span><span class="iconbtn">Dừng tạo</span><span class="spacer"></span>Xuống dòng: Shift+Enter · Gửi: Enter</div>
+   </div>
+  </div>
+ </div>
+ <div class="legend">Menu lệnh khi gõ <b>/</b>: Mục tiêu · Kế hoạch · Quyền · Phản hồi · Nén lịch sử · Xuất phiên · Thêm</div>
+</div></body></html>

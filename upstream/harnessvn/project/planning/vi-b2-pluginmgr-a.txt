@@ -1,0 +1,95 @@
+panel|Tiện ích
+title|Tiện ích
+intro|Thêm và quản lý tiện ích
+loading|Đang đọc tiện ích…
+error|Không đọc được hết tiện ích, có thể do vấn đề mạng
+unavailable|Bản triển khai này chạy không có profile quản lý được, nên không cài hay bật/tắt tiện ích ở đây.
+retry|Thử lại
+refresh|Làm mới
+empty|Chưa cài tiện ích nào.
+addPlugin|Thêm tiện ích
+restartNotice|Thay đổi có hiệu lực ở lần khởi động sau
+overriddenNotice|Đã lưu {name}, nhưng cấu hình ưu tiên cao hơn ghi đè nên nó chưa có hiệu lực
+bundlesTitle|Đã cài
+officialTitle|Chính thức
+statusProblem|Có vấn đề
+statusBeta|Thử nghiệm
+reasonLabel|Lý do
+metadataError|Lỗi metadata gói: {error}
+versionTag|v{version}
+partsLabel|Thành phần
+partsEmpty|Gói tiện ích này không có thành phần nào.
+partsCountTotal|tổng {count}
+partsCountRunning|{count} đang chạy
+partsCountOff|{count} đang tắt
+partOff|Tắt
+partsCountFailed|{count} lỗi
+partsFilter|Lọc thành phần
+partsFilterEmpty|Không thành phần nào khớp.
+partToggle|Bật thành phần {name}
+rowPhasePending|Đang chờ phụ thuộc
+rowPhaseLoading|Đang nạp
+rowPhaseActive|Đang chạy
+rowPhaseFailed|Có vấn đề
+rowPhaseUnloading|Đang gỡ
+enableToggle|Bật {name}
+openDetail|Xem {name}
+backToList|Về danh sách tiện ích
+crumbRoot|Tiện ích
+backToPackage|Về {name}
+configureRow|Cấu hình {name}
+rowStateIdle|Không chạy
+uninstall|Gỡ cài đặt
+uninstallLabel|Gỡ cài đặt {name}
+installTitle|Thêm tiện ích
+installDescription|Nhập tên gói, địa chỉ kho GitHub, hoặc đường dẫn thư mục trên máy.
+installSpecLabel|Tên gói hoặc địa chỉ
+installSpecPlaceholder|ví dụ @deepseek-ai/dsh-subagent-codex
+installGuideToggle|Hướng dẫn và ví dụ
+installGuideHide|Ẩn hướng dẫn
+installGuideIdTitle|Tên gói
+installGuideIdExample|@deepseek-ai/dsh-subagent-codex
+installGuideIdHint|Tên gói tiện ích chính là tên gói npm (như dsh-xxx hoặc @tac-gia/plugin): phần đứng sau dsh plugin add hoặc pnpm add trong lệnh cài của README tiện ích cộng đồng.
+installGuideGitTitle|Địa chỉ kho GitHub
+installGuideGitExample|https://github.com/author/dsh-plugin
+installGuideGitHint|Địa chỉ kho mã nguồn mở của tiện ích trên GitHub; các dịch vụ Git khác cũng dùng được.
+installGuidePathTitle|Thư mục tiện ích trên máy
+installGuidePathExample|/Users/name/my-plugin
+installGuidePathHint|Đường dẫn tuyệt đối tới thư mục tiện ích trên máy này, do bạn tự viết hoặc tải về.
+installGuideExampleLabel|Ví dụ: 
+installGuideFill|Dùng ví dụ
+installGuideFillAria|Dùng ví dụ {example}
+installGuideSafety|Chỉ cài tiện ích bạn tin: chúng chạy với quyền của bạn và có thể làm hỏng DeepSeek Harness hoặc rò rỉ dữ liệu.
+registryToggle|Nguồn gói
+registryLegend|Nguồn npm để tải tiện ích
+registryDefault|Nguồn mặc định
+registryOfficial|Nguồn npm chính thức
+registryNpmmirror|Mirror Trung Quốc đại lục
+registryWithHost|{name} ({host})
+registryCustom|Địa chỉ riêng
+registryCustomPlaceholder|https://npm.example.com/
+registryCustomHint|Nguồn npm của công ty hoặc riêng; nếu cần đăng nhập, hãy để thông tin đăng nhập trong ~/.npmrc trên máy này
+registryCustomInvalid|Nhập địa chỉ bắt đầu bằng http:// hoặc https://
+registryListSeparator|, 
+installRun|Cài đặt
+installChecking|Đang kiểm tra…
+installProblemInvalid|Đây không phải tên gói hay địa chỉ cài được: {reason}
+installProblemInstalled|Tiện ích này đã được cài
+installProblemNotFound|Không tìm thấy tiện ích như vậy
+installProblemNotPackage|Đường dẫn không tồn tại hoặc không phải gói tiện ích hợp lệ
+installProblemNotBundle|Gói này không khai báo bundle nên không cài được như tiện ích: {reason}
+installProblemNetwork|Không kết nối được tới nguồn gói; hãy kiểm tra mạng rồi thử lại
+installProblemNetworkAll|Không kết nối được nguồn nào (đã thử: {registries}); hãy kiểm tra mạng hoặc proxy, hoặc đổi nguồn gói
+installProblemUnknown|Không tra được tiện ích: {reason}
+installingTitle|Đang cài tiện ích…
+installedTitle|Đã cài
+installFailedTitle|Không cài được tiện ích
+installGithubFailedTitle|Không truy cập được GitHub
+installGithubTimeoutTitle|Kết nối GitHub hết thời gian chờ
+installGithubFailedDescription|Hãy thử nguồn cài khác.
+installUseGithubMirror|Dùng mirror Trung Quốc đại lục
+installTryAnotherWay|Thử cách khác
+installPackageLabel|Tên gói tiện ích
+installEdit|Sửa
+installEditAria|Quay lại phần sửa
+installCancelAndEdit|Huỷ cài và quay lại phần sửa

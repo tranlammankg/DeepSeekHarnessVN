@@ -1,0 +1,39 @@
+count.live.one|{count} tác vụ nền đang chạy
+count.live.other|{count} tác vụ nền đang chạy
+count.idle.one|{count} tác vụ nền
+count.idle.other|{count} tác vụ nền
+list.aria|Tác vụ nền
+section.live|Đang chạy
+section.settledCount|Đã xong {count}
+section.clear|Xoá hết
+row.expandAria|Hiện kết quả trực tiếp của {label}
+row.collapseAria|Ẩn kết quả trực tiếp của {label}
+kill.stop|Dừng tác vụ {label}
+kill.confirm|Bấm lần nữa để xác nhận
+kill.confirmAction|Xác nhận dừng
+kill.failed|Dừng thất bại
+status.running|đang chạy
+status.stopping|đang dừng
+status.completed|đã xong
+status.killed|đã huỷ
+status.failed|thất bại
+duration.seconds|{seconds} gi
+duration.minutes|{minutes} phút {seconds} gi
+duration.hours|{hours} giờ {minutes} phút
+duration.title.live|Đã chạy {duration}
+duration.title.done|Mất {duration}
+output.gap|… đã bỏ phần kết quả trước đó …
+output.error|luồng kết quả trực tiếp bị ngắt: {error}
+terminal.signal|tín hiệu {signal}
+terminal.exitCode|mã thoát {code}
+terminal.noExitCode|không có mã thoát
+terminal.running|đang chạy
+terminal.failed|thất bại
+terminal.done|đã xong
+terminal.copy|Sao chép
+terminal.copied|Đã sao chép
+terminal.noOutput|(không có kết quả)
+terminal.collapse|Thu gọn
+terminal.collapseAria|Thu gọn kết quả
+terminal.expand|Hiện thêm {n} dòng
+terminal.expandAria|Mở rộng {n} dòng kết quả đang thu gọn

@@ -1,0 +1,115 @@
+ui-commands|section.add|Thêm
+ui-commands|section.commands|Lệnh
+ui-commands|label.goal|Mục tiêu
+ui-commands|label.plan|Kế hoạch
+ui-commands|label.feedback|Phản hồi
+ui-commands|label.compact|Nén lịch sử
+ui-commands|label.permission|Quyền
+ui-commands|label.export|Xuất
+ui-commands|description.goal|Đặt hoặc xem mục tiêu cho việc chạy dài
+ui-commands|description.plan|Bật hoặc tắt chế độ kế hoạch
+ui-commands|description.feedback|Ghi lại phản hồi về phiên này
+ui-commands|description.compact|Nén bớt lịch sử trò chuyện cũ
+ui-commands|description.permission|Đổi mức quyền (chế độ sandbox + cách phê duyệt)
+ui-commands|description.export|Tải nhật ký phiên này dưới dạng tệp ZIP
+ui-commands|token.goal|goal
+ui-commands|token.plan|plan
+ui-commands|token.feedback|feedback
+ui-commands|token.compact|compact
+ui-commands|token.permission|permission
+ui-commands|token.export|export
+ui-commands|search.placeholder|Tìm…
+ui-commands|search.aria|Lọc lựa chọn
+ui-commands|status.loading|Đang tải lựa chọn…
+ui-commands|status.applying|Đang áp dụng…
+ui-commands|status.empty|Không có lựa chọn
+ui-commands|overlay.aria|Lựa chọn của /{command}
+ui-commands|listbox.aria|Kết quả khớp của /{command}
+ui-commands|notice.attachmentsUnsupported|/{command} không nhận tệp đính kèm; hãy bỏ đính kèm trước
+ui-shortcuts|edit-label|Sửa phím tắt cho {command}
+ui-shortcuts|record|Nhấn tổ hợp phím
+ui-shortcuts|record-help|Nhả phím để lưu. Tab chuyển giữa các thao tác; Esc để huỷ.
+ui-shortcuts|web-help|Tổ hợp trên trình duyệt: Mod+/, Mod+Shift+,, Mod+Shift+.. Mod là Command trên Mac và Ctrl ở nơi khác.
+ui-shortcuts|unsupported-key|Phím này không được hỗ trợ.
+ui-shortcuts|reserved|Tổ hợp này đã dành cho hệ thống hoặc thao tác sửa văn bản.
+ui-shortcuts|modifier-required|Cần có Command, Ctrl hoặc Alt trong tổ hợp.
+ui-shortcuts|too-many-keys|Chỉ giữ tối đa hai phím không phải phím bổ trợ. Nhả phím rồi thử lại.
+ui-shortcuts|macos-web-help|Dùng Command+/, Command+,, Command+Backslash, Control+Backquote, Command+Option+phím, hoặc Command+Shift+phím. Tổ hợp có ba hoặc bốn phím bổ trợ khác nhau cũng được hỗ trợ. Phím tắt của trình duyệt hoặc hệ thống có thể không tới được trang.
+ui-shortcuts|windows-web-help|Dùng Ctrl+/, Ctrl+,, Ctrl+Alt+phím, hoặc Ctrl+Shift+phím. Tổ hợp có ba hoặc bốn phím bổ trợ khác nhau cũng được hỗ trợ. Phím tắt của trình duyệt hoặc hệ thống có thể không tới được trang.
+ui-shortcuts|unsupported-browser|Trình duyệt này chưa hỗ trợ tổ hợp này.
+ui-shortcuts|conflict|Đã dùng bởi “{commands}”
+ui-shortcuts|saved|Đã sửa
+ui-shortcuts|clear|Xoá bỏ
+ui-shortcuts|retry-save|Lưu lại
+ui-shortcuts|reset|Khôi phục mặc định
+ui-shortcuts|reset-all|Khôi phục tất cả mặc định
+ui-shortcuts|modified-count|{count} phím đã tuỳ chỉnh
+ui-shortcuts|reset-title|Khôi phục toàn bộ phím tắt mặc định?
+ui-shortcuts|reset-description|Khôi phục phím tắt mặc định cho nền tảng này. Mọi phím tắt đã sửa hoặc đã xoá sẽ được khôi phục. Nền tảng khác không bị ảnh hưởng.
+ui-shortcuts|cancel|Huỷ
+ui-shortcuts|reset-saved|Đã khôi phục phím tắt mặc định
+ui-shortcuts|close-confirmation|Đóng xác nhận
+ui-shortcuts|reset-failed|Không khôi phục được mặc định. Phím tắt của bạn vẫn giữ nguyên. Hãy thử lại.
+ui-shortcuts|review|Tôi đã xem lại cấu hình mới nhất
+ui-shortcuts|stale|Cấu hình phím tắt hoặc danh sách lệnh đã thay đổi. Hãy xem lại các phím tắt hiện có trước khi lưu.
+ui-shortcuts|write-failed|Không lưu được. Phím tắt cũ và bản nháp hiện tại vẫn được giữ. Hãy thử lại.
+ui-shortcuts|not-ready|Phím tắt chưa sẵn sàng. Hãy thử lại.
+ui-shortcuts|read|Không đọc được {location}. Kiểm tra quyền truy cập rồi {reload}.
+ui-shortcuts|invalid|Cấu hình phím tắt trong {location} bị hỏng. Hãy sao lưu và sửa cấu hình này rồi {reload}.
+ui-shortcuts|future|Cấu hình phím tắt trong {location} được tạo bởi phiên bản mới hơn. Hãy nâng cấp Harness rồi thử lại.
+ui-shortcuts|web-document|mục localStorage dsh.keybindings.v1 của trang này
+ui-shortcuts|desktop-document|userData/keybindings.json
+ui-shortcuts|web-reload|tải lại trang
+ui-shortcuts|desktop-reload|khởi động lại Harness
+ui-shortcuts|using-defaults|Đang dùng phím tắt mặc định.
+ui-shortcuts|using-accepted|Vẫn dùng bộ phím tắt đọc được thành công gần nhất.
+ui-shortcuts|native-failed|Không bảo vệ được quá trình ghi phím trên bản desktop. Hãy thoát chế độ ghi rồi thử lại.
+ui-shortcuts|global-hint|Mở được từ mọi nơi
+ui-shortcuts|clear-search|Xoá tìm kiếm
+ui-shortcuts|title|Phím tắt bàn phím
+ui-shortcuts|open|Mở phím tắt bàn phím
+ui-shortcuts|settings|Phím tắt bàn phím
+ui-shortcuts|view|Sửa phím tắt
+ui-shortcuts|description|Xem và sửa các phím tắt cùng thao tác nhập
+ui-shortcuts|search|Tìm phím tắt
+ui-shortcuts|close|Đóng phím tắt bàn phím
+ui-shortcuts|application|Ứng dụng
+ui-shortcuts|input|Ô nhập tin nhắn
+ui-shortcuts|menus|Menu và hộp thoại
+ui-shortcuts|approval|Khu vực phê duyệt
+ui-shortcuts|unbound|Chưa gán phím
+ui-shortcuts|empty|Không có phím tắt phù hợp
+ui-shortcuts|move|Di chuyển trong menu
+ui-shortcuts|select|Chọn mục trong menu
+ui-shortcuts|dismiss|Đóng menu hoặc hộp thoại trên cùng
+ui-sidebar|session.new|Phiên mới
+ui-sidebar|session.new.label|Phiên mới
+ui-sidebar|toggle.open|Mở thanh bên
+ui-sidebar|toggle.collapse|Thu gọn thanh bên
+ui-sidebar|panels.label|Bảng điều khiển chung
+ui-theme|appearance.title|Diện mạo
+ui-theme|appearance.light|Sáng
+ui-theme|appearance.dark|Tối
+ui-theme|appearance.system|Theo hệ thống
+ui-theme|fontSize.title|Cỡ chữ
+ui-theme|fontSize.description|Chỉ ảnh hưởng nội dung trò chuyện
+ui-theme|fontSize.unit|px
+ui-theme|fontSize.increase|Tăng cỡ chữ
+ui-theme|fontSize.decrease|Giảm cỡ chữ
+ui-sidebar-files|shortcut.noSession|Hãy chọn một phiên trước
+ui-sidebar-files|type.label|Tệp
+ui-sidebar-files|guide.title|Tệp trong không gian làm việc
+ui-sidebar-files|guide.description|Duyệt tệp trong không gian làm việc của phiên này
+ui-sidebar-files|loading|Đang đọc…
+ui-sidebar-files|empty|Thư mục trống
+ui-sidebar-files|truncated|Quá nhiều mục, chỉ hiện một phần.
+ui-sidebar-files|noWorkspace|Phiên này chưa có thư mục làm việc.
+ui-sidebar-files|reload|Tải lại
+ui-sidebar-files|autoRefresh|Tự động làm mới
+ui-sidebar-files|autoRefresh.enable|Bật tự động làm mới
+ui-sidebar-files|autoRefresh.disable|Tắt tự động làm mới
+ui-sidebar-files|entry.other|Không phải tệp hay thư mục nên không mở được.
+ui-sidebar-files|error.notFound|Thư mục đó không còn nữa. Có thể đã bị di chuyển hoặc xoá.
+ui-sidebar-files|error.outsideWorkspace|Thư mục đó nằm ngoài không gian làm việc nên thanh bên không đọc.
+ui-sidebar-files|error.notDirectory|Đó không phải là thư mục.
+ui-sidebar-files|error.unavailable|Đọc thất bại: {message}

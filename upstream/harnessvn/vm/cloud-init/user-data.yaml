@@ -1,0 +1,53 @@
+#cloud-config
+# HarnessVN — cấu hình lần chạy đầu trong máy ảo Ubuntu (headless).
+# Không cài gói hệ thống; mọi thứ nằm trong ~/.local của người dùng harnessvn.
+# Không mở đăng nhập mật khẩu: người dùng cuối làm việc qua trình duyệt máy thật.
+users:
+  - name: harnessvn
+    groups: [adm, sudo]
+    shell: /bin/bash
+    lock_passwd: true
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    ssh_authorized_keys: []
+
+ssh_pwauth: false
+package_update: false
+package_upgrade: false
+
+write_files:
+  - path: /etc/systemd/system/harnessvn-firstboot.service
+    permissions: '0644'
+    content: |
+      [Unit]
+      Description=HarnessVN first-boot provisioning
+      After=network-online.target
+      Wants=network-online.target
+      ConditionPathExists=!/var/lib/harnessvn/.provisioned
+
+      [Service]
+      Type=oneshot
+      User=harnessvn
+      Environment=HOME=/home/harnessvn
+      ExecStart=/bin/bash -lc '/opt/harnessvn/install/provision.sh'
+      ExecStartPost=/usr/bin/touch /var/lib/harnessvn/.provisioned
+      RemainAfterExit=yes
+      StandardOutput=journal
+      StandardError=journal
+
+      [Install]
+      WantedBy=multi-user.target
+
+  # Cho phép vào console không cần mật khẩu để xem tiến trình cài đặt lần đầu.
+  - path: /etc/systemd/system/serial-getty@ttyS0.service.d/autologin.conf
+    permissions: '0644'
+    content: |
+      [Service]
+      ExecStart=
+      ExecStart=-/sbin/agetty --autologin harnessvn --keep-baud 115200,38400,9600 %I $TERM
+
+runcmd:
+  - [mkdir, -p, /var/lib/harnessvn]
+  - [chown, harnessvn:harnessvn, /var/lib/harnessvn]
+  - [systemctl, daemon-reload]
+  - [systemctl, enable, --now, harnessvn-firstboot.service]
+  - [bash, -lc, "printf '\\n\\n=== HarnessVN ===\\nMay ao dang duoc cai dat. Khi xong, mo trinh duyet tren may that: http://localhost:9999\\n\\n' > /dev/ttyS0 || true"]

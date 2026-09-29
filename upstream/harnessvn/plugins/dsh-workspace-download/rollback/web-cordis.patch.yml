@@ -1,0 +1,28 @@
+# Your patch layer for this dsh profile, applied after every bundle layer:
+# a top-level YAML array of loader patch entries (id-targeted config
+# overrides, disables, and insert lists; `!!js` expressions allowed).
+#
+# ── @ailamman/dsh-mario ─────────────────────────────────────────────────────
+# This single row enables the Mario game plugin.
+#
+# It lives in this profile patch rather than in the package's own bundle patch
+# because a loader entry id may exist in exactly one layer — a second
+# `ui-mario` row anywhere in the stack aborts boot with
+# "duplicate loader entry id: ui-mario" — and because only a watched patch
+# file can hot-add the entry to an already-running `dsh web`.
+#
+# The package itself is pnpm-installed in this profile:
+#     dsh plugin --profile web add /home/ailamman/Desktop/plugin/dsh-mario
+# Removing the package means deleting this row too. See the plugin README.
+- insert:
+    - id: ui-mario
+      name: '@ailamman/dsh-mario'
+
+# ── @ailamman/dsh-skill-explorer ─────────────────────────────────────────────
+# Skill Explorer: browse every global skill and the skills a workspace adds, in
+# the sidebar panel list + centre column, with a per-session chip in the
+# conversation header. Same one-layer rule as Mario: this row is the only place
+# the entry id exists. Removing the package means deleting this row too.
+- insert:
+    - id: ui-skill-explorer
+      name: '@ailamman/dsh-skill-explorer'

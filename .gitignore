@@ -1,0 +1,14 @@
+# Bo qua cac thu muc/cache cua phien lam viec
+.pnpm-store/
+.corepack/
+.npm-cache/
+.pnpm-home/
+build-lib.log
+*.log
+
+# Bo qua thu muc lam viec cua bo dung may ao
+upstream/harnessvn/vm/work/
+upstream/harnessvn/vm/seed/
+upstream/harnessvn/vm/*.tar.gz
+
+# node_modules/lib da duoc upstream/.gitignore bo qua san

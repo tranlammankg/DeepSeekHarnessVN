@@ -1,0 +1,185 @@
+shortcut.newline|Xuống dòng
+shortcut.complementary|Dùng thao tác bổ trợ: Xếp hàng / Chèn ngay
+shortcut.slash|Mở menu lệnh
+shortcut.mention|Mở menu tham chiếu
+hint.plan|mô tả việc của bạn để tạo kế hoạch
+hint.goal|mô tả mục tiêu cho việc chạy dài
+hint.goal.active|mục tiêu đang chạy — sửa / tạm dừng / tiếp tục / xoá
+placeholder.plan|mô tả việc của bạn để tạo kế hoạch
+placeholder.default|Nhập tin nhắn hoặc giao việc, gõ / để mở lệnh, @ để chọn tệp hoặc phiên
+placeholder.unavailable|Phiên không khả dụng
+placeholder.parentOffline|Phiên cha đang ngoại tuyến; không gửi được nhưng vẫn dừng được tiến trình
+placeholder.hero|Mô tả thứ bạn muốn làm, gõ / để mở lệnh, @ để chọn tệp hoặc phiên
+placeholder.workspace|Chọn một không gian làm việc để bắt đầu
+placeholder.steerQueue|Cmd/Ctrl+Enter để chèn ngay cho mọi tin nhắn đang xếp hàng
+input.commands|Thêm tệp hoặc chạy lệnh
+input.file|Tệp
+input.stop|Dừng tạo
+input.send|Gửi tin nhắn
+input.send.queue|Xếp hàng tin nhắn
+input.send.steer|Chèn ngay tin nhắn
+attachment.pending|Tệp đính kèm đang chờ
+attachment.scrollLeft|Cuộn tệp đính kèm sang trái
+attachment.scrollRight|Cuộn tệp đính kèm sang phải
+attachment.dropTitle|Kéo tệp hoặc ảnh vào đây để thêm
+attachment.dropDesc|Giới hạn ảnh: tối đa {count} ảnh, mỗi ảnh {size}
+attachment.dropBlocked|Hiện chưa thể thêm tệp và ảnh
+attachment.directoryDesktopOnly|Chỉ thêm được cả thư mục trong bản desktop; trên trình duyệt hãy thêm từng tệp
+attachment.pathUnavailable|Không lấy được đường dẫn thư mục; hãy kéo lại
+attachment.pathUnsupported|Đường dẫn chứa ký tự không dùng được cho tham chiếu; hãy đổi tên rồi thử lại
+image.pending|Ảnh đang chờ
+image.openOriginal|Xem ảnh gốc
+image.openOriginalLabel|{label}, bấm để xem ảnh gốc
+image.remove|Bỏ ảnh {name}
+image.original|Ảnh gốc
+image.label|Ảnh
+image.loadFailed|Không tải được ảnh; bấm để thử lại
+image.loading|Đang tải ảnh…
+image.preview|Xem trước ảnh gốc
+image.closePreview|Đóng xem trước ảnh gốc
+image.unsupportedType|Chỉ hỗ trợ ảnh PNG, JPG, WebP và GIF
+image.tooMany|Mỗi tin nhắn chỉ chứa tối đa {count} ảnh
+image.fileTooLarge|Mỗi ảnh phải nhỏ hơn {size}
+image.totalTooLarge|Tổng dung lượng ảnh vượt {size}; hãy bỏ bớt rồi thử lại
+image.tooManyPixels|Độ phân giải ảnh quá cao; hãy nén lại rồi thử lại
+image.dimensionTooLarge|Cạnh ảnh tối đa {size}px; hãy thu nhỏ rồi thử lại
+image.modelUnsupported|Mô hình hiện tại không hỗ trợ ảnh; hãy đổi sang mô hình có hỗ trợ
+image.sendFailed|Gửi ảnh thất bại ({reason}); hãy thêm lại rồi thử lại
+file.pending|Tệp đang chờ
+file.remove|Bỏ tệp {name}
+file.uploading|Đang tải lên…
+file.uploadFailed|Tải lên thất bại; bấm để thử lại
+file.retry|Tải lên lại {name}
+file.stillUploading|Tệp vẫn đang tải lên; hãy gửi sau khi xong
+file.sessionUnavailable|Phiên không khả dụng; không tải tệp lên được
+file.notStaged|Tệp chưa tải lên xong; hãy thêm lại rồi thử lại
+file.label|Tệp
+context.aria|Đã dùng {percent} ngữ cảnh
+context.used|ngữ cảnh đã dùng
+context.system|Prompt hệ thống
+context.tools|Định nghĩa công cụ
+context.messages|Tin nhắn
+settings.enter.title|Hành vi khi bấm Gửi lúc đang bận
+settings.enter.description|Enter và nút Gửi làm gì khi trợ lý đang chạy; Cmd/Ctrl+Enter dùng hành vi còn lại
+settings.enter.queue|Xếp hàng
+settings.enter.steer|Chèn ngay
+hero.headline|Bước vào điều chưa biết
+hero.preview|Xem trước
+hero.chooseWorkspace|Chọn không gian làm việc
+session.hierarchy|Cây phiên
+todo.title|Việc cần làm
+todo.progress.done|{done} đã xong
+todo.progress.active|{active} đang làm
+todo.progress.pending|{pending} chờ làm
+todo.status.completed|Đã xong
+todo.status.inProgress|Đang làm
+todo.status.pending|Chờ làm
+todo.rowTitle|Cập nhật danh sách việc
+tool.title.createGoal|Tạo mục tiêu
+tool.title.getGoal|Xem mục tiêu
+tool.title.updateGoal|Cập nhật mục tiêu
+tool.preparing.content|Đang chuẩn bị nội dung {kilobytes}KB
+tool.title.createSchedule|Tạo nhắc hẹn
+tool.title.listSchedules|Liệt kê nhắc hẹn
+tool.title.deleteSchedule|Xoá nhắc hẹn
+tool.title.updateSchedule|Cập nhật nhắc hẹn
+detail.state|Trạng thái
+detail.todo.completed|Đã xong
+detail.todo.in_progress|Đang làm
+detail.todo.pending|Chờ làm
+detail.todo.empty|Danh sách việc đang trống
+todo.diff.initial|Danh sách ban đầu
+todo.diff.compare|Thay đổi so với danh sách trước
+todo.diff.unavailable|Không có danh sách trước
+todo.diff.noChanges|Danh sách không đổi
+todo.diff.added|Thêm {count}
+todo.diff.updated|Cập nhật {count}
+todo.diff.removed|Bỏ {count}
+todo.diff.unchanged|Không đổi {count}
+todo.diff.addedItem|Đã thêm
+todo.diff.updatedItem|Đã đổi trạng thái
+todo.diff.movedItem|Đã đổi thứ tự
+todo.diff.removedItem|Đã bỏ
+detail.goal.empty|Chưa có mục tiêu
+detail.goal.active|Đang chạy
+detail.goal.disarmed|Chờ tiếp tục
+detail.goal.paused|Tạm dừng
+detail.goal.blocked|Đang vướng
+detail.goal.complete|Đã xong
+detail.goal.rounds|Số vòng
+detail.goal.reason|Lý do vướng
+detail.days|{count} ng
+detail.hours|{count} g
+detail.minutes|{count} ph
+detail.seconds|{count} gi
+detail.schedule.once|Một lần
+detail.schedule.every|Mỗi {interval}
+detail.schedule.when|Hẹn lúc
+detail.schedule.frequency|Lặp lại
+detail.schedule.scheduled|Đã hẹn
+detail.schedule.overdue|Quá hạn, chờ phiên chạy lại
+detail.schedule.empty|Không có nhắc hẹn
+detail.schedule.deleted|Đã xoá
+detail.schedule.count|{count} nhắc hẹn
+detail.schedule.daily|Hằng ngày lúc {time} ({zone})
+detail.schedule.weekly|Hằng tuần vào {days} lúc {time} ({zone})
+detail.schedule.cron|Cron {expression} ({zone})
+detail.weekday.1|T2
+detail.weekday.2|T3
+detail.weekday.3|T4
+detail.weekday.4|T5
+detail.weekday.5|T6
+detail.weekday.6|T7
+detail.weekday.7|CN
+detail.weekday.join|, 
+tool.title.inspectProviders|Xem nhà cung cấp
+tool.title.queryRuntime|Truy vấn runtime
+tool.title.inspectPlugins|Xem tiện ích
+tool.title.workflow|Chạy quy trình
+tool.title.ralph|Chạy vòng lặp ralph
+tool.title.readEvent|Đọc sự kiện
+tool.title.searchEvents|Tìm sự kiện
+tool.title.traceEvent|Truy vết sự kiện
+tool.title.searchSessions|Tìm phiên
+tool.title.traceSession|Truy vết phiên
+tool.title.listModels|Liệt kê mô hình
+tool.title.subagent|Tạo agent con
+tool.title.listAgents|Liệt kê agent con
+tool.title.sendMessage|Gửi tin nhắn
+tool.title.interruptAgent|Ngắt agent
+tool.title.listJobs|Liệt kê tác vụ nền
+tool.title.readJob|Đọc kết quả tác vụ
+tool.title.killJob|Huỷ tác vụ nền
+tool.title.openTerminal|Mở dòng lệnh
+tool.title.readTerminal|Đọc dòng lệnh
+tool.title.listTerminals|Liệt kê dòng lệnh
+tool.title.signalTerminal|Gửi tín hiệu cho dòng lệnh
+tool.title.closeTerminal|Đóng dòng lệnh
+tool.title.lsp|Truy vấn ký hiệu mã
+tool.title.findDefinition|Tìm định nghĩa
+tool.title.findReferences|Tìm tham chiếu
+tool.title.findImplementation|Tìm phần triển khai
+tool.title.hoverSymbol|Xem ký hiệu
+tool.title.spawnTeammate|Tạo thành viên nhóm
+tool.title.createTeamTask|Tạo việc cho nhóm
+tool.title.getTeamTask|Đọc việc của nhóm
+tool.title.updateTeamTask|Cập nhật việc của nhóm
+tool.title.listTeamTasks|Liệt kê việc của nhóm
+tool.title.waitAgent|Chờ agent con
+detail.recordedResult|Kết quả đã ghi
+detail.empty|Không có kết quả
+detail.none|Không có
+detail.yes|Có
+detail.no|Không
+detail.moreInInspect|Còn {count} mục xem được trong Inspect
+detail.status.running|Đang chạy
+detail.status.idle|Đang rảnh
+detail.status.ready|Sẵn sàng
+detail.status.inactive|Không hoạt động
+detail.status.provisioning|Đang khởi tạo
+detail.status.failed|Thất bại
+detail.status.completed|Đã xong
+detail.status.deleted|Đã xoá
+detail.status.killed|Đã huỷ
+detail.status.accepted|Đã nhận
+detail.status.queued|Đang xếp hàng

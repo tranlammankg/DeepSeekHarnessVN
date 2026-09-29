@@ -1,0 +1,20 @@
+action.like|Phản hồi tốt
+action.likeActive|Bỏ đánh giá
+action.dislike|Phản hồi chưa tốt
+action.dislikeActive|Bỏ đánh giá
+dialog.title|Gửi phản hồi
+dialog.categories|Loại phản hồi
+dialog.detail|Chi tiết phản hồi
+dialog.hint|Thêm chi tiết để giúp chúng tôi cải thiện. Nội dung gửi kèm nhật ký cuộc trò chuyện hiện tại.
+category.task-result|Kết quả công việc
+category.instruction-following|Hiểu và làm theo yêu cầu
+category.product-interaction|Tính năng và cách dùng
+category.service-stability|Ổn định và tốc độ
+category.resource-cost|Mức dùng và chi phí
+category.security-privacy-permission|An toàn, riêng tư và quyền
+category.other|Khác
+toast.recorded|Cảm ơn bạn đã phản hồi
+error.conflict|Phản hồi này đã bị đổi ở nơi khác; đang hiện trạng thái mới nhất
+error.load|Không tải được phản hồi
+error.generic|Không lưu được phản hồi
+error.noteTooLarge|Phần mô tả quá dài; hãy rút ngắn rồi gửi lại

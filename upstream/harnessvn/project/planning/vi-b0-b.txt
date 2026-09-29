@@ -1,0 +1,145 @@
+ui-sidebar-right|command.close|Đóng trang hoặc cửa sổ hiện tại
+ui-sidebar-right|command.refresh|Làm mới trang hiện tại
+ui-sidebar-right|command.noRefresh|Trang này không làm mới được
+ui-sidebar-right|command.toggle|Bật/tắt thanh bên phải
+ui-sidebar-right|command.fullscreen|Bật/tắt toàn màn hình cho bảng
+ui-sidebar-right|command.noSession|Hãy chọn một phiên trước
+ui-sidebar-right|command.noFocus|Hãy chọn một khung ở thanh bên phải trước
+ui-sidebar-right|command.stale|Trang đã thay đổi; hãy chọn lại nó
+ui-sidebar-right|command.collapsed|Hãy mở rộng thanh bên phải trước
+ui-sidebar-right|command.float|Thao tác này không dùng được ở bảng nổi
+ui-sidebar-right|command.empty|Hãy mở một trang trước
+ui-sidebar-right|command.budget|Tối đa hai khung
+ui-sidebar-right|command.width|Không đủ chiều rộng để chia, hãy mở rộng thanh bên
+ui-sidebar-right|chrome.expand|Mở thanh bên
+ui-sidebar-right|chrome.expandAria|Mở thanh bên phải
+ui-sidebar-right|chrome.collapse|Thu gọn thanh bên
+ui-sidebar-right|chrome.collapseAria|Thu gọn thanh bên phải
+ui-sidebar-right|chrome.toFullscreen|Toàn màn hình
+ui-sidebar-right|chrome.exitFullscreen|Thoát toàn màn hình
+ui-sidebar-right|dock.emptyPane|Khung trống
+ui-sidebar-right|dock.splitPane|Chia khung
+ui-sidebar-right|dock.splitPaneDisabled|Tối đa hai khung
+ui-sidebar-right|dock.splitPaneNarrow|Không đủ chiều rộng để chia, hãy mở rộng thanh bên
+ui-sidebar-right|dock.closeTab|Đóng
+ui-sidebar-right|dock.addTab|Thẻ mới
+ui-sidebar-right|dock.dockFloat|Đưa về thanh bên
+ui-sidebar-right|dock.closeFloat|Đóng
+ui-sidebar-right|dock.drop.center|Chuyển tới đây
+ui-sidebar-right|dock.drop.left|Thêm khung bên trái
+ui-sidebar-right|dock.drop.right|Thêm khung bên phải
+ui-sidebar-right|dock.drop.top|Thêm khung bên trên
+ui-sidebar-right|dock.drop.bottom|Thêm khung bên dưới
+ui-sidebar-right|tab.guide.title|Bắt đầu
+ui-sidebar-right|tab.unavailable|Chưa xem được loại nội dung này ở đây.
+ui-workspace|defaultWorkspace.failed|Không tạo được không gian làm việc mặc định. Hãy dùng "Chọn không gian làm việc" để chọn thư mục.
+ui-workspace|group.ungrouped|Chưa phân nhóm
+ui-workspace|session.new|Phiên mới
+ui-workspace|shortcut.noSession|Hãy chọn một phiên trước
+ui-workspace|shortcut.noPicker|Không mở được hộp chọn thư mục
+ui-workspace|shortcut.directoryBusy|Đang chọn hoặc thêm không gian làm việc
+ui-workspace|shortcut.noCompletedTurn|Phiên này chưa có lượt nào hoàn tất
+ui-workspace|shortcut.forkFailed|Không tách nhánh phiên được. Hãy thử lại.
+ui-workspace|section.workspaces|Không gian làm việc
+ui-workspace|section.sessions|Phiên
+ui-workspace|viewOptions.label|Tuỳ chọn hiển thị
+ui-workspace|groupBy.label|Nhóm theo
+ui-workspace|groupBy.workspace|Không gian làm việc
+ui-workspace|groupBy.workspaceTree|Cây không gian làm việc
+ui-workspace|groupBy.flat|Một danh sách
+ui-workspace|orderBy.label|Sắp xếp theo
+ui-workspace|orderBy.manual|Thủ công
+ui-workspace|orderBy.updated|Cập nhật gần nhất
+ui-workspace|filterBy.label|Lọc phiên
+ui-workspace|viewOptions.hideArchived|Ẩn phiên đã lưu trữ
+ui-workspace|viewOptions.showArchived|Tất cả trò chuyện (hiện cả đã lưu trữ)
+ui-workspace|viewOptions.onlyArchived|Chỉ phiên đã lưu trữ
+ui-workspace|sessions.expand|Hiện thêm {n} phiên
+ui-workspace|sessions.collapse|Hiện ít hơn
+ui-workspace|empty.none|Chưa có phiên nào
+ui-workspace|empty.noneArchived|Chưa có phiên lưu trữ nào
+ui-workspace|empty.viewOthers|Xem các phiên khác
+ui-workspace|empty.noMatches|Không có kết quả
+ui-workspace|workspace.add|Thêm không gian làm việc
+ui-workspace|search.sessions.aria|Tìm phiên
+ui-workspace|search.placeholder|Tìm tên phiên
+ui-workspace|search.clear|Xoá tìm kiếm
+ui-workspace|search.results.aria|Kết quả tìm kiếm
+ui-workspace|search.pending|Đang tìm trong lịch sử phiên…
+ui-workspace|search.noMatches|Không có phiên nào khớp
+ui-workspace|search.hasMore|Đang hiện {n} kết quả đầu. Hãy thu hẹp tìm kiếm.
+ui-workspace|menu.addWorkspace|Thêm không gian làm việc…
+ui-workspace|picker.loading|Đang tải không gian làm việc…
+ui-workspace|conflict.named|Đã có không gian làm việc tên “{name}”.
+ui-workspace|folderError.title|Không mở được thư mục
+ui-workspace|folderError.retry|Chọn lại
+ui-workspace|rename|Đổi tên
+ui-workspace|rename.workspace.title|Đổi tên không gian làm việc
+ui-workspace|rename.session.title|Đổi tên phiên
+ui-workspace|field.workspaceName|Tên không gian làm việc
+ui-workspace|field.sessionName|Tên phiên
+ui-workspace|delete.workspace|Xoá không gian làm việc
+ui-workspace|delete.desc|Thao tác này gỡ “{name}” khỏi danh sách không gian làm việc. Thư mục và nhật ký phiên vẫn được giữ. Các phiên của nó sẽ nằm trong "Chưa phân nhóm".
+ui-workspace|delete.pending|Đang xoá không gian làm việc…
+ui-workspace|menu.fork|Tách nhánh phiên
+ui-workspace|menu.archiveSession|Lưu trữ phiên
+ui-workspace|menu.unarchiveSession|Bỏ lưu trữ phiên
+ui-workspace|menu.pinSession|Ghim phiên
+ui-workspace|menu.unpinSession|Bỏ ghim phiên
+ui-workspace|row.archived|Đã lưu trữ
+ui-workspace|row.pinned|Đã ghim
+ui-workspace|toast.archivedNotOpenable|Không mở được phiên đã lưu trữ. Hãy bỏ lưu trữ để xem.
+ui-workspace|toast.archived|Đã lưu trữ phiên. Bạn có thể 
+ui-workspace|toast.stoppedAndArchived|Đã dừng và lưu trữ phiên. Bạn có thể 
+ui-workspace|archive.confirm.title|Dừng và lưu trữ phiên này?
+ui-workspace|archive.confirm.desc|“{title}” vẫn còn việc đang làm. Lưu trữ sẽ dừng việc đó trước; sau này bạn có thể khôi phục phiên từ bộ lọc "Tất cả trò chuyện (hiện cả đã lưu trữ)" ở thanh bên, và việc đã dừng sẽ không tự chạy lại.
+ui-workspace|archive.confirm.activity|Việc sẽ bị dừng
+ui-workspace|archive.confirm.turn|Lượt đang chạy
+ui-workspace|archive.confirm.subagents.one|{n} agent con đang chạy: {names}
+ui-workspace|archive.confirm.subagents.other|{n} agent con đang chạy: {names}
+ui-workspace|archive.confirm.jobs.one|{n} tác vụ nền: {names}
+ui-workspace|archive.confirm.jobs.other|{n} tác vụ nền: {names}
+ui-workspace|archive.confirm.schedules.one|{n} nhắc hẹn theo lịch: {names}
+ui-workspace|archive.confirm.schedules.other|{n} nhắc hẹn theo lịch: {names}
+ui-workspace|archive.confirm.other.one|{n} việc khác ({kind})
+ui-workspace|archive.confirm.other.other|{n} việc khác ({kind})
+ui-workspace|archive.confirm.listSeparator|, 
+ui-workspace|archive.confirm.action|Dừng và lưu trữ
+ui-workspace|archive.confirm.pending|Đang dừng và lưu trữ…
+ui-workspace|toast.archivedUndo|hoàn tác
+ui-workspace|toast.archivedOr| hoặc 
+ui-workspace|toast.archivedFilter|lọc các phiên đã lưu trữ
+ui-workspace|toast.pinFailed|Ghim thất bại. Hãy thử lại sau.
+ui-workspace|toast.unpinFailed|Bỏ ghim thất bại. Hãy thử lại sau.
+ui-workspace|toast.createFailed|Tạo phiên mới thất bại: {message}
+ui-workspace|sessions.count.one|{n} phiên
+ui-workspace|sessions.count.other|{n} phiên
+ui-workspace|actions.workspace.aria|Thao tác không gian làm việc cho {name}
+ui-workspace|actions.session.aria|Thao tác phiên cho {name}
+ui-workspace|actions.archive|Lưu trữ
+ui-workspace|actions.unarchive|Bỏ lưu trữ
+ui-workspace|actions.pin|Ghim
+ui-workspace|actions.unpin|Bỏ ghim
+ui-workspace|actions.newSession|Phiên mới
+ui-workspace|actions.newSession.aria|Phiên mới trong {name}
+ui-workspace|status.running|Đang chạy
+ui-workspace|status.subagentsRunning.one|{n} agent con đang chạy
+ui-workspace|status.subagentsRunning.other|{n} agent con đang chạy
+ui-workspace|status.idle|Đang rảnh
+ui-workspace|status.waitingApproval|Đang chờ phê duyệt
+ui-workspace|status.planReview|Kế hoạch chờ duyệt
+ui-workspace|status.waitingAnswer|Đang chờ trả lời
+ui-workspace|status.compact.approval|Phê duyệt
+ui-workspace|status.compact.planReview|Duyệt kế hoạch
+ui-workspace|status.compact.answer|Trả lời
+ui-workspace|status.completed|Đã xong
+ui-workspace|hover.created|Tạo lúc {time}
+ui-workspace|hover.copied|Đã sao chép
+ui-workspace|date.ymd|{y}-{m}-{d}
+ui-workspace|time.now|vừa xong
+ui-workspace|time.minutes|{n} phút
+ui-workspace|time.hours|{n} giờ
+ui-workspace|time.days|{n} ngày
+ui-workspace|time.months|{n} tháng
+ui-workspace|time.years|{n} năm
+ui-workspace|time.ago|{t} trước

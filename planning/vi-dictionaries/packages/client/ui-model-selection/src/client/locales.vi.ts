@@ -1,0 +1,28 @@
+/** Tu dien tieng Viet sinh tu dong — KHONG sua tay.
+ * Nguon goc: packages/client/ui-model-selection/src/client/locales.ts
+ * Du lieu: planning/key-inventory-vi.tsv
+ */
+export const vi = {
+  'provider.account': 'Tài khoản DeepSeek',
+  'command.label': 'Mô hình',
+  'command.description': 'Chọn mô hình cho cuộc trò chuyện này',
+  'option.loadError': 'Không tải được danh mục: {message}',
+  'option.deepseekV4Flash.description': 'Nhanh, gọn và tiết kiệm; hợp với việc tập trung, thường ngày hoặc chạy song song.',
+  'option.deepseekV4Pro.description': 'Lập trình, kiến thức và suy luận khó tốt hơn; hợp với việc phức tạp hoặc cần chất lượng cao, chi phí cao hơn.',
+  'trigger.fallback': 'Chọn mô hình',
+  'trigger.loading': 'Đang tải mô hình…',
+  'trigger.selectAria': 'Chọn mô hình',
+  'trigger.aria': 'Chọn mô hình, hiện tại {model}',
+  'trigger.ariaEffort': 'Chọn mô hình, hiện tại {model}, mức suy luận {effort}',
+  'menu.aria': 'Mô hình và mức suy luận',
+  'menu.model': 'Mô hình',
+  'menu.effort': 'Mức suy luận',
+  'effort.providerDefault': 'Mặc định',
+  'status.loading': 'Đang làm mới danh sách mô hình…',
+  'error.action': 'Thao tác với mô hình thất bại: {message}',
+  'error.sessionInUse': 'Phiên này đang được dùng, có thể bởi một DSH khác (như dsh web hoặc bản desktop). Hãy đóng các DSH khác rồi thử lại.',
+  'action.reload': 'Tải lại',
+  'warning.groupLoad': 'Không tải được {name}: {message}',
+  'empty.models': 'Không có mô hình nào.',
+  'empty.efforts': 'Mô hình này không có mức suy luận nào.',
+} satisfies Record<string, string>

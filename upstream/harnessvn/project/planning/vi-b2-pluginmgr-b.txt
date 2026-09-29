@@ -1,0 +1,91 @@
+installApplyingCancellationError|Chưa xác nhận được huỷ. Bản cài đang được áp dụng; hãy chờ kết quả. {reason}
+installReconcile|Kiểm tra trạng thái cài đặt
+installUnknownTitle|Không có kết quả cài đặt
+installUnknownDescription|Host không có bản cài nào đang chạy với mã yêu cầu này. Hãy xem danh sách tiện ích trước khi thử lại.
+installResultUnconfirmed|Chưa nhận được kết quả cài đặt. Hãy kiểm tra trạng thái cài đặt. {reason}
+installAwaitingAcceptance|Đang chờ Host nhận yêu cầu cài. Thao tác huỷ sẽ tự thử lại sau khi được xác nhận.
+installBackgroundUnknown|Không có kết quả cài đặt. Hãy xem danh sách tiện ích.
+installCancel|Huỷ cài
+installCloseCancels|Huỷ cài và đóng
+installViewTask|Xem bản cài
+installUnconfirmedTitle|Chưa xác nhận trạng thái cài đặt
+installBackgroundDone|Cài xong. Xem chi tiết bản cài.
+installBackgroundFailed|Cài thất bại. Xem chi tiết bản cài.
+installBackgroundUnconfirmed|Chưa xác nhận trạng thái cài đặt. Xem bản cài để biết chi tiết.
+installBackgroundApplying|Bản cài đang được áp dụng và không huỷ được. Xem tiến trình cài đặt.
+installStarting|Đang chuẩn bị cài…
+installCancelling|Đang dừng cài đặt…
+installApplying|Đang áp dụng cấu hình, vui lòng đợi…
+installCancelledShort|Đã huỷ
+installCancelled|Đã huỷ cài; tiện ích chưa được bật và các tệp đã tải có thể còn lại
+installCancelUnconfirmed|Chưa xác nhận là đã dừng cài. Hãy huỷ lại hoặc chờ kết quả cài đặt. {reason}
+installEnableNow|Bật ngay
+installDetailsShow|Hiện chi tiết cài đặt
+installDetailsHide|Ẩn chi tiết cài đặt
+installVersion|Phiên bản {version}
+installSubjectPath|Thư mục trên máy
+installSubjectGit|Kho Git
+installSubjectTarball|Tệp nén (tarball)
+installLocation|Cài vào {dir}
+installRetry|Thử lại
+installChangeRegistry|Đổi nguồn gói
+installAttempt|{previous} không phục vụ được gói; đang thử qua {registry} (nguồn {index}/{total})
+installAttemptBadge|Lần thử {index} · {registry}
+installFailureNetwork|Kết nối mạng thất bại
+installFailureNetworkAll|Không kết nối được nguồn nào (đã thử: {registries}). Hãy kiểm tra mạng hoặc proxy, hoặc đổi nguồn gói rồi thử lại.
+installFailureNetworkHost|Không kết nối được tới {host}. Địa chỉ GitHub hoặc liên kết .tgz không được tải qua nguồn gói: máy này phải tự kết nối trực tiếp hoặc qua proxy. Nếu tiện ích cũng có trên npm, hãy nhập tên gói.
+installFailureNotFound|Không tìm thấy tiện ích như vậy
+installFailureNoMatchingVersion|Không có phiên bản nào khớp yêu cầu
+installFailureDiskFull|Đĩa đã đầy; quá trình cài đã dừng
+installFailurePermission|Không có quyền ghi; không cài được tiện ích
+installFailureBuildBlocked|Script cài của một phụ thuộc cần bạn cho phép trước khi cài tiếp
+installFailureBuildBlockedManual|pnpm đã chặn script cài; hãy cho phép trong allowBuilds của pnpm-workspace.yaml rồi thử lại
+installFailureIntegrity|Gói tải về không vượt qua được kiểm tra toàn vẹn
+installFailureTimeout|Cài đặt quá thời gian chờ
+installFailurePnpmMissing|Không tìm thấy pnpm nên không cài được gì
+installFailureGeneric|Có lỗi trong lúc cài; phần chi tiết nói rõ lỗi gì
+terminalRunning|Đang chạy
+terminalFailed|Thất bại
+terminalDone|Đã xong
+terminalCopy|Sao chép
+terminalCopied|Đã sao chép
+terminalNoOutput|Không có kết quả
+terminalCollapseAria|Thu gọn kết quả
+terminalCollapse|Thu gọn
+terminalExpandAria|Mở rộng {n} dòng kết quả còn lại
+terminalExpand|… {n} dòng nữa
+terminalExitCode|mã thoát {code}
+terminalSignal|tín hiệu {signal}
+terminalNoExitCode|không có mã thoát
+installDoneNothing|Cài xong nhưng không có phụ thuộc mới.
+installDoneRestart|Đã cài; tiện ích nạp ở lần khởi động sau.
+installDoneApproved|Đã cho phép script cài cho {names}
+installApprovalTitle|Script cài cần quyền
+installApprovalDescription|Các gói này có script cài mà pnpm chưa chạy.
+installApprovalConsequence|Khi được cho phép, script sẽ chạy ngay đây với quyền của bạn và quyền đó được lưu trong profile này.
+installApprovalCaution|Chỉ cho phép các gói bạn tin.
+installApproveAndRetry|Cho phép các script này và thử lại
+installClose|Xong
+close|Đóng
+cancel|Huỷ
+confirmUninstallTitle|Gỡ cài đặt "{name}"?
+confirmUninstallDescription|Những gì nó cung cấp sẽ mất sau khi gỡ.
+confirmUninstall|Gỡ cài đặt
+failedEnable|Không bật được: {reason}
+failedDisable|Không tắt được: {reason}
+failedUninstall|Không gỡ được: {reason}
+failedRowEnable|Không bật được thành phần: {reason}
+failedRowDisable|Không tắt được thành phần: {reason}
+reasonManagementRequired|Quản lý tiện ích cần nó; không thể tắt hay gỡ.
+reasonUnaddressable|Bản vá profile không định danh duy nhất được nó.
+reasonUnknownPlugin|Không có tiện ích như vậy.
+reasonInvalidSpec|Hãy nhập tên gói hoặc địa chỉ hợp lệ.
+reasonAmbiguousInstall|Không xác định được gói nào đã cài từ thay đổi phụ thuộc.
+reasonNotBundle|Gói này không khai báo bundle nên không quản lý được như tiện ích.
+reasonNotRemovable|Gói này không thuộc profile, hoặc quản lý tiện ích cần nó.
+reasonStopProfile|Profile này chạy không có HMR; hãy dừng nó rồi gỡ gói bằng dsh plugin.
+reasonBundleInUse|Cấu hình khác vẫn dùng thành phần của bundle này; hãy tắt chúng trước.
+reasonStaleApproval|Các phê duyệt script đang chờ đã thay đổi; hãy cài lại để làm mới.
+reasonIncompatibleVersion|{plugin} không tương thích với DSH {runtime} (cần {peers}); chạy nó có thể gây lỗi hoặc mất dữ liệu. Hãy cài phiên bản tiện ích tương thích với DSH này.
+reasonIncompatibleVersionUnnamed|Tiện ích này không tương thích với phiên bản DSH đang chạy; chạy nó có thể gây lỗi hoặc mất dữ liệu.
+reasonOperationError|Host báo lỗi.

@@ -1,0 +1,100 @@
+view.trajectory|Quỹ đạo
+toolbar.aria|Thanh công cụ quỹ đạo
+toolbar.duration|Thời lượng
+toolbar.useActualDuration|Dùng thời lượng thật
+toolbar.useEqualWidth|Dùng độ rộng bằng nhau cho thao tác
+toolbar.actualTime|Thời gian thật
+toolbar.turns|Lượt
+toolbar.expandTurns|Mở rộng các lượt
+toolbar.collapseTurns|Thu gọn các lượt
+toolbar.calls|Lần gọi
+toolbar.expandCalls|Mở rộng các lần gọi
+toolbar.collapseCalls|Thu gọn các lần gọi
+toolbar.search|Tìm trong quỹ đạo
+toolbar.searchPlaceholder|Tìm
+kind.system|HỆ THỐNG
+kind.user|NGƯỜI DÙNG
+kind.context|NGỮ CẢNH
+kind.compacted|ĐÃ NÉN
+kind.message|Tin nhắn
+kind.assistant|TRỢ LÝ
+kind.tool|CÔNG CỤ
+kind.subtool|CÔNG CỤ CON
+kind.sub|Con
+column.input|Đầu vào
+column.output|Đầu ra
+column.think|Suy nghĩ
+column.time|Thời gian
+column.model|Mô hình
+column.tools|Công cụ
+turn.label|Lượt {turn}
+section.betweenTurns|Giữa các lượt
+group.message|Tin nhắn
+group.step|Bước {step}
+group.compaction|Nén {seq}
+status.failed|Thất bại
+status.pending|Đang chờ
+status.completed|Đã xong
+timing.notAvailable|Không có
+timing.notRecorded|Không được ghi
+timing.stepStartUnavailable|Không có thời điểm bắt đầu bước
+timing.firstTokenUnavailable|Không có thời điểm token đầu
+timing.usageUnavailable|Không có mức dùng
+timing.outputTokensUnavailable|Không có số token đầu ra
+timing.durationTooShort|Thời lượng quá ngắn
+timing.showLocalTime|Hiện giờ địa phương
+timing.showUnixTimestamp|Hiện mốc thời gian Unix
+timing.started|Bắt đầu
+timing.totalDuration|Tổng thời lượng
+timing.ttft|TTFT
+timing.generation|Sinh văn bản
+timing.throughput|Tốc độ
+timing.duration|Thời lượng
+timing.source|Nguồn thời gian
+timing.sessionTimestamps|Mốc thời gian của phiên
+timing.sessionTimestampsRunning|Mốc thời gian của phiên (đang chạy)
+timing.request|Thời gian yêu cầu
+unit.milliseconds|{value} ms
+unit.seconds|{value} gi
+unit.tokens|{value} tok
+unit.tokensPerSecond|{value} tok/s
+usage.tokens|Token
+usage.reasoning|Suy luận
+usage.content|Nội dung
+usage.notReported|Không báo cáo mức dùng
+usage.input|Đầu vào
+usage.cached|Từ bộ đệm
+usage.cacheCreated|Tạo bộ đệm
+usage.other|Khác
+usage.output|Đầu ra
+usage.thisRequest|Yêu cầu này
+usage.sessionCumulative|Cộng dồn của phiên
+options.notRecorded|Không ghi tuỳ chọn
+options.json|JSON tuỳ chọn yêu cầu
+source.unknown|Không rõ
+source.user|Người dùng
+source.plugin|Tiện ích
+source.pluginNamed|Tiện ích · {plugin}
+source.goal|Mục tiêu
+source.goalRound|Mục tiêu · Vòng {round}
+source.notRecorded|Không ghi nguồn
+source.messageJson|JSON nguồn tin nhắn
+tab.summary|Tóm tắt
+tab.rawOutput|Kết quả thô
+tab.preview|Xem trước
+tab.raw|Thô
+tab.source|Nguồn
+tab.payload|Dữ liệu gửi
+tab.result|Kết quả
+tab.schema|Lược đồ
+tab.timing|Thời gian
+tab.diff|Khác biệt
+tab.systemPrompt|Prompt hệ thống
+tab.tools|Công cụ
+tab.options|Tuỳ chọn
+tab.usage|Mức dùng
+record.toolCallOnly|(chỉ gọi công cụ)
+record.noContent|Không có nội dung
+record.noPayload|Không ghi được dữ liệu gửi
+record.noResult|Không ghi được kết quả
+record.noOutput|Không có kết quả

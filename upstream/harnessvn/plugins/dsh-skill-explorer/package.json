@@ -1,0 +1,36 @@
+{
+  "name": "@ailamman/dsh-skill-explorer",
+  "version": "0.1.0",
+  "description": "Skill Explorer for DeepSeek Harness Web: browse every global skill and the skills a workspace uses (host route + browser panel)",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "skills",
+    "client-plugin"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  }
+}

@@ -1,0 +1,69 @@
+trigger.label|Nhắc hẹn
+list.loading|Đang tải nhắc hẹn…
+list.error|Không tải được nhắc hẹn.
+list.retry|Thử lại
+delete.action|Xoá
+delete.pending|Đang xoá…
+delete.label|Xoá nhắc hẹn: {title}
+list.open|Mở chi tiết nhắc hẹn: {title}
+trigger.one|{count} nhắc hẹn
+trigger.other|{count} nhắc hẹn
+list.aria|Nhắc hẹn đang hoạt động
+list.nextRun|Lần chạy tới
+frequency.once|Một lần
+frequency.every|Mỗi {value} {unit}
+time.locale|en
+time.utcPrefix|UTC
+frequency.daily|Hằng ngày lúc {time} ({timeZone})
+frequency.dailyLocal|Hằng ngày lúc {time}
+frequency.weekly|Hằng tuần vào {weekdays} lúc {time} ({timeZone})
+frequency.weeklyLocal|Hằng tuần vào {weekdays} lúc {time}
+frequency.cron|Cron {expression} ({timeZone})
+frequency.cronLocal|Cron {expression}
+frequency.cronRule|{rule} ({timeZone})
+cron.list.join|, 
+cron.weekday.name|{weekday}
+cron.weekday.range|{from}–{to}
+cron.months| trong {months}
+cron.day.every|Mỗi ngày{months}
+cron.day.weekdays|{weekdays}{months}
+cron.day.monthDays|Ngày {days} hằng tháng{months}
+cron.day.both|Ngày {days} hằng tháng hoặc {weekdays}{months}
+cron.day.bothStarred|Ngày {days} hằng tháng và {weekdays}{months}
+cron.hours.range|{from}–{to}
+cron.hours.list|{hours}
+cron.time.everyMinute|Mỗi phút
+cron.time.everyMinutes|Mỗi {step} phút
+cron.time.joinedEveryMinute|mỗi phút
+cron.time.joinedEveryMinutes|mỗi {step} phút
+cron.time.everyHour|Mỗi giờ
+cron.time.joinedEveryHour|mỗi giờ
+cron.time.everyNHours|Mỗi {count} giờ
+cron.time.joinedEveryNHours|mỗi {count} giờ
+cron.time.hourlyAt|Mỗi giờ vào phút {minutes}
+cron.time.joinedHourlyAt|mỗi giờ vào phút {minutes}
+cron.time.hoursEveryMinute|mỗi phút trong các giờ {hours}
+cron.time.hoursEveryMinutes|mỗi {step} phút trong các giờ {hours}
+cron.time.at|lúc {times}
+cron.time.hoursAt|phút {minutes} của các giờ {hours}
+frequency.weekday.join|, 
+frequency.weekday.1|T2
+frequency.weekday.2|T3
+frequency.weekday.3|T4
+frequency.weekday.4|T5
+frequency.weekday.5|T6
+frequency.weekday.6|T7
+frequency.weekday.7|CN
+unit.day.one|ngày
+unit.day.other|ngày
+unit.hour.one|giờ
+unit.hour.other|giờ
+unit.minute.one|phút
+unit.minute.other|phút
+unit.second.one|giây
+unit.second.other|giây
+relative.now|Đến lúc rồi
+relative.future|sau {value} {unit}
+relative.overdue|quá hạn {value} {unit}
+mark.aria|{count} tác vụ theo lịch
+hover.more|{count} mục nữa

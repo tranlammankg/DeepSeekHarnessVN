@@ -1,0 +1,18 @@
+/** Tu dien tieng Viet sinh tu dong — KHONG sua tay.
+ * Nguon goc: packages/client/ui-goal/src/client/locales.ts
+ * Du lieu: planning/key-inventory-vi.tsv
+ */
+export const vi = {
+  'phase.active': 'Mục tiêu đang chạy',
+  'phase.active.disarmed': 'Mục tiêu chưa chạy',
+  'phase.paused': 'Mục tiêu tạm dừng',
+  'phase.blocked': 'Mục tiêu đang vướng',
+  'objective.aria': 'Nội dung mục tiêu',
+  'commandInput.aria': 'Ô nhập lệnh',
+  'action.save': 'Lưu mục tiêu',
+  'action.cancel': 'Huỷ sửa',
+  'action.pause': 'Tạm dừng mục tiêu',
+  'action.resume': 'Tiếp tục mục tiêu',
+  'action.edit': 'Sửa mục tiêu',
+  'action.clear': 'Xoá mục tiêu',
+} satisfies Record<string, string>
