@@ -67,10 +67,19 @@ git bundle verify .dist/HarnessVN-main.bundle
 
 - CI (`.github/workflows/ci.yml`): job `gates` tự chạy khi push (build lib + 3 gate i18n + build web).
 - Job `desktop` (Windows/macOS) và `vm-image` là chạy tay: Actions → Run workflow. Máy không có KVM thì đặt `KVM=0` (TCG) và chờ lâu.
-- Khi có bộ cài: tạo Release, kèm SHA256 của từng file.
+- Khi có bộ cài: tạo Release với 4 file — `HarnessVN-Setup-<phiên bản>.exe` (Windows),
+  `HarnessVN-<phiên bản>.dmg` (macOS), `harnessvn-24.04-amd64.qcow2` (QEMU), `HarnessVN.ova` (VirtualBox/VMware).
+- Sinh file kiểm tra toàn vẹn rồi dán luôn vào phần mô tả Release:
+
+  ```bash
+  bash harnessvn/tools/make-checksums.sh \
+    HarnessVN-Setup-0.1.0.exe HarnessVN-0.1.0.dmg harnessvn-24.04-amd64.qcow2 HarnessVN.ova
+  # -> SHA256SUMS (ghi theo tên file); người dùng kiểm bằng: sha256sum -c SHA256SUMS
+  ```
 - **Ai đã clone bản cũ phải clone lại**: lịch sử đã được viết lại để xoá `.dsh-test`.
 
 ## 7. Việc còn lại chưa kiểm chứng được trong phiên này
 
-- Boot thật của máy ảo: cần máy có `qemu-system-x86` + quyền root (`harnessvn/vm/build-image.sh`).
+- Boot thật của máy ảo bằng **KVM** (phiên soạn chỉ chạy được TCG — đã boot thật và chạy tới bước build).
+- **Import `HarnessVN.ova`** trong VirtualBox/VMware (chưa có hai phần mềm đó trong phiên soạn).
 - Đóng gói desktop: cần host Windows (cho .exe) hoặc macOS (cho .dmg) — không build chéo được.
