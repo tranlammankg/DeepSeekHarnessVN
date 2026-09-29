@@ -114,16 +114,15 @@ fi
 
 if [ -n "$CAPTURE" ]; then
   if curl -s --max-time 3 http://127.0.0.1:9222/json/version >/dev/null 2>&1; then
-    text="$(node "$HERE/capture-ui.mjs" "http://127.0.0.1:$BRIDGE/" "$CAPTURE" || true)"
+    # Gia lap trinh duyet NGUOI VIET (navigator.language = vi) de kiem dung dieu nguoi dung thay.
+    text="$(CDP_LOCALE="${CDP_LOCALE:-vi}" node "$HERE/capture-ui.mjs" "http://127.0.0.1:$BRIDGE/" "$CAPTURE" || true)"
     echo "  chup UI : $text"
-    # Tiếng Việt hay tiếng Anh là do NGÔN NGỮ TRÌNH DUYỆT quyết định (mặc định của upstream;
-    # đổi được trong Cài đặt > Chung > Ngôn ngữ). Chromium headless ở đây là en-US nên bước này
-    # chỉ ghi nhận bằng chứng, không tính là cổng bắt buộc.
+    # Trinh duyet tieng Viet -> UI phai tieng Viet (day la dieu khang dinh cua san pham).
     case "$text" in
       vi\|*|*"Tiếp tục"*|*"Cài đặt"*|*"Bắt đầu"*)
         ok "UI qua cua noi dang ở tiếng Việt (ảnh: $CAPTURE)" ;;
       *)
-        echo "  [ghi chu] UI qua cua noi dang dùng tiếng Anh (trình duyệt en-US); đổi ngôn ngữ trong Cài đặt > Chung. Ảnh: $CAPTURE" ;;
+        bad "UI qua cua noi khong o tieng Viet khi trinh duyet gia lap la vi (thieu locale vi?)" ;;
     esac
   else
     echo "  (bo qua chup UI: khong thay Chromium CDP o 127.0.0.1:9222)"

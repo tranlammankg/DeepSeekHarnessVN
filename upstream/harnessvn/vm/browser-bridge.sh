@@ -15,8 +15,7 @@ FALLBACK_LOG="${FALLBACK_LOG:-$HOME/harnessvn-web.log}"
 mkdir -p "$SERVE_DIR"
 [ -f "$TOKEN_FILE" ] || : > "$TOKEN_FILE"
 find_token() {
-  [ -s "$TOKEN_FILE" ] && return 0
-  local text=""
+  local text="" token=""
   if [ -n "$LOG_FILE" ] && [ -f "$LOG_FILE" ]; then text="$(cat "$LOG_FILE" 2>/dev/null || true)"; fi
   if [ -z "$text" ] && [ -f "$HOME/harnessvn-web-direct.log" ]; then text="$(cat "$HOME/harnessvn-web-direct.log" 2>/dev/null || true)"; fi
   if [ -z "$text" ] && [ -f "$FALLBACK_LOG" ]; then text="$(cat "$FALLBACK_LOG" 2>/dev/null || true)"; fi
@@ -26,13 +25,22 @@ find_token() {
     # File log co the do root tao (quyen 0600) — doc journal he thong bang sudo la chac chan nhat.
     text="$(sudo -n journalctl -u harnessvn -n 300 --no-pager 2>/dev/null || true)"
   fi
-  printf '%s' "$text" | grep -ohE 'token=[A-Za-z0-9_-]+' | head -1 | cut -d= -f2 > "$TOKEN_FILE" || true
+  # Lay lan xuat hien CUOI CUNG trong log: log co the chua nhieu URL (app khoi dong lai -> token moi).
+  token="$(printf '%s' "$text" | grep -ohE 'token=[A-Za-z0-9_-]+' | tail -1 | cut -d= -f2)"
+  if [ -n "$token" ]; then
+    [ "$(cat "$TOKEN_FILE" 2>/dev/null || true)" = "$token" ] || printf '%s' "$token" > "$TOKEN_FILE"
+    return 0
+  fi
+  # Khong tim thay token moi: dung token dang co (neu co).
+  if [ -s "$TOKEN_FILE" ]; then return 0; fi
+  return 1
 }
 (
+  # Cap nhat LIEN TUC, khong dung sau lan dau: app khoi dong lai sinh token moi, con token cu trong
+  # TOKEN_FILE se lam nguoi dung nhan 401 (da gap that: cua noi chay truoc app / app restart).
   while :; do
     find_token || true
-    [ -s "$TOKEN_FILE" ] && break
-    sleep 2
+    sleep 5
   done
 ) &
 echo "cau noi (proxy) : http://localhost:$BRIDGE_PORT/  ->  ung dung trong may: 127.0.0.1:$APP_PORT"

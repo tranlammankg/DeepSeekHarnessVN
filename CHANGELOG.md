@@ -49,6 +49,10 @@ Các thay đổi đáng chú ý của HarnessVN. Mục mới nhất ở trên c�
 - **Ảnh đã đóng, boot lại không cài lại**: không còn dòng `== HarnessVN provision ==` trong log serial và mốc
   `/var/lib/harnessvn/.provisioned` còn nguyên; `provision.sh` tự tắt máy ảo khi đóng ảnh (cờ dùng-một-lần,
   không ảnh hưởng máy người dùng).
+- **Cửa nối tự làm mới token và UI tiếng Việt trong máy ảo**: cửa nối đọc lại log của app mỗi 5 giây và lấy
+  lần xuất hiện *cuối cùng* của token — trước đây nó chỉ đọc một lần và ưu tiên file token cũ, nên khi app
+  khởi động lại thì người dùng nhận **401** (đã tái hiện và sửa). Kèm ảnh chụp UI **tiếng Việt** từ máy ảo qua
+  cửa nối với trình duyệt giả lập `vi`: `evidence/vm-bridge-ui-vi.png`.
 - **Cổng kiểm tra khi đóng ảnh**: `vm/build-image.sh` dừng build nếu ảnh thiếu cửa nối bản mới, thiếu thư mục
   tiếng Việt, hoặc provision không chạy xong; `tools/verify-vm-image.sh` boot ảnh và kiểm cửa nối trước khi phát hành.
 - Ảnh chụp UI thật trong `upstream/harnessvn/evidence/` (onboarding khoá API, trang Mô hình, danh mục

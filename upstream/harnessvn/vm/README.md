@@ -12,8 +12,8 @@ không cần làm gì trong máy ảo.
 
 | File | Kích thước | SHA256 |
 |---|---|---|
-| `harnessvn-24.04-amd64.qcow2` | 1,6 GB | `2d00840a28f5616df824ca3f5dd552a90c98102b012602b18636734ea060a953` |
-| `HarnessVN.ova` | 1,4 GB | `005ef4297410ed3d27e3bc9d05486c151eb7141503a4500b1a130e3099aedaae` |
+| `harnessvn-24.04-amd64.qcow2` | 1,6 GB | `ed7971c22886f64add59531c70649bcf1352ab155baa135d8c8d566c727d360c` |
+| `HarnessVN.ova` | 1,4 GB | `92beeb7d18b1b071135a67558b0239e3fcbbd78fb0344c58eb4b0918834bfe26` |
 
 Hai file này **không nằm trong git** (quá lớn) — `SHA256SUMS` thì có. Dựng lại bằng một lệnh
 (`KVM=1` nếu máy có ảo hoá, `KVM=0` nếu không), rồi nghiệm thu:
@@ -24,6 +24,10 @@ QEMU_DIR=$PWD/.run/qemu harnessvn/tools/verify-vm-image.sh      # boot ảnh và
 QEMU_DIR=$PWD/.run/qemu harnessvn/vm/export-ova.sh \
   harnessvn/vm/harnessvn-24.04-amd64.qcow2 harnessvn/vm/HarnessVN.ova
 ```
+
+Cửa nối **làm mới token mỗi 5 giây** (lấy lần xuất hiện cuối cùng trong log của app): app khởi động lại
+sinh token mới, nếu cửa nối cứ giữ token cũ thì người dùng nhận **401**. Ảnh đã kiểm cả trường hợp token cũ
+trong `token.txt` (đặt token giả rồi mở cửa nối → 200 nhờ tự làm mới).
 
 Đĩa trong `.ova` khai báo **SATA/AHCI** (không phải SCSI LSI): initramfs của ảnh cloud chỉ có driver
 AHCI/virtio, nên đĩa SCSI LSI dừng ở `Gave up waiting for root file system device`. Đã boot thử chính

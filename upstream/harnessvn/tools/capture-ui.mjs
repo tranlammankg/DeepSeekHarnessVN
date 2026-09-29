@@ -25,8 +25,14 @@ await send('Page.enable', {}, sessionId)
 await send('Network.enable', {}, sessionId)
 await send('Network.setCacheDisabled', { cacheDisabled: true }, sessionId)
 await send('Emulation.setDeviceMetricsOverride', { width: 1400, height: 950, deviceScaleFactor: 1, mobile: false }, sessionId)
-// Gia lap ngon ngu trinh duyet (navigator.language) de kiem chung UI tu dong chon tieng Viet.
-if (process.env.CDP_LOCALE) await send('Emulation.setLocaleOverride', { locale: process.env.CDP_LOCALE }, sessionId)
+// Gia lap ngon ngu trinh duyet (navigator.language/languages) de kiem chung UI tu dong chon tieng Viet.
+// Phai dung setUserAgentOverride(acceptLanguage): setLocaleOverride chi doi Intl/ngay thang, KHONG doi
+// navigator.language — da thu va thay khong tac dung.
+if (process.env.CDP_LOCALE) {
+  const version = await send('Browser.getVersion')
+  await send('Emulation.setUserAgentOverride',
+    { userAgent: version.userAgent, acceptLanguage: process.env.CDP_LOCALE }, sessionId)
+}
 await send('Page.navigate', { url: URL_TO_OPEN }, sessionId)
 await new Promise(r => setTimeout(r, Number(process.env.CDP_WAIT_MS || 9000)))
 const shot = await send('Page.captureScreenshot', { format: 'png' }, sessionId)

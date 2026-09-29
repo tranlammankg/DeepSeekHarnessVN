@@ -109,9 +109,17 @@ Không kiểm được trong container: bước `dsh plugin --profile web add` �
 Ket qua: 4 dat, 0 hong
 ```
 
-Ảnh chụp UI lấy từ **trình duyệt trên máy thật** qua cửa nối 9998: `vm-bridge-ui.png`
-(Chromium headless ở đây là `en-US` nên giao diện hiện tiếng Anh; trình duyệt tiếng Việt sẽ tự chọn `vi`,
-đổi bằng **Cài đặt → Chung → Ngôn ngữ**).
+Ảnh chụp UI lấy từ **trình duyệt trên máy thật** qua cửa nối 9998:
+
+- `vm-bridge-ui.png` — Chromium mặc định (`en-US`) → giao diện tiếng Anh.
+- `vm-bridge-ui-vi.png` — cùng ảnh máy ảo, nhưng giả lập **trình duyệt người Việt** (`navigator.language = vi`)
+  → giao diện **tiếng Việt**: `vi|Bản dựng cục bộ DSH|Phiên mới / Tiện ích / Không gian làm việc / Cài đặt /
+  Bước vào điều chưa biết / Chọn không gian làm việc`.
+
+Lưu ý về token: cửa nối **làm mới token liên tục** (5 giây/lần, lấy lần xuất hiện *cuối cùng* trong log của app).
+Trước đây cửa nối chỉ đọc token một lần và ưu tiên file `token.txt` cũ: khi app khởi động lại (token mới),
+người dùng mở cửa nối sẽ nhận **401** cho tới khi file token được xoá — đã **tái hiện được thật** trên máy
+(vuốt token giả vào `token.txt`) và nay đã sửa.
 
 Đóng ảnh cũng có cổng kiểm tra: `build-image.sh` dừng build nếu bản cửa nối trong ảnh không có
 `/__harnessvn_status`, thiếu thư mục tiếng Việt trong `packages/client/locale/src/client/locales/vi`,
@@ -120,5 +128,7 @@ một ảnh cũ: gói mã nguồn được đóng lại mới nhưng ảnh vàng
 
 ## Chưa kiểm chứng được trong phiên này
 
-- **Boot thật của ảnh máy ảo** (cần `qemu-system-x86` + quyền root, phiên làm việc không có).
+- **Boot bằng KVM** (phiên soạn không có `/dev/kvm`; đã boot thật bằng TCG tới hết provisioning).
+- **Import `.ova` trong VirtualBox/VMware** (chưa có hai phần mềm đó): đã bù bằng boot **chính đĩa trong `.ova`**
+  bằng QEMU với điều khiển SATA/AHCI mà OVF khai báo (4/4 đạt) và với SCSI LSI (không boot — thiếu driver).
 - **Bộ cài desktop `.exe`/`.dmg`** (repo chặn build chéo: cần host Windows hoặc macOS).
