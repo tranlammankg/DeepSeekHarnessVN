@@ -19,3 +19,6 @@ upstream/harnessvn/vm/*.tar.gz
 
 # Goi bundle phat hanh cuc bo (khong commit)
 /.dist/
+
+# Trang thai chay thu (DSH_HOME moi, anh tam)
+/.run/

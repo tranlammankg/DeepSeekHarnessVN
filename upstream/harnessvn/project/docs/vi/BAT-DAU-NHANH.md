@@ -15,9 +15,10 @@ Chỉ **một thứ**: **khoá API** — hiểu đơn giản là "chìa khoá" �
 1. Tải bộ cài: `HarnessVN-Setup-<phiên bản>.exe` (Windows) hoặc `HarnessVN-<phiên bản>.dmg` (macOS).
 2. Nhấp đúp để cài — giống như cài Zalo hay Chrome.
 3. Mở **HarnessVN** từ màn hình chính.
-4. Màn hình chào hiện ra bằng tiếng Việt → chọn **Bắt đầu**.
-5. Lần lượt chọn: **nhà cung cấp AI** → **dán khoá API** → **chọn mô hình**.
-6. Bấm **Kiểm tra kết nối**. Hiện "Xong!" là bạn đã có thể trò chuyện.
+4. Màn hình chào hiện ra **bằng tiếng Việt** → bấm **Tiếp tục**.
+5. Hộp thoại **Thêm khoá API để bắt đầu** hiện ra → **dán khoá API DeepSeek** → bấm **Lưu và tiếp tục**.
+6. Muốn dùng **nhà cung cấp khác** (OpenAI, Anthropic, Google, Kimi…): bấm **Cấu hình sau**, rồi mở **Cài đặt → Mô hình → Thêm nhà cung cấp mô hình** → chọn nhà cung cấp → dán khoá API → **Áp dụng**.
+7. Xong. Từ đây bạn chỉ cần gõ việc cần làm, phần còn lại HarnessVN lo.
 
 > Trên Windows, lần đầu mở có thể hiện cảnh báo màu xanh "Windows bảo vệ PC của bạn". Bấm **Thông tin thêm → Vẫn chạy** — đây là cảnh báo thường gặp với phần mềm chưa mua chứng chỉ ký.
 
@@ -39,7 +40,7 @@ Chỉ **một thứ**: **khoá API** — hiểu đơn giản là "chìa khoá" �
    [5/5] Mở trình duyệt của bạn…
    ✅ Xong! Đang mở: http://localhost:9999
    ```
-4. Trình duyệt tự mở → làm 3 bước như Đường 1.
+4. Trình duyệt tự mở → giao diện **tự nhận tiếng Việt**, không phải chọn gì → làm như bước 4–7 của Đường 1.
 5. Lần sau chỉ cần nhấp đúp file khởi động là dùng tiếp. **Không cần tải lại.**
 
 > Nếu máy chưa có QEMU, chương trình sẽ **hỏi trước** khi cài. Bạn chọn `C` là nó tự cài giúp.

@@ -111,7 +111,7 @@ export const vi = {
   'welcomeContinue': 'Tiếp tục',
   'welcomeError': 'Không lưu được xác nhận. Hãy thử lại.',
   'onboardingTitle': 'Thêm khoá API để bắt đầu',
-  'onboardingDescription': 'Cấu hình nhà cung cấp DeepSeek chính thức để bắt đầu.',
+  'onboardingDescription': 'Dán khoá API DeepSeek để bắt đầu. Muốn dùng nhà cung cấp khác? Chọn "Cấu hình sau" rồi mở Cài đặt → Mô hình.',
   'onboardingLater': 'Cấu hình sau',
   'onboardingSave': 'Lưu và tiếp tục',
   'onboardingSaving': 'Đang lưu…',
