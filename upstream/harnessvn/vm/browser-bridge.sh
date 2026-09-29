@@ -17,6 +17,7 @@ find_token() {
   [ -s "$TOKEN_FILE" ] && return 0
   local text=""
   if [ -n "$LOG_FILE" ] && [ -f "$LOG_FILE" ]; then text="$(cat "$LOG_FILE" 2>/dev/null || true)"; fi
+  if [ -z "$text" ] && [ -f "$HOME/harnessvn-web-direct.log" ]; then text="$(cat "$HOME/harnessvn-web-direct.log" 2>/dev/null || true)"; fi
   if [ -z "$text" ] && [ -f "$FALLBACK_LOG" ]; then text="$(cat "$FALLBACK_LOG" 2>/dev/null || true)"; fi
   if [ -z "$text" ]; then text="$(journalctl --user -u harnessvn -n 300 --no-pager 2>/dev/null || true)"; fi
   if [ -z "$text" ]; then text="$(journalctl -u harnessvn -n 300 --no-pager 2>/dev/null || true)"; fi

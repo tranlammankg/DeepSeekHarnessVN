@@ -139,9 +139,9 @@ start_direct() {
   $BG env HOME="$HOME" PATH="$PREFIX/bin:/usr/local/bin:/usr/bin:/bin" \
     "$NODE_BIN" --import tsx/esm \
     "$SRC_DIR/upstream/apps/cli/src/bin.ts" web --no-open --port "$PORT" --trusted-host localhost \
-    >"$HOME/harnessvn-web.log" 2>&1 < /dev/null &
+    >"$HOME/harnessvn-web-direct.log" 2>&1 < /dev/null &
   $BG env HOME="$HOME" APP_PORT="$PORT" BRIDGE_PORT="$BRIDGE_PORT" SERVE_DIR="$HOME/harnessvn-open" \
-    LOG_FILE="$HOME/harnessvn-web.log" \
+    LOG_FILE="$HOME/harnessvn-web-direct.log" \
     /bin/bash "$SRC_DIR/upstream/harnessvn/vm/browser-bridge.sh" \
     >"$HOME/harnessvn-bridge.log" 2>&1 < /dev/null &
 }
@@ -161,7 +161,7 @@ for i in $(seq 1 30); do
       exit 0
       ;;
   esac
-  [ "$i" = "12" ] && start_direct
+  [ "$i" = "24" ] && start_direct   # doi 2 phut (TCG cham) roi moi khoi dong truc tiep
   sleep 5
 done
 echo "CHUA tra loi o cong $PORT. Xem: journalctl --user -u harnessvn -n 50"
