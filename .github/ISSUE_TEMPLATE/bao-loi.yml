@@ -1,0 +1,71 @@
+name: Báo lỗi
+description: HarnessVN không chạy đúng, báo lỗi, hoặc hiện chữ khó hiểu
+title: "[Lỗi] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bạn **không cần biết kỹ thuật** để báo lỗi. Cứ kể lại bằng lời thường và kèm ảnh chụp màn hình.
+        Trước khi gửi, thử xem [Xử lý lỗi thường gặp](../blob/main/docs/vi/LOI-THUONG-GAP.md) —
+        có thể lỗi của bạn đã có cách sửa sẵn.
+
+        **Đừng dán khoá API vào đây.** Khoá API là thứ riêng tư, dán vào issue là công khai cho mọi người.
+  - type: textarea
+    id: hien-tuong
+    attributes:
+      label: Bạn thấy gì?
+      description: Chữ hiện ra trên màn hình, hoặc việc gì không chạy. Kéo ảnh chụp vào khung này cũng được.
+      placeholder: |
+        Tôi mở HarnessVN, dán khoá API vào rồi bấm tiếp thì hiện "Khoá API không đúng."
+    validations:
+      required: true
+  - type: textarea
+    id: cac-buoc
+    attributes:
+      label: Bạn đã làm những bước nào?
+      description: Kể theo thứ tự, để người khác làm lại được đúng như bạn.
+      placeholder: |
+        1. Tải file .dmg trong Releases
+        2. Nhấp đúp, kéo vào Applications
+        3. Mở app, chọn không gian làm việc
+        4. Dán khoá API -> hiện lỗi
+    validations:
+      required: true
+  - type: textarea
+    id: mong-doi
+    attributes:
+      label: Bạn mong nó chạy thế nào?
+      placeholder: Tôi mong nó nhận khoá và cho tôi chọn mô hình.
+  - type: dropdown
+    id: duong-cai
+    attributes:
+      label: Bạn cài theo đường nào?
+      options:
+        - Chạy từ mã nguồn
+        - Máy ảo QEMU tự dựng
+        - File .ova tự dựng, chạy trong VirtualBox hoặc VMware
+        - Bộ cài desktop (Windows)
+        - Bộ cài desktop (macOS)
+        - Tôi không rõ
+    validations:
+      required: true
+  - type: input
+    id: he-dieu-hanh
+    attributes:
+      label: Máy bạn dùng hệ điều hành gì?
+      placeholder: "Windows 11, hoặc macOS 15 (chip M2), hoặc Ubuntu 24.04"
+    validations:
+      required: true
+  - type: input
+    id: phien-ban
+    attributes:
+      label: Bản HarnessVN nào?
+      description: Ghi mã commit bạn đang dùng (`git rev-parse --short HEAD`), vì chưa có bản phát hành đánh số.
+      placeholder: "4fa37c51"
+  - type: checkboxes
+    id: kiem-lai
+    attributes:
+      label: Kiểm lại trước khi gửi
+      options:
+        - label: Tôi đã xoá khoá API và mật khẩu khỏi ảnh chụp và nội dung trên
+          required: true

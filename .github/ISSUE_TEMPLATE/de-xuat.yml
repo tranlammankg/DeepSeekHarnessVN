@@ -1,0 +1,44 @@
+name: Đề xuất cải thiện
+description: Góp ý làm HarnessVN dễ dùng hơn, hoặc báo chữ tiếng Việt dịch chưa đúng
+title: "[Đề xuất] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Góp ý về **câu chữ tiếng Việt** rất được hoan nghênh — đó là phần cốt lõi của dự án này.
+  - type: dropdown
+    id: loai
+    attributes:
+      label: Đề xuất thuộc loại nào?
+      options:
+        - Câu chữ tiếng Việt trong giao diện dịch chưa đúng hoặc khó hiểu
+        - Tài liệu hướng dẫn cần rõ hơn
+        - Các bước cài đặt còn khó với người không chuyên
+        - Chức năng mới
+        - Khác
+    validations:
+      required: true
+  - type: textarea
+    id: van-de
+    attributes:
+      label: Hiện tại khó ở chỗ nào?
+      description: Mô tả tình huống thật bạn gặp, đừng chỉ nêu giải pháp.
+      placeholder: |
+        Màn hình lần đầu hiện "không gian làm việc" nhưng tôi không hiểu đó là gì, nên không biết chọn gì.
+    validations:
+      required: true
+  - type: textarea
+    id: de-xuat
+    attributes:
+      label: Bạn nghĩ nên thế nào?
+      description: Nếu là câu chữ dịch, ghi rõ chữ hiện tại và chữ bạn đề nghị.
+      placeholder: |
+        Hiện tại: "Chọn không gian làm việc"
+        Đề nghị: "Chọn thư mục để lưu công việc của bạn"
+    validations:
+      required: true
+  - type: input
+    id: o-dau
+    attributes:
+      label: Chỗ nào trong app hoặc tài liệu?
+      placeholder: "Màn hình lần đầu, bước 1/3 — hoặc docs/vi/BAT-DAU-NHANH.md"

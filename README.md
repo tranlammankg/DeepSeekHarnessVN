@@ -46,6 +46,12 @@ corepack pnpm@11.7.0 run build:lib && corepack pnpm@11.7.0 run build:web
 DSH_HOME=/tmp/harnessvn corepack pnpm@11.7.0 dsh web --no-open --port 9999 --trusted-host localhost
 ```
 
+> **Nếu mạng của bạn bị chặn:** một phụ thuộc duy nhất — `xlsx`, dùng cho chức năng xem trước file Excel —
+> được tải từ `https://cdn.sheetjs.com` chứ không phải npm registry (SheetJS đã ngừng publish lên npm từ bản
+> `0.18.5`). Mạng chỉ mở registry npm sẽ làm `pnpm install` dừng với `TypeError: fetch failed` và **không
+> package nào được cài**, nên cả ba dòng lệnh trên đều không chạy tới nơi. Cách xử lý: xem
+> [`CONTRIBUTING.md`](CONTRIBUTING.md), mục *Mạng bị chặn khi cài*.
+
 Ba gate bắt buộc trước khi gửi thay đổi:
 
 ```bash
@@ -60,6 +66,7 @@ node harnessvn/tools/verify-vi-dictionaries.mjs                                 
 - Kế hoạch & kiến trúc: [`PLAN.md`](PLAN.md), [`ARCHITECTURE.md`](ARCHITECTURE.md).
 - Thay đổi theo phiên bản: [`CHANGELOG.md`](CHANGELOG.md).
 - Hồ sơ chi tiết (quyết định, bằng chứng kiểm chứng): [`planning/project-dossier.md`](planning/project-dossier.md).
+- Góp sức: [`CONTRIBUTING.md`](CONTRIBUTING.md) — cách gửi thay đổi, gate bắt buộc, quy ước repo.
 - Phát hành: [`upstream/harnessvn/PUBLISH.md`](upstream/harnessvn/PUBLISH.md).
 
 ## Trạng thái (nói thật)

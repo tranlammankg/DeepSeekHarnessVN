@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Hướng dẫn tiếng Việt cho người mới
+    url: https://github.com/tranlammankg/DeepSeekHarnessVN/tree/main/docs/vi
+    about: Bắt đầu nhanh, lấy khoá API, dùng hằng ngày, câu hỏi thường gặp.
+  - name: Xử lý lỗi thường gặp
+    url: https://github.com/tranlammankg/DeepSeekHarnessVN/blob/main/docs/vi/LOI-THUONG-GAP.md
+    about: Lỗi khoá API, lỗi bộ cài, lỗi máy ảo — xem ở đây trước khi mở issue.
