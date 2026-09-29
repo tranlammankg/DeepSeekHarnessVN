@@ -77,6 +77,10 @@ Việc cài đặt do `harnessvn/install/provision.sh` làm, **không cần quy�
 | Chép skill `vn-self-setup` vào `~/.agents/skills/` | ✅ đã mô phỏng đúng bước copy: ra `~/.agents/skills/vn-self-setup/{SKILL.md,install-tool.sh}`; provider skill đọc root này (đọc mã `join(agentsHome, 'skills')`) |
 | Script cài `install-tool.sh` | ✅ chạy thật: gói đã có → thoát 0; gói ngoài allowlist → thoát 2; ghi log theo `HARNESSVN_TOOLS_LOG` |
 | Cửa nối mở trình duyệt (`browser-bridge.sh`) | ✅ đã kiểm thật: HTTP 200 ở cổng cầu nối → chuyển hướng URL có token → UI tiếng Việt; app chưa sẵn sàng thì hiện trang chờ; sau khi có cookie, mở `http://localhost:9999` trần cũng vào được |
+| **Chạy thật `provision.sh`** (giả lập container, không qemu) | ✅ đã chạy hết 6 bước: install 9 giây (store ấm) → build:lib + build:web → chép skill vào `~/.agents/skills` → sinh 2 unit → nhánh khởi động trực tiếp lên app (HTTP 401), cửa nối 200 + chuyển hướng đúng token; ảnh `evidence/vm-provisioned-ui.png` |
+| Dạng lệnh chạy app trong unit | ✅ sửa thật: `node <node_modules/.bin/tsx>` là **shell shim** → `SyntaxError`; đã đổi sang dạng chính thức `node --import tsx/esm apps/cli/src/bin.ts` (chạy thử ra URL token) |
+| Node dùng cho dịch vụ | ✅ `provision.sh` lưu `NODE_BIN` (node hệ thống cũng dùng được), không hardcode `$PREFIX/bin/node` |
+| Cửa nối khi không có launcher/config server (ví dụ Windows) | ✅ đọc token từ `~/harnessvn-web.log` của nhánh khởi động trực tiếp; việc đọc cổng công khai được làm **lười** nên server lên ngay, không chờ mạng |
 | **Boot thật + cài thật trong VM** | ⏳ **chưa chạy được trong phiên soạn** — môi trường soạn là container không có `/dev/kvm`, không root, không qemu |
 
 Khi bạn chạy `build-image.sh` trên máy có qemu, lần boot đầu sẽ ghi toàn bộ tiến trình vào

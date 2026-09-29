@@ -15,6 +15,7 @@ SRC_DIR=/opt/harnessvn
 HOME_DIR="${HOME:-/home/harnessvn}"
 RUN_USER="$(id -un)"
 PREFIX="${HOME:-/home/harnessvn}/.local"
+NODE_BIN=""
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
@@ -26,6 +27,7 @@ while [ "$#" -gt 0 ]; do
     --home) HOME_DIR="$2"; shift 2 ;;
     --user) RUN_USER="$2"; shift 2 ;;
     --prefix) PREFIX="$2"; shift 2 ;;
+    --node-bin) NODE_BIN="$2"; shift 2 ;;
     *) echo "tham so khong hieu: $1"; exit 1 ;;
   esac
 done
@@ -36,10 +38,11 @@ case "$SCOPE" in
   user)   USER_LINE=""; WANTED=default.target ;;
   *) echo "--scope phai la system hoac user"; exit 1 ;;
 esac
+NODE_BIN="${NODE_BIN:-$PREFIX/bin/node}"
 mkdir -p "$DEST"
 
-# Cau noi mo trinh duyet: dsh web chi phuc vu trang khi URL co token, nen mo tran
-# http://localhost:9999 se bi 401. Dich vu nay giu token va chuyen huong dung phien.
+# ExecStart dung dang thuc cua upstream: node --import tsx/esm <bin.ts> (node_modules/.bin/tsx chi la
+# shell shim, chay bang `node <shim>` se loi SyntaxError).
 cat > "$DEST/harnessvn.service" <<UNIT
 [Unit]
 Description=HarnessVN web UI
@@ -53,7 +56,7 @@ Environment=HOME=$HOME_DIR
 Environment=PATH=$PREFIX/bin:/usr/local/bin:/usr/bin:/bin
 Environment=COREPACK_HOME=$HOME_DIR/.local/share/corepack
 WorkingDirectory=$SRC_DIR/upstream
-ExecStart=$PREFIX/bin/node $SRC_DIR/upstream/node_modules/.bin/tsx $SRC_DIR/upstream/apps/cli/src/bin.ts web --no-open --port $PORT --trusted-host localhost
+ExecStart=$NODE_BIN --import tsx/esm $SRC_DIR/upstream/apps/cli/src/bin.ts web --no-open --port $PORT --trusted-host localhost
 Restart=on-failure
 RestartSec=5
 
@@ -61,6 +64,8 @@ RestartSec=5
 WantedBy=$WANTED
 UNIT
 
+# Cau noi mo trinh duyet: dsh web chi phuc vu trang khi URL co token, nen mo tran
+# http://localhost:9999 se bi 401. Dich vu nay giu token va chuyen huong dung phien.
 cat > "$DEST/harnessvn-open.service" <<UNIT
 [Unit]
 Description=HarnessVN browser bridge (chuyen huong URL co token)

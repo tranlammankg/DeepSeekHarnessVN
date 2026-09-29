@@ -10,6 +10,7 @@ Tất cả ảnh dưới đây chụp **bản fork đang chạy thật** qua CDP
 | `web-ui-settings-models.png` | **Cài đặt → Mô hình**: nhập khoá API cho DeepSeek |
 | `web-ui-them-nha-cung-cap.png` | **Thêm nhà cung cấp mô hình**: danh mục 40 nhà cung cấp (bên thứ ba / API tuỳ chỉnh) |
 | `vm-bridge-trang-cho.png` | Trang chờ của cửa nối khi ứng dụng chưa sẵn sàng (lần đầu máy ảo build 10–20 phút) |
+| `vm-provisioned-ui.png` | UI tiếng Việt của **bản do `provision.sh` dựng ra** (giả lập trong container), mở qua cửa nối |
 
 ## Bản ghi đọc trực tiếp từ DOM (không suy đoán)
 
@@ -59,6 +60,30 @@ sau đó mở http://localhost:10099/  -> vào thẳng (cookie đã được c�
 ```
 
 Tái lập: `APP_PORT=10099 BRIDGE_PORT=10598 LOG_FILE=<file có dòng token> SERVE_DIR=<thư mục ghi được> harnessvn/vm/browser-bridge.sh`.
+
+## Chạy thật `provision.sh` (giả lập trong container, không có qemu)
+
+Gói mã nguồn sinh từ HEAD được giải nén đúng layout `/opt/harnessvn/upstream`, rồi chạy:
+
+```bash
+HOME=$PWD/.run/vm-home HARNESSVN_SRC=$PWD/.run/vm-src2 PORT=10097 BRIDGE_PORT=10098 \
+  bash .run/vm-src2/upstream/harnessvn/install/provision.sh
+```
+
+Kết quả đọc từ log:
+
+- `pnpm install --frozen-lockfile` **9 giây** (store ấm), `build:lib` + `build:web` xong.
+- Bước 4b: skill `vn-self-setup` được chép vào `~/.agents/skills/` ✅
+- Bước 5: sinh 2 unit systemd ✅ (`write-units.sh`), nhưng `systemctl --user` không có bus trong container
+- Bước 6: không thấy phản hồi → **nhánh khởi động trực tiếp chạy**, app lên ở cổng 10097 (HTTP **401** = đang chạy)
+- Cửa nối đọc token từ `~/harnessvn-web.log` → `http://localhost:10098/` trả **200** và chuyển hướng
+  `http://localhost:10097/?token=…`
+- Mở cửa nối bằng trình duyệt `vi-VN`: `location.href = http://localhost:10097/`, `lang = "vi"`,
+  UI onboarding tiếng Việt (ảnh `vm-provisioned-ui.png`)
+
+Không kiểm được trong container: bước `dsh plugin --profile web add` — CLI dùng home theo `/etc/passwd`
+(`/home/ailamman/.dsh`, chỉ đọc trong container) nên bị EROFS; provision bỏ qua plugin đó và **tiếp tục**
+đúng như thiết kế. Trong máy ảo `runuser -u harnessvn` làm home khớp `$HOME` nên bước này chạy bình thường.
 
 ## Chưa kiểm chứng được trong phiên này
 

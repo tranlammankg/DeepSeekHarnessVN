@@ -74,6 +74,15 @@ Provider skill đọc root `join($DSH_AGENTS_HOME, 'skills')` (mặc định `~/
 `<workspace>/.agents/skills`. Người dùng mới chọn workspace khác, nên provision phải chép skill vào
 `~/.agents/skills/`. Kiểm nhanh bằng cách chạy đúng vòng lặp copy với `HOME` giả rồi liệt kê file.
 
+## 5b. Cổng mạng: đừng để đụng dịch vụ đang chạy
+
+- Trong máy ảo: ứng dụng luôn ở `9999`, cửa nối luôn ở `9998`.
+- Trên máy thật: `run-vm.sh` tự dò cổng trống (`free-port.sh`, mặc định bắt đầu 9999/9998) — máy có sẵn
+  dịch vụ ở 9998/9999 vẫn chạy được. Cổng công khai của ứng dụng được công bố cho máy ảo qua HTTP server
+  nhỏ (mặc định `18080`, nội dung `APP_PORT=<cổng>`); `browser-bridge.sh` đọc `http://10.0.2.2:18080/config`
+  rồi chuyển hướng đúng cổng. Windows không có python3 → cổng ứng dụng phải là 9999, cửa nối lùi về 19998.
+- Kiểm không cần qemu: `DRY_RUN=1 run-vm.sh <ảnh.qcow2>` in ra cổng đã chọn + lệnh qemu.
+
 ## 6. Bẫy đã gặp thật
 
 - **`set -euo pipefail` + `grep -q` trong pipeline**: `grep -q` thoát ngay khi khớp → bên trái nhận SIGPIPE →
@@ -82,7 +91,12 @@ Provider skill đọc root `join($DSH_AGENTS_HOME, 'skills')` (mặc định `~/
 - **Lệnh bash foreground bị cap ~10 phút**: việc tải/dựng dài phải chạy bằng job nền của harness
   (`run_in_background: true`), không phải `nohup ... &` trong lệnh foreground (tiến trình con bị dọn theo shell).
 - **`$HOME` trong container soạn bài chỉ đọc**: `browser-bridge.sh` nhận `SERVE_DIR`/`TOKEN_FILE` để trỏ vào workspace.
+- **`grep -q` sau một lệnh sản xuất nhiều dòng** (ổ cổng, kiểm tar): dùng here-string hoặc `grep -c`, đừng để
+  pipeline. Lỗi này từng làm `free-port.sh` báo "cổng trống" sai một cách ngẫu nhiên (QEMU sẽ không bind được).
 - **`git archive` không có `--format=tar.gz`** trả tar thường → `tar -tzf` báo "not in gzip format".
+- **`pnpm install` cho bản sao repo nằm trong repo**: postinstall của upstream chạy `lefthook install`, nó tìm
+  thấy `.git` của repo cha và ghi `lefthook.yml` + `.git/hooks/prepare-commit-msg` vào repo thật. Đã gặp thật
+  khi giả lập provision trong container: kiểm `git status` sau khi chạy và dọn ngay.
 
 ## 7. Không áp dụng khi
 

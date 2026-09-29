@@ -18,20 +18,12 @@ CONFIG_URL="${CONFIG_URL:-http://10.0.2.2:18080/config}"
 
 # Cong ma trinh duyet tren MAY THAT dung de vao ung dung. Launcher chon cong nay va
 # cong bo no cho may ao qua CONFIG_URL (10.0.2.2 = may that trong user-mode net).
-# Khong doc duoc thi mac dinh bang cong trong may ao.
+# Khong doc duoc (may khong co launcher, vi du Windows) thi mac dinh bang cong trong may ao.
+# Viec doc duoc lam LUOI trong Python: server phai len ngay, khong cho mang.
 PUBLIC_APP_PORT="${PUBLIC_APP_PORT:-}"
-if [ -z "$PUBLIC_APP_PORT" ] && command -v curl >/dev/null 2>&1; then
-  for _ in $(seq 1 10); do
-    cfg="$(curl -fsS --max-time 4 "$CONFIG_URL" 2>/dev/null || true)"
-    if [ -n "$cfg" ]; then break; fi
-    sleep 1
-  done
-  case "$cfg" in
-    *APP_PORT=*) PUBLIC_APP_PORT="${cfg#*APP_PORT=}"; PUBLIC_APP_PORT="${PUBLIC_APP_PORT%%[!0-9]*}" ;;
-  esac
+if [ -n "$PUBLIC_APP_PORT" ]; then
+  echo "cong cong khai cua ung dung: $PUBLIC_APP_PORT (tu bien moi truong)"
 fi
-PUBLIC_APP_PORT="${PUBLIC_APP_PORT:-$APP_PORT}"
-echo "cong cong khai cua ung dung: $PUBLIC_APP_PORT"
 
 mkdir -p "$SERVE_DIR"
 : > "$TOKEN_FILE"
@@ -42,6 +34,10 @@ find_token() {
   local text=""
   if [ -n "$LOG_FILE" ] && [ -f "$LOG_FILE" ]; then
     text="$(cat "$LOG_FILE" 2>/dev/null || true)"
+  fi
+  if [ -z "$text" ] && [ -n "${FALLBACK_LOG:-$HOME/harnessvn-web.log}" ] && [ -f "${FALLBACK_LOG:-$HOME/harnessvn-web.log}" ]; then
+    # Nhanh khoi dong truc tiep (khong qua systemd) ghi URL ra file nay.
+    text="$(cat "${FALLBACK_LOG:-$HOME/harnessvn-web.log}" 2>/dev/null || true)"
   fi
   if [ -z "$text" ]; then
     text="$(journalctl --user -u harnessvn -n 300 --no-pager 2>/dev/null || true)"
@@ -57,13 +53,31 @@ find_token() {
 ) &
 
 echo "cau noi: http://localhost:$BRIDGE_PORT/  (ung dung: cong $APP_PORT)"
-exec python3 - "$APP_PORT" "$BRIDGE_PORT" "$TOKEN_FILE" "$PUBLIC_APP_PORT" <<'PY'
+exec python3 - "$APP_PORT" "$BRIDGE_PORT" "$TOKEN_FILE" "$PUBLIC_APP_PORT" "$CONFIG_URL" <<'PY'
 import http.server
+import re
 import sys
 import urllib.error
 import urllib.request
 
-app_port, bridge_port, token_file, public_app_port = sys.argv[1], int(sys.argv[2]), sys.argv[3], sys.argv[4]
+app_port, bridge_port, token_file, public_app_port, config_url = sys.argv[1], int(sys.argv[2]), sys.argv[3], sys.argv[4], sys.argv[5]
+
+
+def resolve_public_port():
+    """Cong cong khai cua ung dung: bien moi truong, hoac hoi launcher tren may that."""
+    global public_app_port
+    if public_app_port:
+        return public_app_port
+    try:
+        with urllib.request.urlopen(config_url, timeout=2) as response:
+            body = response.read().decode("utf-8", "replace")
+        match = re.search(r"APP_PORT=([0-9]+)", body)
+        if match:
+            public_app_port = match.group(1)
+            print("cong cong khai cua ung dung: %s (tu %s)" % (public_app_port, config_url), flush=True)
+    except Exception:
+        pass
+    return public_app_port or app_port
 
 WAIT_HTML = """<!doctype html>
 <meta charset="utf-8">
@@ -107,7 +121,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         token = read_token()
         if token and app_ready():
-            body = REDIRECT_HTML.format(url="http://localhost:%s/?token=%s" % (public_app_port, token)).encode("utf-8")
+            body = REDIRECT_HTML.format(url="http://localhost:%s/?token=%s" % (resolve_public_port(), token)).encode("utf-8")
         else:
             body = WAIT_HTML.encode("utf-8")
         self.send_response(200)

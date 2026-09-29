@@ -32,9 +32,14 @@ if ! command -v node >/dev/null 2>&1; then
   tar -xJf "$TMP/node.tar.xz" -C "$TMP"
   cp -a "$TMP/node-$NODE_VERSION-linux-$NARCH/." "$PREFIX/"
   rm -rf "$TMP"
+
 else
   echo "[1/6] Node da co: $(node -v)"
 fi
+
+# Dung dung node dang co (co the la ban he thong, khong nhat thiet $PREFIX/bin/node).
+NODE_BIN="${NODE_BIN:-$(command -v node)}"
+echo "    node dung cho dich vu: $NODE_BIN"
 
 # 2. pnpm (corepack)
 echo "[2/6] Bat pnpm $PNPM_VERSION ..."
@@ -106,7 +111,7 @@ fi
 # Sinh unit bang script rieng (kiem tra duoc ngoai may ao: harnessvn/install/write-units.sh).
 bash "$SRC_DIR/upstream/harnessvn/install/write-units.sh" \
   --scope "$SCOPE" --dest "$UNIT_DIR" --port "$PORT" --bridge-port "$BRIDGE_PORT" --src "$SRC_DIR" \
-  --home "$HOME" --user "$USER" --prefix "$PREFIX"
+  --home "$HOME" --user "$USER" --prefix "$PREFIX" --node-bin "$NODE_BIN"
 
 if [ "$SCOPE" = "system" ]; then
   sudo systemctl daemon-reload
@@ -127,10 +132,11 @@ command -v setsid >/dev/null 2>&1 || BG=nohup
 start_direct() {
   echo "    khong thay phan hoi tu dich vu — khoi dong truc tiep..."
   $BG env HOME="$HOME" PATH="$PREFIX/bin:/usr/local/bin:/usr/bin:/bin" \
-    "$PREFIX/bin/node" "$SRC_DIR/upstream/node_modules/.bin/tsx" \
+    "$NODE_BIN" --import tsx/esm \
     "$SRC_DIR/upstream/apps/cli/src/bin.ts" web --no-open --port "$PORT" --trusted-host localhost \
     >"$HOME/harnessvn-web.log" 2>&1 < /dev/null &
   $BG env HOME="$HOME" APP_PORT="$PORT" BRIDGE_PORT="$BRIDGE_PORT" SERVE_DIR="$HOME/harnessvn-open" \
+    LOG_FILE="$HOME/harnessvn-web.log" \
     /bin/bash "$SRC_DIR/upstream/harnessvn/vm/browser-bridge.sh" \
     >"$HOME/harnessvn-bridge.log" 2>&1 < /dev/null &
 }
