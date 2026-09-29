@@ -17,6 +17,7 @@ không cần làm gì trong máy ảo.
 | `run-vm.sh` | Chạy ảnh, **tự chọn cổng trống** trên máy thật cho ứng dụng và cửa nối, tự mở trình duyệt |
 | `free-port.sh` | In cổng trống đầu tiên kể từ một cổng (bỏ qua cổng đang bị chiếm) |
 | `export-ova.sh` | Xuất ảnh qcow2 thành `.ova` (VirtualBox/VMware) — tự sinh `.ovf`, `.vmdk`, `.mf` |
+| `../tools/release.sh` | Chạy cả đường phát hành: dựng ảnh → xuất `.ova` → sinh `SHA256SUMS` (`--dry-run` chỉ in kế hoạch) |
 | `browser-bridge.sh` | Giữ token của `dsh web`, phục vụ trang chuyển hướng / trang chờ ở cổng 9998 |
 | `../install/write-units.sh` | Sinh 2 unit systemd (scope `system` hoặc `user`) — kiểm tra được ngoài máy ảo |
 | `launchers/start-windows.bat` | Windows: kiểm QEMU → hỏi trước khi cài bằng winget → chạy VM → mở trình duyệt |
