@@ -81,7 +81,7 @@ Environment=COREPACK_HOME=$HOME_DIR/.local/share/corepack
 WorkingDirectory=$SRC_DIR/upstream
 StandardOutput=append:$HOME_DIR/harnessvn-web.log
 StandardError=journal
-ExecStart=$NODE_BIN --import tsx/esm $SRC_DIR/upstream/apps/cli/src/bin.ts web --no-open --host 0.0.0.0 --port $PORT --trusted-host localhost
+ExecStart=$NODE_BIN --import tsx/esm $SRC_DIR/upstream/apps/cli/src/bin.ts web --no-open --port $PORT --trusted-host localhost
 Restart=on-failure
 RestartSec=5
 

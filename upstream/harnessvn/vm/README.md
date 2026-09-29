@@ -18,7 +18,7 @@ không cần làm gì trong máy ảo.
 | `free-port.sh` | In cổng trống đầu tiên kể từ một cổng (bỏ qua cổng đang bị chiếm) |
 | `export-ova.sh` | Xuất ảnh qcow2 thành `.ova` (VirtualBox/VMware) — tự sinh `.ovf`, `.vmdk`, `.mf` |
 | `../tools/release.sh` | Chạy cả đường phát hành: dựng ảnh → xuất `.ova` → sinh `SHA256SUMS` (`--dry-run` chỉ in kế hoạch) |
-| `browser-bridge.sh` | Giữ token của `dsh web`, phục vụ trang chuyển hướng / trang chờ ở cổng 9998 |
+| `browser-bridge.sh` | Cửa nối **proxy ngược** ở cổng 9998: tự thêm token cho lần vào trang chủ, rồi chuyển tiếp mọi request (kể cả SSE) về `127.0.0.1:9999` trong máy ảo |
 | `../install/write-units.sh` | Sinh 2 unit systemd (scope `system` hoặc `user`) — kiểm tra được ngoài máy ảo |
 | `launchers/start-windows.bat` | Windows: kiểm QEMU → hỏi trước khi cài bằng winget → chạy VM → mở trình duyệt |
 | `launchers/start-macos.command` | macOS: kiểm QEMU → gợi ý `brew install qemu` → chạy VM (arm64 dùng `qemu-system-aarch64`) |
@@ -86,7 +86,7 @@ gói mã nguồn (đúng tiền tố `upstream/`, không có `node_modules`) —
 
 ## Cổng mạng (đã xử lý chuyện đụng cổng)
 
-- Trong máy ảo, ứng dụng luôn ở `127.0.0.1:9999` và cửa nối luôn ở `9998`.
+- Trong máy ảo, ứng dụng **chỉ nghe `127.0.0.1:9999`** (upstream chặn bind `0.0.0.0` vì lý do an toàn), nên máy thật không vào thẳng được cổng 9999. Cửa nối nghe `0.0.0.0:9998`, làm proxy ngược + tự thêm token → trình duyệt chỉ cần mở cổng 9998.
 - Trên **máy thật**, `run-vm.sh` tự dò cổng trống (mặc định bắt đầu từ `9999` cho ứng dụng và `9998`
   cho cửa nối) nên không đụng dịch vụ đang chạy. Muốn cố định: `PORT=… BRIDGE=… run-vm.sh`.
 - Vì cổng công khai có thể khác 9999, `run-vm.sh` mở một HTTP server nhỏ ở cổng `18080` (tự đổi nếu bận)

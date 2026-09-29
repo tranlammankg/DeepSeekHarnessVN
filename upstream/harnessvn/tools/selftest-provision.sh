@@ -80,7 +80,7 @@ check "sinh unit harnessvn-open.service" test -f "$C1/units/harnessvn-open.servi
 check "co User=harnessvn" has "^User=harnessvn$" "$C1/units/harnessvn.service"
 check "WantedBy=multi-user.target" has "^WantedBy=multi-user.target$" "$C1/units/harnessvn.service"
 check "ExecStart dung dang --import tsx/esm" has "--import tsx/esm" "$C1/units/harnessvn.service"
-check "nghe 0.0.0.0 (de hostfwd vao duoc tu may that)" has "--host 0.0.0.0" "$C1/units/harnessvn.service"
+check "KHONG nghe 0.0.0.0 (upstream chan vi ly do an toan)" not_has "--host 0.0.0.0" "$C1/units/harnessvn.service"
 check "ghi URL ra harnessvn-web.log (cua noi doc duoc)" has "StandardOutput=append:" "$C1/units/harnessvn.service"
 check "cua noi co BRIDGE_PORT=9998" has "^Environment=BRIDGE_PORT=9998$" "$C1/units/harnessvn-open.service"
 check "bat harnessvn.service bang sudo" has "SUDO systemctl enable --now harnessvn.service" "$C1/calls.log"
