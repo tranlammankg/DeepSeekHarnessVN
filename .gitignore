@@ -31,3 +31,5 @@ upstream/harnessvn/vm/*.tar.gz
 
 # Hook cua upstream bi lefthook sinh ra khi chay pnpm install trong repo
 /lefthook.yml
+
+/upstream/harnessvn/vm/seed.pid

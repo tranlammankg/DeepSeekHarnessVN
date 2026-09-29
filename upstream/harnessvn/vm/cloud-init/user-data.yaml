@@ -22,36 +22,70 @@ write_files:
       #!/usr/bin/env bash
       set -euo pipefail
       URL="http://10.0.2.2:8000/harnessvn-src.tar.gz"
+      echo "[harnessvn] tai ma nguon tu $URL"
+      ok=0
       for i in $(seq 1 60); do
-        if curl -fsS -o /tmp/harnessvn-src.tar.gz "$URL"; then break; fi
-        echo "cho nguon ($i/60)..." >&2
+        if curl -fsS -o /tmp/harnessvn-src.tar.gz "$URL"; then ok=1; break; fi
+        echo "[harnessvn] cho nguon ($i/60)..." >&2
         sleep 5
       done
+      if [ "$ok" != "1" ]; then
+        echo "[harnessvn] KHONG tai duoc ma nguon tu $URL" >&2
+        exit 1
+      fi
+      echo "[harnessvn] da tai $(du -h /tmp/harnessvn-src.tar.gz | cut -f1), giai nen..."
       mkdir -p /opt/harnessvn
       tar -xzf /tmp/harnessvn-src.tar.gz -C /opt/harnessvn
       rm -f /tmp/harnessvn-src.tar.gz
       chown -R harnessvn:harnessvn /opt/harnessvn
-      ls /opt/harnessvn
+      echo "[harnessvn] noi dung /opt/harnessvn: $(ls /opt/harnessvn | tr '\n' ' ')"
+      echo "[harnessvn] co provision.sh: $(test -f /opt/harnessvn/upstream/harnessvn/install/provision.sh && echo co || echo KHONG)"
 
+  # Hai unit tach nhau: mot unit lay ma nguon (root), mot unit cai dat (User=harnessvn).
+  # Khong dung runuser/su trong ExecStartPost: duong dan runuser la /usr/sbin/runuser tren
+  # Ubuntu (khong phai /usr/bin/runuser) — dung sai lam unit fail ngay ma khong ro loi.
   - path: /etc/systemd/system/harnessvn-firstboot.service
     permissions: '0644'
     content: |
       [Unit]
-      Description=HarnessVN first-boot provisioning
+      Description=HarnessVN first-boot: tai ma nguon
       After=network-online.target
       Wants=network-online.target
-      ConditionPathExists=!/var/lib/harnessvn/.provisioned
+      ConditionPathExists=!/var/lib/harnessvn/.fetched
 
       [Service]
       Type=oneshot
       User=root
       ExecStart=/usr/local/bin/harnessvn-fetch-source.sh
-      ExecStartPost=/usr/bin/runuser -u harnessvn -- /bin/bash -lc /opt/harnessvn/upstream/harnessvn/install/provision.sh
+      ExecStartPost=/usr/bin/touch /var/lib/harnessvn/.fetched
+      RemainAfterExit=yes
+      # In ca ra console serial: nguoi dung thay tien trinh trong cua so may ao, va go loi duoc.
+      StandardOutput=journal+console
+      StandardError=journal+console
+      TimeoutStartSec=1800
+
+      [Install]
+      WantedBy=multi-user.target
+
+  - path: /etc/systemd/system/harnessvn-provision.service
+    permissions: '0644'
+    content: |
+      [Unit]
+      Description=HarnessVN first-boot: cai dat bang nguoi dung harnessvn
+      After=harnessvn-firstboot.service network-online.target
+      Wants=harnessvn-firstboot.service
+      ConditionPathExists=!/var/lib/harnessvn/.provisioned
+
+      [Service]
+      Type=oneshot
+      User=harnessvn
+      Environment=HOME=/home/harnessvn
+      ExecStart=/bin/bash -l /opt/harnessvn/upstream/harnessvn/install/provision.sh
       ExecStartPost=/usr/bin/touch /var/lib/harnessvn/.provisioned
       RemainAfterExit=yes
-      StandardOutput=journal
-      StandardError=journal
-      TimeoutStartSec=3600
+      StandardOutput=journal+console
+      StandardError=journal+console
+      TimeoutStartSec=5400
 
       [Install]
       WantedBy=multi-user.target
@@ -68,5 +102,5 @@ runcmd:
   - [mkdir, -p, /var/lib/harnessvn]
   - [chown, harnessvn:harnessvn, /var/lib/harnessvn]
   - [systemctl, daemon-reload]
-  - [systemctl, enable, --now, harnessvn-firstboot.service]
-  - [bash, -lc, "printf '\\n\\n=== HarnessVN ===\\nMay ao dang cai dat (lan dau 10-20 phut). Khi xong, mo trinh duyet tren may that: http://localhost:9999\\n\\n' > /dev/ttyS0 || true"]
+  - [systemctl, enable, --now, harnessvn-firstboot.service, harnessvn-provision.service]
+  - [bash, -lc, "printf '\\n\\n=== HarnessVN ===\\nMay ao dang cai dat (lan dau 10-20 phut). Khi xong, mo trinh duyet tren may that: http://localhost:9998 (cong cau noi tu mo dung phien).\\n\\n' > /dev/ttyS0 || true"]
