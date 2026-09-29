@@ -83,6 +83,13 @@ Kết quả đọc từ log:
 
 Đoạn cuối log thật của lần chạy: `vm-provision-run.log` (48 dòng).
 
+## Boot THẬT trong máy ảo Ubuntu (qemu TCG, không KVM)
+
+`vm-real-boot.log` là trích đoạn từ serial console của lần boot thật: cloud-init NoCloud lấy được seed,
+tải mã nguồn 34 MB vào `/opt/harnessvn/upstream`, `provision.sh` chạy dưới `User=harnessvn`, tải Node,
+`pnpm install` xong sau 10 phút 10 giây, rồi `build:lib` chạy — bước này không xong trong ~2 giờ vì TCG
+(không có `/dev/kvm`); trên máy có ảo hoá bước đó chỉ vài phút.
+
 Không kiểm được trong container: bước `dsh plugin --profile web add` — CLI dùng home theo `/etc/passwd`
 (`/home/ailamman/.dsh`, chỉ đọc trong container) nên bị EROFS; provision bỏ qua plugin đó và **tiếp tục**
 đúng như thiết kế. Trong máy ảo `runuser -u harnessvn` làm home khớp `$HOME` nên bước này chạy bình thường.
