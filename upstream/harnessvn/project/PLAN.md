@@ -212,7 +212,13 @@ HarnessVN/
 
 | # | Việc | Kết quả kiểm chứng được | Ước lượng |
 |---|---|---|---|
-| M0 | Fork repo, **pin tag `dsh-v0.1.7-rc.2` (commit `477b4f4…`)**, clone + build + chạy test parity gốc | `pnpm build` + `vitest run scripts/locale-dictionary-parity.spec.ts` xanh | 1 ngày |
+> **Tình trạng thực tế (cập nhật cuối):** M0–M4 **xong và đã kiểm** (vi là locale gốc, 2.498 khoá ·
+> 3 gate i18n xanh · onboarding khoá API + 40 nhà cung cấp có ảnh chụp · provision 0-root chạy thật trong VM ·
+> skill `vn-self-setup` đi kèm bundle, kiểm trên menu `/`). M5 (ảnh VM): đã **boot thật** tới bước build và có
+> `export-ova.sh`; còn **boot bằng KVM trên máy có ảo hoá** để nén ảnh vàng. M5b (bộ cài desktop): CI đã sửa
+> đúng script/đường dẫn artifact, **chưa chạy trên Windows/macOS**. Phần "chưa kiểm" ghi rõ trong `CHANGELOG.md`.
+
+| M0 | Fork repo, **pin tag `dsh-v0.1.7-rc.2`** (commit `477b4f4…`)**, clone + build + chạy test parity gốc | `pnpm build` + `vitest run scripts/locale-dictionary-parity.spec.ts` xanh | 1 ngày |
 | M1 | **Tầng 2 (D5)**: thêm `'vi'` vào `LOCALE_IDS` + metadata + **nới kiểu register thành `{zh; en; vi?}`** + dịch 6 namespace lớn nhất (conversation, chat, settings-models, workspace, cordis, deliverables ≈ 500 khoá) | `pnpm run build:lib:client` xanh; đổi ngôn ngữ trong Settings → UI hiện tiếng Việt; ảnh chụp CDP 9222 | 1–1,5 ngày |
 | M2 | Phủ ≥ 95% bề mặt chính — dùng workbook `planning/key-inventory.tsv` (2.518 cặp `key/en` duy nhất · 57 file có khoá · 47 package); chia đợt theo package | Script đếm: đã dịch / tổng theo package (đọc cả 2 chiều zh-gốc và en-gốc) | 2–3 ngày |
 | M3 | Wizard VN-first: tái dùng `CustomProviderCard`/`ProviderEditor` + `credentialOnboarding`, ghi route qua `dsh-llm-pi-ai` (khoá vào credential store, không vào file cấu hình) | Key sai → lỗi tiếng Việt rõ; key đúng → vào chat ngay; thử được 1 route OpenAI-compatible tự khai | 1 ngày |
