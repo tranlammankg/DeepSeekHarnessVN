@@ -9,6 +9,7 @@ Tất cả ảnh dưới đây chụp **bản fork đang chạy thật** qua CDP
 | `web-ui-onboarding-api-key.png` | Hộp thoại **Thêm khoá API để bắt đầu** (tiếng Việt, có chỉ dẫn cho nhà cung cấp khác) |
 | `web-ui-settings-models.png` | **Cài đặt → Mô hình**: nhập khoá API cho DeepSeek |
 | `web-ui-them-nha-cung-cap.png` | **Thêm nhà cung cấp mô hình**: danh mục 40 nhà cung cấp (bên thứ ba / API tuỳ chỉnh) |
+| `web-ui-thieu-khoa-api.png` | Gửi tin nhắn khi **chưa có khoá API**: hiện đúng câu tiếng Việt *"Chưa có khoá API. Mở Cài đặt → Mô hình, dán khoá API rồi gửi lại."* |
 | `web-ui-menu-ky-nang.png` | Menu `/` trong phiên mới: mục **Kỹ năng** có `vn-self-setup` (skill đi kèm bản đóng gói) — chạy với `DSH_AGENTS_HOME` rỗng để chắc chắn nó đến từ bundle |
 | `vm-bridge-trang-cho.png` | Trang chờ của cửa nối khi ứng dụng chưa sẵn sàng (lần đầu máy ảo build 10–20 phút) |
 | `vm-provisioned-ui.png` | UI tiếng Việt của **bản do `provision.sh` dựng ra** (giả lập trong container), mở qua cửa nối |

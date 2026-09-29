@@ -160,6 +160,7 @@ export const vi = {
   'message.failure.accountSignInRequired': 'Hãy đăng nhập DeepSeek và bảo đảm nơi nhận yêu cầu hỗ trợ xác thực tài khoản.',
   'message.failure.quota': 'Đã hết hạn mức yêu cầu.',
   'message.turnError': 'Lượt này thất bại',
+  'message.failure.missingCredential': 'Chưa có khoá API. Mở Cài đặt → Mô hình, dán khoá API rồi gửi lại.',
   'message.maxTokens': 'Đã chạm giới hạn token đầu ra',
   'message.maxTokens.hint': 'Câu trả lời bị cắt; phần trước vẫn được giữ trong cuộc trò chuyện. Gửi "tiếp" để mô hình viết tiếp.',
   'message.tokensPerSecond': '{tps} tok/s',

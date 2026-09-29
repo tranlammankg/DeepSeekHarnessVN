@@ -410,6 +410,7 @@ ui-chat	packages/client/ui-chat/src/client/locale.ts	message.failure.accountSign
 ui-chat	packages/client/ui-chat/src/client/locale.ts	message.failure.accountSignInRequired	Sign in to DeepSeek and ensure the request destination supports account authentication.	Hãy đăng nhập DeepSeek và bảo đảm nơi nhận yêu cầu hỗ trợ xác thực tài khoản.
 ui-chat	packages/client/ui-chat/src/client/locale.ts	message.failure.quota	Request quota exhausted.	Đã hết hạn mức yêu cầu.
 ui-chat	packages/client/ui-chat/src/client/locale.ts	message.turnError	This turn failed	Lượt này thất bại
+ui-chat	packages/client/ui-chat/src/client/locale.ts	message.failure.missingCredential	No API key yet - open Settings -> Models, paste your key, then send again.	Chưa có khoá API. Mở Cài đặt → Mô hình, dán khoá API rồi gửi lại.
 ui-chat	packages/client/ui-chat/src/client/locale.ts	message.maxTokens	Output token limit reached	Đã chạm giới hạn token đầu ra
 ui-chat	packages/client/ui-chat/src/client/locale.ts	message.maxTokens.hint	The reply was cut off; earlier output is preserved in the conversation. Send "continue" to let the model resume.	Câu trả lời bị cắt; phần trước vẫn được giữ trong cuộc trò chuyện. Gửi "tiếp" để mô hình viết tiếp.
 ui-chat	packages/client/ui-chat/src/client/locale.ts	message.tokensPerSecond	{tps} tok/s	{tps} tok/s
