@@ -93,6 +93,26 @@ PY
 echo "[4/4] dong goi $OUT ..."
 tar -C "$WORK" -cf "$OUT" "$NAME.ovf" "$NAME.vmdk" "$NAME.mf"
 ls -lh "$OUT" | awk '{print "   " $5, $9}'
+
+# [4b] Tu kiem chinh file .ova vua tao: khong de phat hanh mot file hong.
+#  - .mf phai khop (nguoi dung chay `sha256sum -c` sau khi giai nen cung phai dung)
+#  - OVF phai la XML hop le va KHONG duoc khai bao SCSI LSI (initramfs anh cloud khong co mptspi
+#    -> may ao VirtualBox/VMware se dung o 'Gave up waiting for root file system device')
+echo "[4b/4] kiem cau truc file .ova..."
+CHK="$(mktemp -d)"
+trap 'rm -rf "$CHK"' EXIT
+tar -xf "$OUT" -C "$CHK"
+( cd "$CHK" && sha256sum -c ./*.mf >/dev/null ) \
+  || { echo "LOI: checksum trong .ova khong khop"; exit 1; }
+grep -q "<rasd:ResourceSubType>ahci</rasd:ResourceSubType>" "$CHK/$NAME.ovf" \
+  || { echo "LOI: OVF khong khai bao SATA/AHCI (dia SCSI LSI se khong boot duoc)"; exit 1; }
+if grep -q "<rasd:ResourceSubType>lsilogic</rasd:ResourceSubType>" "$CHK/$NAME.ovf"; then
+  echo "LOI: OVF con khai bao SCSI lsilogic"; exit 1
+fi
+python3 -c "import xml.etree.ElementTree as ET,glob; ET.parse(glob.glob('$CHK/*.ovf')[0])" \
+  || { echo "LOI: OVF khong phai XML hop le"; exit 1; }
+echo "    OK: .mf khop, OVF hop le, dia khai bao SATA/AHCI"
+
 echo
 echo "Mo bang VirtualBox: File > Import Appliance > chon file .ova tren"
 echo "VMware:             File > Open > chon file .ova tren"

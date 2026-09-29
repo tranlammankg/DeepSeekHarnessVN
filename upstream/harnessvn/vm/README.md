@@ -13,7 +13,7 @@ không cần làm gì trong máy ảo.
 | File | Kích thước | SHA256 |
 |---|---|---|
 | `harnessvn-24.04-amd64.qcow2` | 1,6 GB | `2d00840a28f5616df824ca3f5dd552a90c98102b012602b18636734ea060a953` |
-| `HarnessVN.ova` | 1,4 GB | `d0086c6245c63cf5dab0106b88e889063fa35699a31932c6b6c1624b03a5131e` |
+| `HarnessVN.ova` | 1,4 GB | `005ef4297410ed3d27e3bc9d05486c151eb7141503a4500b1a130e3099aedaae` |
 
 Hai file này **không nằm trong git** (quá lớn) — `SHA256SUMS` thì có. Dựng lại bằng một lệnh
 (`KVM=1` nếu máy có ảo hoá, `KVM=0` nếu không), rồi nghiệm thu:
