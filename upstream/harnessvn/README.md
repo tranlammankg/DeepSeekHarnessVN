@@ -56,3 +56,29 @@ macOS: `start-macos.command`. Linux: `start-linux.sh`.
 - `harnessvn/project/ARCHITECTURE.md` — kiến trúc và sơ đồ
 - `harnessvn/project/docs/vi/` — hướng dẫn người dùng tiếng Việt (bắt đầu, lấy khoá API, FAQ, xử lý lỗi)
 - `harnessvn/project/planning/` — workbook dịch, quy chuẩn thuật ngữ, runbook, bằng chứng kiểm chứng
+## Kiểm chứng trong repo
+
+| Thư mục | Nội dung |
+|---|---|
+| `harnessvn/evidence/` | Ảnh chụp UI tiếng Việt từ bản fork đang chạy + cách tái lập |
+| `harnessvn/tools/capture-ui.mjs` | Chụp UI qua CDP (Chromium headless) |
+| `harnessvn/tools/verify-vi-dictionaries.mjs` | Gate: từ điển tiếng Việt khớp workbook (55 namespace / 2.497 khoá) |
+| `harnessvn/tools/build-all.sh` | Build tất cả + chạy 3 gate trong một lệnh |
+| `.agents/skills/vn-self-setup/` | Skill cho agent: tự cài phần mềm còn thiếu theo allowlist, báo lại bằng tiếng Việt |
+| `.github/workflows/ci.yml` | CI: build + 3 gate; đóng gói desktop và dựng ảnh VM khi chạy thủ công |
+
+## Thương hiệu
+
+Bề mặt người dùng đã đổi sang **HarnessVN** (39 chuỗi trong từ điển, màn About của app desktop,
+và `productName` khi đóng gói). Onboarding cũng đổi sang trung tính nhà cung cấp:
+*"Chọn nhà cung cấp AI và dán khoá API để bắt đầu."*
+
+## Máy ảo — luồng cài đặt
+
+1. `build-image.sh` tải Ubuntu cloud image, đóng gói mã nguồn repo, phục vụ qua HTTP nội bộ,
+   boot VM với `-smbios type=1,serial=ds=nocloud-net;s=http://10.0.2.2:8000/` để cloud-init lấy cấu hình.
+2. Cloud-init tải `harnessvn-src.tar.gz` giải nén vào `/opt/harnessvn`, rồi gọi
+   `harnessvn/install/provision.sh` bằng người dùng `harnessvn`.
+3. Provision cài Node + pnpm ở mức người dùng, **build chính bản fork này** (không cài dsh từ npm),
+   cài plugin kèm, bật `harnessvn.service` (systemd --user), chờ tới khi web UI trả lời.
+4. Người dùng mở `http://localhost:9999` bằng trình duyệt máy thật.

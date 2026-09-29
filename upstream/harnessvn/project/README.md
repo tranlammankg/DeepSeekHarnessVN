@@ -1,7 +1,9 @@
 # HarnessVN — hồ sơ dự án (một trang để duyệt)
 
-> **Trạng thái: chưa viết dòng code sản phẩm nào.** Mọi thứ trong workspace này là kế hoạch, dữ liệu, bản vẽ và tài liệu — **không cài gì lên máy, không sửa gì trong harness bạn đang chạy**.
-> Việc tiếp theo là **M0** (clone mã nguồn + build) và nó **đang chờ bạn cho phép**.
+> **Trạng thái: đã build xong bản Việt hoá.** Upstream `dsh-v0.1.7-rc.2` đã clone và build thành công
+> (`pnpm run build:lib` exit 0); tiếng Việt đã vào giao diện web (**55 namespace / 2.497 khoá**) và shell desktop (**138 khoá**);
+> 2 gate i18n xanh; plugin của bản đang dùng (**trừ mario**) đã kèm vào repo; bộ dựng máy ảo QEMU đã viết xong.
+> Repo đã commit: **`7e23344`**. Còn lại: **push lên GitHub** — đang chờ bạn bật quyền ghi cho repo trong panel Git repos.
 
 ## 1. Mục tiêu
 
@@ -52,10 +54,16 @@ Chi tiết: `PLAN.md` → mục 7.
 
 ## 5. Việc tiếp theo — cần đúng một câu của bạn
 
-| Lệnh | Việc sẽ chạy | Đụng vào máy bạn? |
-|---|---|---|
-| **"bắt đầu M0"** | clone đúng tag `dsh-v0.1.7-rc.2` (~229 MB) → `pnpm install` → `pnpm run build:lib` → chạy 2 gate | **Không** — chỉ tải/đọc upstream vào thư mục dự án |
-| "bắt đầu M0 + tạo repo công khai + CI" | như trên + `.github/workflows/build.yml` | cần bạn cho biết tài khoản GitHub (tôi không tự đăng nhập) |
+| Việc | Trạng thái |
+|---|---|
+| Clone upstream đúng tag + `pnpm install` + `pnpm run build:lib` | ✅ xong (exit 0) |
+| Tiếng Việt vào giao diện web (55 namespace / 2.497 khoá) | ✅ xong — bundle **đang được phục vụ** có chuỗi tiếng Việt |
+| Tiếng Việt cho shell desktop (138 khoá) | ✅ xong |
+| 2 gate i18n | ✅ xanh |
+| Plugin bản đang dùng (trừ `dsh-mario`) | ✅ `upstream/harnessvn/plugins/` |
+| Bộ dựng máy ảo + provision 0-root + launcher 3 hệ | ✅ viết xong (đã `bash -n`, kiểm YAML) |
+| Commit | ✅ `7e23344` (14.525 file, ~121 MB) |
+| **Push lên GitHub** | ⏳ **cần bạn bật `allowWrite` cho repo trong panel Git repos** |
 
 Sau M0, M1 sẽ chạy theo `planning/m1-wiring-spec.md`. Bước cần bạn can thiệp duy nhất là **cài plugin vào profile `~/.dsh`** — lúc đó tôi sẽ xin phép.
 
