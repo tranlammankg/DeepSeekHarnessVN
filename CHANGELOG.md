@@ -48,6 +48,8 @@ Các thay đổi đáng chú ý của HarnessVN. Mục mới nhất ở trên c�
 - `provision.sh` đã chạy thật: trong container (giả lập) và **trong máy ảo thật** (cloud-init NoCloud →
   tải mã nguồn 34 MB → tải Node → `pnpm install` 10 phút → build).
 - Ảnh nền Ubuntu tải về được **đối chiếu SHA256** với `SHA256SUMS` của Ubuntu.
+- Bộ phân giải ngôn ngữ của app desktop (chạy trực tiếp, không cần build Electron): `vi-VN`/`vi` → **`vi`**,
+  `en-US` → `en`, `zh-CN` → `zh-CN`, ngôn ngữ lạ (`fr-FR`) → `en` (không rơi về tiếng Trung).
 
 ### Chưa kiểm chứng (nói thẳng)
 
