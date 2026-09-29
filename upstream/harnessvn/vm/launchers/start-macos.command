@@ -4,6 +4,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 IMAGE="${HARNESSVN_IMAGE:-$HERE/harnessvn-24.04-arm64.qcow2}"
 PORT="${PORT:-9999}"
+BRIDGE="${BRIDGE:-9998}"     # cong cau noi: chuyen huong sang URL co token
 
 if ! command -v qemu-system-aarch64 >/dev/null 2>&1 && ! command -v qemu-system-x86_64 >/dev/null 2>&1; then
   echo "May ban chua co QEMU. Cai bang Homebrew:"
@@ -20,9 +21,10 @@ if [ ! -f "$IMAGE" ]; then
 fi
 
 echo "Dang khoi dong HarnessVN... trinh duyet se tu mo sau it giay."
-( sleep 14; open "http://localhost:$PORT" ) &
+echo "Lan dau co the mat 10-20 phut; trang cho se tu chuyen tiep."
+( sleep 25; open "http://localhost:$BRIDGE" ) &
 if [ "$(uname -m)" = "arm64" ]; then BIN=qemu-system-aarch64; else BIN=qemu-system-x86_64; fi
 exec "$BIN" -m 4096 -smp 2 -display none \
   -drive "file=$IMAGE,if=virtio" \
-  -netdev "user,id=n0,hostfwd=tcp::$PORT-:9999" -device virtio-net-pci,netdev=n0 \
+  -netdev "user,id=n0,hostfwd=tcp::$PORT-:9999,hostfwd=tcp::$BRIDGE-:9998" -device virtio-net-pci,netdev=n0 \
   -serial mon:stdio

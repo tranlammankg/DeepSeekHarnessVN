@@ -9,6 +9,7 @@ Tất cả ảnh dưới đây chụp **bản fork đang chạy thật** qua CDP
 | `web-ui-onboarding-api-key.png` | Hộp thoại **Thêm khoá API để bắt đầu** (tiếng Việt, có chỉ dẫn cho nhà cung cấp khác) |
 | `web-ui-settings-models.png` | **Cài đặt → Mô hình**: nhập khoá API cho DeepSeek |
 | `web-ui-them-nha-cung-cap.png` | **Thêm nhà cung cấp mô hình**: danh mục 40 nhà cung cấp (bên thứ ba / API tuỳ chỉnh) |
+| `vm-bridge-trang-cho.png` | Trang chờ của cửa nối khi ứng dụng chưa sẵn sàng (lần đầu máy ảo build 10–20 phút) |
 
 ## Bản ghi đọc trực tiếp từ DOM (không suy đoán)
 
@@ -43,6 +44,21 @@ node harnessvn/tools/capture-ui.mjs "http://localhost:10099/?token=<token>" out.
 ```
 
 `DSH_HOME` mới tinh vẫn khởi động được **không cần `pnpm install` cho profile** — máy ảo dùng đúng đường này nên lần chạy đầu không cần mạng ngoài Node/pnpm.
+
+## Cửa nối mở trình duyệt (cổng 9998)
+
+`dsh web` chỉ phục vụ trang khi URL mang `?token=…`; mở thẳng `http://localhost:9999` trả **401**
+(*"dsh web authentication required"*). Đã kiểm thật trên bản đang chạy:
+
+```text
+GET http://localhost:10598/        (cửa nối, app sống)   -> 200: <meta refresh url=http://localhost:10099/?token=…>
+GET http://localhost:10599/        (app không sống)      -> 200: "HarnessVN đang chuẩn bị" (tự thử lại mỗi 5 giây)
+GET http://localhost:10099/        (mở thẳng)            -> 401
+mở cửa nối bằng trình duyệt vi-VN  -> nhảy sang localhost:10099, lang="vi", hộp thoại khoá API tiếng Việt
+sau đó mở http://localhost:10099/  -> vào thẳng (cookie đã được cấp), không còn 401
+```
+
+Tái lập: `APP_PORT=10099 BRIDGE_PORT=10598 LOG_FILE=<file có dòng token> SERVE_DIR=<thư mục ghi được> harnessvn/vm/browser-bridge.sh`.
 
 ## Chưa kiểm chứng được trong phiên này
 

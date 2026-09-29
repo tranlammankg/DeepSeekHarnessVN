@@ -44,7 +44,7 @@ corepack pnpm@11.7.0 exec tsx scripts/verify-client-ui-i18n.ts
 
 ```bash
 harnessvn/vm/build-image.sh      # cần qemu trên máy chạy (không chạy được trong container thiếu /dev/kvm)
-harnessvn/vm/run-vm.sh           # chạy ảnh + mở http://localhost:9999
+harnessvn/vm/run-vm.sh           # chạy ảnh + mở http://localhost:9998 (cửa nối tự vào đúng phiên)
 ```
 
 Windows: nhấp đúp `harnessvn/vm/launchers/start-windows.bat` — tự kiểm QEMU, hỏi trước khi cài, rồi mở trình duyệt.
@@ -64,14 +64,16 @@ macOS: `start-macos.command`. Linux: `start-linux.sh`.
 | `harnessvn/tools/capture-ui.mjs` | Chụp UI qua CDP (Chromium headless) |
 | `harnessvn/tools/verify-vi-dictionaries.mjs` | Gate: từ điển tiếng Việt khớp workbook (55 namespace / 2.497 khoá) |
 | `harnessvn/tools/build-all.sh` | Build tất cả + chạy 3 gate trong một lệnh |
+| `harnessvn/tools/sync-project.sh` | Đồng bộ README/PLAN/docs/planning vào `harnessvn/project/` |
+| `harnessvn/vm/browser-bridge.sh` | Cửa nối cổng 9998: giữ token `dsh web`, trang chờ + chuyển hướng (đã kiểm thật) |
 | `.agents/skills/vn-self-setup/` | Skill cho agent: tự cài phần mềm còn thiếu theo allowlist, báo lại bằng tiếng Việt |
 | `.github/workflows/ci.yml` | CI: build + 3 gate; đóng gói desktop và dựng ảnh VM khi chạy thủ công |
 
 ## Thương hiệu
 
 Bề mặt người dùng đã đổi sang **HarnessVN** (39 chuỗi trong từ điển, màn About của app desktop,
-và `productName` khi đóng gói). Onboarding cũng đổi sang trung tính nhà cung cấp:
-*"Chọn nhà cung cấp AI và dán khoá API để bắt đầu."*
+và `productName` khi đóng gói). Hộp thoại nhập khoá API nói rõ đường đi cho cả nhà cung cấp khác:
+*"Dán khoá API DeepSeek để bắt đầu. Muốn dùng nhà cung cấp khác? Chọn «Cấu hình sau» rồi mở Cài đặt → Mô hình."*
 
 ## Máy ảo — luồng cài đặt
 
@@ -81,4 +83,5 @@ và `productName` khi đóng gói). Onboarding cũng đổi sang trung tính nh�
    `harnessvn/install/provision.sh` bằng người dùng `harnessvn`.
 3. Provision cài Node + pnpm ở mức người dùng, **build chính bản fork này** (không cài dsh từ npm),
    cài plugin kèm, bật `harnessvn.service` (systemd --user), chờ tới khi web UI trả lời.
-4. Người dùng mở `http://localhost:9999` bằng trình duyệt máy thật.
+4. Người dùng mở `http://localhost:9998` bằng trình duyệt máy thật — cửa nối
+   (`harnessvn/vm/browser-bridge.sh`) giữ token và chuyển hướng vào đúng phiên của `dsh web`.

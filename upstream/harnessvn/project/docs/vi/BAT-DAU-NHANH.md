@@ -33,15 +33,14 @@ Chỉ **một thứ**: **khoá API** — hiểu đơn giản là "chìa khoá" �
    - Linux: `start-linux.sh`
 3. Cửa sổ đen hiện tiến trình bằng tiếng Việt:
    ```
-   [1/5] Kiểm tra QEMU…            đã có (bản 8.2)
-   [2/5] Kiểm tra ảnh hệ thống…    đã có (0,9 GB)
-   [3/5] Khởi động máy ảo…         xong (12 giây)
-   [4/5] Chờ HarnessVN sẵn sàng…   xong
-   [5/5] Mở trình duyệt của bạn…
-   ✅ Xong! Đang mở: http://localhost:9999
+   Đang khởi động HarnessVN (cửa sổ này phải để mở)...
+   Trình duyệt sẽ mở: http://localhost:9998
+   Lần đầu có thể mất 10–20 phút; cửa nối hiện trang chờ rồi tự chuyển tiếp.
    ```
-4. Trình duyệt tự mở → giao diện **tự nhận tiếng Việt**, không phải chọn gì → làm như bước 4–7 của Đường 1.
+4. Trình duyệt tự mở **http://localhost:9998** → trang **"HarnessVN đang chuẩn bị"** (lần đầu) tự chuyển vào giao diện **tiếng Việt** → làm như bước 4–7 của Đường 1.
 5. Lần sau chỉ cần nhấp đúp file khởi động là dùng tiếp. **Không cần tải lại.**
+
+> Đừng mở thẳng `http://localhost:9999`: cổng đó chỉ phục vụ trang khi URL đã có phiên, mở thẳng sẽ thấy dòng chữ tiếng Anh *"dsh web authentication required"*. Luôn dùng `http://localhost:9998` — cửa nối này tự mở đúng phiên cho bạn.
 
 > Nếu máy chưa có QEMU, chương trình sẽ **hỏi trước** khi cài. Bạn chọn `C` là nó tự cài giúp.
 > Nếu máy chưa bật tính năng ảo hoá, chương trình sẽ gợi ý dùng `HarnessVN.ova` với VirtualBox — **không cần vào BIOS**.

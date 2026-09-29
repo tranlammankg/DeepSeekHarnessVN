@@ -132,12 +132,13 @@ HarnessVN/ (fork của deepseek-harness, nhánh vn, ghim dsh-v0.1.7-rc.2)
 ```
   MÁY THẬT (Windows/macOS/Linux)                VM Ubuntu (headless)
   ┌───────────────────────────┐    hostfwd    ┌──────────────────────────────┐
-  │ Trình duyệt               │  9999 → 9999  │ qemu-system-x86_64           │
-  │  http://localhost:9999    │ ◄───────────► │  • cloud-init (SMBIOS serial)│
-  └───────────────────────────┘               │  • provision 0-root          │
-        ▲ trang là "loopback" nên              │    Node tar.gz → ~/.local    │
-        │ lựa chọn tiếng Việt ĐƯỢC LƯU         │    npm --prefix → dsh        │
-        └──────────────────────────────────────│  • harnessvn.service (user) │
+  │ Trình duyệt               │ 9998 → 9998   │ qemu-system-x86_64           │
+  │  http://localhost:9998    │ 9999 → 9999   │  • cloud-init (SMBIOS serial)│
+  │   (cửa nối giữ token)     │ ◄───────────► │  • provision 0-root          │
+  └───────────────────────────┘               │    Node tar.gz → ~/.local    │
+        ▲ trang là "loopback" nên              │    build bản fork HarnessVN  │
+        │ lựa chọn tiếng Việt ĐƯỢC LƯU         │  • harnessvn.service (user)  │
+        └──────────────────────────────────────│  • harnessvn-open 9998       │
                                                │  • web UI ở 127.0.0.1:9999   │
                                                └──────────────────────────────┘
 ```

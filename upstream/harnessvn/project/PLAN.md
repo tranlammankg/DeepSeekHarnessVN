@@ -191,17 +191,18 @@ HarnessVN/
 
 1. Tải **1 file ~1 GB** (qcow2 cho QEMU, hoặc ova nếu dùng VirtualBox/VMware) + bộ khởi động nhỏ.
 2. Nhấp đôi `start-windows.bat` → tự kiểm/cài QEMU → VM Ubuntu **headless** boot (~20–40 s).
-3. Cửa sổ console hiện hướng dẫn tiếng Việt, rồi **tự mở trình duyệt máy thật** tới `http://localhost:9999`
-   (kèm token), nơi có màn hình chào tiếng Việt:
-   ```
-   Bước 1/3 — Chọn nhà cung cấp AI
-     [1] DeepSeek (khuyến nghị, rẻ)  [2] OpenAI  [3] Anthropic
-     [4] Google Gemini  [5] OpenRouter  [6] Khác (nhập địa chỉ + tên)
-   Bước 2/3 — Dán API key:  ••••   (chưa có? bấm "Hướng dẫn lấy key trong 2 phút")
-   Bước 3/3 — Chọn model: [1] nhanh & rẻ  [2] mạnh hơn  [3] tự nhập tên model
-   ```
-4. Hệ thống tự: ghi `~/.dsh/settings.yaml` + credentials (quyền `600`) → gửi 1 request thử để chắc key đúng
-   → bật `harnessvn.service` → báo **"Xong! Bắt đầu trò chuyện."**
+3. Console hiện hướng dẫn tiếng Việt, rồi **tự mở trình duyệt máy thật** tới `http://localhost:9998`
+   — cửa nối (`harnessvn/vm/browser-bridge.sh`) giữ token của `dsh web` và chuyển sang đúng phiên.
+   **Hiện trạng đã kiểm chứng** (ảnh trong `harnessvn/evidence/`): màn hình chào tiếng Việt → **Tiếp tục**
+   → hộp thoại *"Thêm khoá API để bắt đầu"* → dán khoá API DeepSeek → **Lưu và tiếp tục**.
+   Dùng nhà cung cấp khác: **Cấu hình sau** → **Cài đặt → Mô hình → Thêm nhà cung cấp mô hình**
+   (danh mục 40 nhà cung cấp: OpenAI, Anthropic, Google, Kimi, OpenRouter…).
+4. Hệ thống tự ghi settings + credentials (quyền `600`) và bật `harnessvn.service` (systemd `--user`)
+   để web UI tự chạy khi máy khởi động.
+
+> **Chưa làm (không được coi là đã có):** wizard 3 bước ngay trên console (chọn nhà cung cấp / dán key /
+> chọn model) và bước "gửi 1 request thử để chắc khoá đúng". Bản hiện tại dùng hộp thoại khoá API của `dsh`
+> cộng trang **Cài đặt → Mô hình**; người dùng phải tự chọn model trong chat sau khi lưu khoá.
 5. Khi agent cần công cụ chưa có → skill `vn-self-setup` tự cài trong allowlist → báo lại bằng tiếng Việt.
 
 ---

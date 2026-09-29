@@ -33,8 +33,10 @@
 | Máy chưa bật tính năng ảo hoá (VT-x / AMD-V) | Máy ảo không tăng tốc được | Chọn **[1] Dùng VirtualBox/VMware** với file `HarnessVN.ova` (không cần vào BIOS) |
 | Tải ảnh bị đứt giữa chừng | Mạng chập | Chạy lại file khởi động — **nó tải tiếp, không tải lại từ đầu** |
 | Cửa sổ báo "đang chờ HarnessVN sẵn sàng" mãi | Máy ảo thiếu RAM | Đóng bớt ứng dụng nặng (Chrome nhiều tab) rồi chạy lại |
-| Trình duyệt không tự mở | Hệ điều hành chặn | Tự mở trình duyệt và vào **http://localhost:9999** |
-| Báo cổng 9999 đang bận | Có phần mềm khác dùng cổng đó | Khởi động lại máy rồi chạy lại; nếu vẫn bận, hỏi trợ lý đổi cổng |
+| Trình duyệt không tự mở | Hệ điều hành chặn | Tự mở trình duyệt và vào **http://localhost:9998** |
+| Mở `http://localhost:9999` thấy dòng chữ tiếng Anh *"dsh web authentication required"* | Cổng 9999 chỉ phục vụ trang khi URL đã có phiên | Dùng **http://localhost:9998** — cửa nối này tự mở đúng phiên cho bạn |
+| Mở 9998 thấy **"HarnessVN đang chuẩn bị"** | Lần đầu máy ảo đang cài đặt + build (10–20 phút) | Cứ để đó, trang tự thử lại mỗi 5 giây. Quá 30 phút thì mở cửa sổ máy ảo xem lỗi |
+| Báo cổng 9999 (hoặc 9998) đang bận | Có phần mềm khác dùng cổng đó | Khởi động lại máy rồi chạy lại; nếu vẫn bận, hỏi trợ lý đổi cổng |
 
 ## D. Dùng hằng ngày
 

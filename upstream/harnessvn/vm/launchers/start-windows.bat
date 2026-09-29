@@ -4,6 +4,7 @@ setlocal enabledelayedexpansion
 set HERE=%~dp0
 set IMAGE=%HERE%harnessvn-24.04-amd64.qcow2
 set PORT=9999
+set BRIDGE=9998
 
 where qemu-system-x86_64 >nul 2>nul
 if errorlevel 1 (
@@ -29,10 +30,11 @@ if not exist "%IMAGE%" (
 )
 
 echo Dang khoi dong HarnessVN... trinh duyet se tu mo sau it giay.
-start "" cmd /c "timeout /t 12 >nul & start http://localhost:%PORT%"
+echo Lan dau co the mat 10-20 phut; trang cho se tu chuyen tiep.
+start "" cmd /c "timeout /t 25 >nul & start http://localhost:%BRIDGE%"
 qemu-system-x86_64 -m 4096 -smp 2 -display none ^
   -drive "file=%IMAGE%,if=virtio" ^
-  -netdev "user,id=n0,hostfwd=tcp::%PORT%-:9999" -device virtio-net-pci,netdev=n0
+  -netdev "user,id=n0,hostfwd=tcp::%PORT%-:9999,hostfwd=tcp::%BRIDGE%-:9998" -device virtio-net-pci,netdev=n0
 pause
 exit /b 0
 

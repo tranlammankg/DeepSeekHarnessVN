@@ -67,6 +67,7 @@ fi
 # 5. Dich vu nguoi dung: tu bat web UI khi may khoi dong
 echo "[5/6] Bat dich vu nguoi dung..."
 mkdir -p "$HOME/.config/systemd/user"
+command -v python3 >/dev/null 2>&1 || echo "CANH BAO: thieu python3 - cau noi mo trinh duyet se khong chay"
 cat > "$HOME/.config/systemd/user/harnessvn.service" <<UNIT
 [Unit]
 Description=HarnessVN web UI
@@ -85,18 +86,51 @@ RestartSec=5
 [Install]
 WantedBy=default.target
 UNIT
+# Cau noi mo trinh duyet: dsh web chi phuc vu trang khi URL co token, nen mo tran
+# http://localhost:9999 se bi 401. Dich vu nay giu token va chuyen huong dung phien.
+cat > "$HOME/.config/systemd/user/harnessvn-open.service" <<UNIT
+[Unit]
+Description=HarnessVN browser bridge (chuyen huong URL co token)
+After=harnessvn.service
+
+[Service]
+Type=simple
+Environment=HOME=$HOME
+Environment=PATH=$PREFIX/bin:/usr/local/bin:/usr/bin:/bin
+Environment=APP_PORT=$PORT
+Environment=BRIDGE_PORT=9998
+Environment=SERVE_DIR=$HOME/harnessvn-open
+ExecStart=/bin/bash $SRC_DIR/harnessvn/vm/browser-bridge.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+UNIT
 systemctl --user daemon-reload
 systemctl --user enable --now harnessvn.service || true
+systemctl --user enable --now harnessvn-open.service || true
 loginctl enable-linger "$USER" 2>/dev/null || true
 
 # 6. Kiem tra
 echo "[6/6] Cho web UI tra loi..."
+# dsh web tra 401 khi thieu token, nen "co phan hoi HTTP" da la "dang chay".
 for i in $(seq 1 30); do
-  if curl -fsS -o /dev/null "http://127.0.0.1:$PORT/" 2>/dev/null; then
-    echo "OK — HarnessVN dang chay: http://127.0.0.1:$PORT/"
-    echo "Mo tren may that: http://localhost:$PORT/"
-    exit 0
-  fi
+  code="$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT/" 2>/dev/null || true)"
+  case "$code" in
+    200|303|401)
+      echo "OK — HarnessVN dang chay (HTTP $code)"
+      echo
+      echo "TU MAY THAT (khong phai trong cua so nay):"
+      echo "  1. Mo: http://localhost:9998/  (cau noi se tu chuyen sang dung phien)"
+      echo "  2. Bam 'Tiep tuc' o man hinh chao tieng Viet"
+      echo "  3. Dan khoa API (DeepSeek), hoac chon 'Cau hinh sau' roi vao Cai dat > Mo hinh"
+      echo "  4. Bam 'Luu va tiep tuc' - xong."
+      echo
+      echo "Lan dau tien co the mat 10-20 phut de build; cau noi hien trang cho trong luc do."
+      exit 0
+      ;;
+  esac
   sleep 5
 done
 echo "CHUA tra loi o cong $PORT. Xem: journalctl --user -u harnessvn -n 50"
