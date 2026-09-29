@@ -13,6 +13,8 @@ Các thay đổi đáng chú ý của HarnessVN. Mục mới nhất ở trên c�
 - **Chỉ cần khoá API và nhà cung cấp**: lần đầu mở, hộp thoại *"Thêm khoá API để bắt đầu"* hiện ra;
   dùng nhà cung cấp khác thì **Cấu hình sau → Cài đặt → Mô hình → Thêm nhà cung cấp mô hình**
   (danh mục 40 nhà cung cấp: OpenAI, Anthropic, Google, Kimi, OpenRouter…).
+- **Quên khoá API vẫn có chỉ dẫn tiếng Việt**: khi gửi tin nhắn mà chưa có khoá, app hiện
+  *"Chưa có khoá API. Mở Cài đặt → Mô hình, dán khoá API rồi gửi lại."* (thay cho thông báo lỗi kỹ thuật tiếng Anh).
 - **Skill `vn-self-setup`**: khi thiếu phần mềm (ví dụ `ffmpeg`, Python), trợ lý tự cài theo allowlist rồi
   báo lại bằng tiếng Việt — người dùng không phải mở dòng lệnh. Skill này **đi kèm bản đóng gói** trong
   `packages/bundle/web-app/skills/vn-self-setup/` và được preset mặc định (`standard`, `ptc`) mount qua
