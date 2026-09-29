@@ -28,3 +28,6 @@ upstream/harnessvn/vm/*.tar.gz
 /upstream/harnessvn/vm/*.qcow2
 /upstream/harnessvn/vm/*.vmdk
 /upstream/harnessvn/vm/*.ova
+
+# Hook cua upstream bi lefthook sinh ra khi chay pnpm install trong repo
+/lefthook.yml
