@@ -22,9 +22,32 @@ không cần làm gì trong máy ảo.
 | `launchers/start-macos.command` | macOS: kiểm QEMU → gợi ý `brew install qemu` → chạy VM (arm64 dùng `qemu-system-aarch64`) |
 | `launchers/start-linux.sh` | Linux: gọi `run-vm.sh` |
 
+## Dựng trong container KHÔNG có root và KHÔNG có KVM (đã chạy thật)
+
+Không cần cài qemu vào hệ thống: tải .deb rồi giải nén vào một thư mục.
+
+```bash
+mkdir -p .run/qemu-deb .run/qemu && cd .run/qemu-deb
+apt-get download qemu-system-x86 qemu-system-common qemu-system-data qemu-utils \
+  libslirp0 libpmem1 libfdt1 librdmacm1t64 libibverbs1 libvdeplug2t64 libndctl6 libdaxctl1 \
+  seabios vgabios ipxe-qemu
+for d in *.deb; do dpkg-deb -x "$d" ../qemu/; done
+cd ../qemu/usr/share && for f in seabios/bios*.bin seabios/vgabios*.bin; do ln -sf "../$f" "qemu/$(basename "$f")"; done
+```
+
+```bash
+QEMU_DIR=$PWD/.run/qemu KVM=0 MEM=2560 CPUS=2 FIRSTBOOT_TIMEOUT=10800 \
+  harnessvn/vm/build-image.sh
+```
+
+Thời gian thực tế đo được (TCG, 2 vCPU): boot ≈ 3,5 phút · tải mã nguồn 34 MB ≈ 2 giây · tải Node ≈ 50 giây ·
+`pnpm install` ≈ **10 phút** (1385 gói) · `build:lib` lâu hơn nữa. Xem tiến trình:
+`tail -f harnessvn/vm/work/firstboot.log` — unit đã in cả ra console serial.
+
 ## Yêu cầu khi DỰNG ảnh
 
 - `qemu-system-x86_64`, `qemu-img`, `python3`, `curl` (Ubuntu/Debian: `sudo apt install -y qemu-system-x86 qemu-utils python3 curl`)
+  — hoặc dùng `QEMU_DIR` như mục trên khi không có quyền cài
 - Có `/dev/kvm` thì nhanh (thêm `KVM=0` nếu không có — sẽ chạy TCG, rất chậm)
 - Dung lượng: ảnh nền ~600 MB + đĩa làm việc 20 GB (thin) + ảnh vàng ~1 GB
 
@@ -54,8 +77,12 @@ gói mã nguồn (đúng tiền tố `upstream/`, không có `node_modules`) —
 
 Việc cài đặt do `harnessvn/install/provision.sh` làm, **không cần quyền root**:
 
-1. Cloud-init tải gói mã nguồn từ host qua HTTP và giải nén vào **`/opt/harnessvn/upstream`**
+1. Cloud-init (NoCloud qua SMBIOS serial) lấy seed từ `http://10.0.2.2:8000/` — các file **phải tên
+   `user-data` và `meta-data`** (không có đuôi); `build-image.sh` tự kiểm 3 file seed trước khi boot
+2. `harnessvn-firstboot.service` (root) tải `harnessvn-src.tar.gz` 34 MB và giải nén vào **`/opt/harnessvn/upstream`**
    (gói mang sẵn tiền tố `upstream/`; `provision.sh` dùng đúng đường dẫn này cho mã nguồn, plugin và cửa nối)
+3. `harnessvn-provision.service` (`User=harnessvn`) chạy `provision.sh`; cả hai unit in log ra console serial
+   để người dùng xem tiến trình trong cửa sổ máy ảo
 2. Tải Node vào `~/.local` (không dùng apt)
 3. Build **chính bản fork này** trong `~/.local` (không cài `dsh` từ npm)
 4. Cài các plugin trong `harnessvn/plugins/` (trừ `dsh-mario`) vào profile `web`

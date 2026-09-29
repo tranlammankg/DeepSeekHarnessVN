@@ -21,6 +21,26 @@ Chế độ này: tải ảnh nền Ubuntu cloud image (597 MB, có `-C -` để
 rồi dừng trước bước boot. Chạy được trên container không có `/dev/kvm`.
 Thành quả nằm ở `upstream/harnessvn/vm/work/` (đã gitignore) → lần dựng thật sau đó không phải tải lại.
 
+## 1b. Không có qemu/không root vẫn BOOT THẬT được (đã chạy được trong container)
+
+Tải .deb của qemu rồi giải nén ra một thư mục, không cần cài hệ thống:
+
+```bash
+mkdir -p .run/qemu-deb .run/qemu && cd .run/qemu-deb
+apt-get download qemu-system-x86 qemu-system-common qemu-system-data qemu-utils \
+  libslirp0 libpmem1 libfdt1 librdmacm1t64 libibverbs1 libvdeplug2t64 libndctl6 libdaxctl1 \
+  seabios vgabios ipxe-qemu
+for d in *.deb; do dpkg-deb -x "$d" ../qemu/; done
+# firmware: qemu tim bios-256k.bin trong -L datadir, seabios nam o share/seabios
+cd ../qemu/usr/share
+for f in seabios/bios*.bin seabios/vgabios*.bin; do ln -sf "../$f" "qemu/$(basename "$f")"; done
+```
+
+Rồi: `QEMU_DIR=$PWD/.run/qemu KVM=0 FIRSTBOOT_TIMEOUT=10800 harnessvn/vm/build-image.sh`
+(TCG không KVM: boot ~3,5 phút, cài đặt trong máy ảo 30–90 phút. Đặt `MEM=2560` nếu máy chủ ít RAM.)
+
+Đọc tiến trình: `tail -f upstream/harnessvn/vm/work/firstboot.log` (unit đã in cả ra console serial).
+
 ## 2. Hợp đồng layout bắt buộc (đã từng sai và làm provision chết ngay bước 3)
 
 - Gói mã nguồn phải mang **tiền tố `upstream/`**: `git -C <repo>/upstream archive --format=tar.gz --prefix=upstream/ ...`
@@ -94,6 +114,14 @@ Provider skill đọc root `join($DSH_AGENTS_HOME, 'skills')` (mặc định `~/
 - **`grep -q` sau một lệnh sản xuất nhiều dòng** (ổ cổng, kiểm tar): dùng here-string hoặc `grep -c`, đừng để
   pipeline. Lỗi này từng làm `free-port.sh` báo "cổng trống" sai một cách ngẫu nhiên (QEMU sẽ không bind được).
 - **`git archive` không có `--format=tar.gz`** trả tar thường → `tar -tzf` báo "not in gzip format".
+- **Seed NoCloud phải tên KHÔNG có đuôi**: `seed/user-data` và `seed/meta-data`. Để `user-data.yaml` là
+  cloud-init nhận 404 và datasource thất bại (máy ảo vẫn boot lên nhưng không có user/cấu hình). `build-image.sh`
+  giờ tự `curl` kiểm 3 file seed trước khi boot.
+- **Không dùng `/usr/bin/runuser` trong unit**: trên Ubuntu, `runuser` nằm ở `/usr/sbin/runuser`; unit sẽ FAIL
+  ngay mà không nói lý do. Cách đúng: tách 2 unit — unit root tải mã nguồn, unit `User=harnessvn` chạy provision.
+- **Mỗi lệnh bash của harness chạy trong PID namespace riêng** (`bwrap --unshare-pid`): `ps`/`pgrep` KHÔNG thấy
+  tiến trình do lệnh khác (hoặc job nền) khởi động, dù chúng vẫn sống. Muốn dọn: `job_list` + `job_kill` (gọi
+  `job_list({})`); đừng kết luận "qemu đã chết" chỉ vì `pgrep` rỗng.
 - **`pnpm install` cho bản sao repo nằm trong repo**: postinstall của upstream chạy `lefthook install`, nó tìm
   thấy `.git` của repo cha và ghi `lefthook.yml` + `.git/hooks/prepare-commit-msg` vào repo thật. Đã gặp thật
   khi giả lập provision trong container: kiểm `git status` sau khi chạy và dọn ngay.
