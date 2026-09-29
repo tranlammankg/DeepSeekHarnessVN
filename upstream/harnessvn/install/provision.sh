@@ -122,6 +122,9 @@ bash "$SRC_DIR/upstream/harnessvn/install/write-units.sh" \
 # Tao truoc voi quyen 0644 de cua noi doc duoc dong URL.
 : > "$HOME/harnessvn-web.log" 2>/dev/null || true
 chmod 0644 "$HOME/harnessvn-web.log" 2>/dev/null || true
+# Neu file do systemd (root) tao tu lan truoc thi phai sua chu so huu bang sudo.
+sudo -n chown "$USER" "$HOME/harnessvn-web.log" 2>/dev/null || true
+sudo -n chmod 0644 "$HOME/harnessvn-web.log" 2>/dev/null || true
 
 if [ "$SCOPE" = "system" ]; then
   sudo systemctl daemon-reload

@@ -21,6 +21,10 @@ find_token() {
   if [ -z "$text" ] && [ -f "$FALLBACK_LOG" ]; then text="$(cat "$FALLBACK_LOG" 2>/dev/null || true)"; fi
   if [ -z "$text" ]; then text="$(journalctl --user -u harnessvn -n 300 --no-pager 2>/dev/null || true)"; fi
   if [ -z "$text" ]; then text="$(journalctl -u harnessvn -n 300 --no-pager 2>/dev/null || true)"; fi
+  if [ -z "$text" ] && sudo -n true 2>/dev/null; then
+    # File log co the do root tao (quyen 0600) — doc journal he thong bang sudo la chac chan nhat.
+    text="$(sudo -n journalctl -u harnessvn -n 300 --no-pager 2>/dev/null || true)"
+  fi
   printf '%s' "$text" | grep -ohE 'token=[A-Za-z0-9_-]+' | head -1 | cut -d= -f2 > "$TOKEN_FILE" || true
 }
 (
